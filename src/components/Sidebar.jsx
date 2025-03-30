@@ -37,7 +37,7 @@ const Sidebar = () => {
                                     ? "nav-link nav-link-active"
                                     : "nav-link"
                             }>
-                            <House />
+                            <House className="pl-4 w-10" />
                             {!isCollapsed && <span>Home</span>}
                         </NavLink>
                     </li>
@@ -49,7 +49,7 @@ const Sidebar = () => {
                                     ? "nav-link nav-link-active"
                                     : "nav-link"
                             }>
-                            <PawPrint />
+                            <PawPrint className="pl-4 w-10" />
                             {!isCollapsed && <span>Pets</span>}
                         </NavLink>
                     </li>
@@ -61,7 +61,7 @@ const Sidebar = () => {
                                     ? "nav-link nav-link-active"
                                     : "nav-link"
                             }>
-                            <AlarmClock />
+                            <AlarmClock className="pl-4 w-10" />
                             {!isCollapsed && <span>Reminders</span>}
                         </NavLink>
                     </li>
@@ -79,13 +79,13 @@ const Sidebar = () => {
                                     ? "nav-link nav-link-active"
                                     : "nav-link"
                             }>
-                            <Settings />
+                            <Settings className="pl-4 w-10" />
                             {!isCollapsed && <span>Settings</span>}
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to="/" className="nav-link">
-                            <LogOut />
+                            <LogOut className="pl-4 w-10" />
                             {!isCollapsed && <span>Logout</span>}
                         </NavLink>
                     </li>

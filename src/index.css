@@ -7,7 +7,7 @@
 
 @layer components {
     .nav-link {
-        @apply flex items-center gap-4 pl-8 transition-colors duration-300 text-neutral100 hover:text-primary hover:border-l-4 hover:border-l-primary;
+        @apply flex items-center gap-4 transition-colors duration-300 text-neutral100 border-l-4 border-l-neutral700 hover:text-primary hover:border-l-4 hover:border-l-primary;
     }
     .nav-link-active {
         @apply text-primary border-l-4 border-l-primary;
