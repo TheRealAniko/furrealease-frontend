@@ -12,4 +12,13 @@
     .nav-link-active {
         @apply text-primary border-l-4 border-l-primary;
     }
+    .card-container {
+        @apply shadow-md p-4 rounded-xl;
+    }
+    .input {
+        @apply rounded-full border border-neutral700 bg-neutral100  p-4;
+    }
+    .btn-primary {
+        @apply rounded-full font-medium py-4 px-9 text-base bg-primary hover:bg-darkPrimary text-neutral100;
+    }
 }

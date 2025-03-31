@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth } from "../context/index.js";
 import { Link, NavLink } from "react-router";
 import {
     CircleChevronLeft,
@@ -11,7 +12,9 @@ import {
 } from "lucide-react";
 
 const Sidebar = () => {
+    const { isAuthenticated, signOut } = useAuth();
     const [isCollapsed, setIsCollapsed] = useState(false);
+    if (!isAuthenticated) return null;
     return (
         <aside
             className={`bg-neutral700 min-h-[calc(100vh-4rem)] text-neutral100 font-light text-lg pt-20 pb-8 pr-8 flex flex-col justify-between transition-all duration-300 ease-in-out ${
@@ -83,7 +86,7 @@ const Sidebar = () => {
                             {!isCollapsed && <span>Settings</span>}
                         </NavLink>
                     </li>
-                    <li>
+                    <li onClick={signOut}>
                         <NavLink to="/" className="nav-link">
                             <LogOut className="pl-4 w-10" />
                             {!isCollapsed && <span>Logout</span>}
