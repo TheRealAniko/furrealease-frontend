@@ -11,7 +11,7 @@ const LayoutShell = () => {
 
             <div className="flex flex-1">
                 <Sidebar />
-                <main className="flex-1 p-8 pt-20">
+                <main className="flex-1 p-8 pt-24">
                     <Outlet />
                 </main>
             </div>

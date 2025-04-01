@@ -23,7 +23,13 @@ const AuthContextProvider = ({ children }) => {
                 setIsAuthenticated(true);
             } catch (error) {
                 console.error("Auth check failed:", error);
-                localStorage.removeItem("token");
+                if (
+                    error.response?.status === 401 ||
+                    error.response?.status === 403 ||
+                    error.message === "No token provided"
+                ) {
+                    localStorage.removeItem("token");
+                }
             } finally {
                 setCheckSession(false);
             }
