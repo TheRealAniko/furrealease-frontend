@@ -1,3 +1,4 @@
+import { useAuth } from "./index.js";
 import { useEffect, useState } from "react";
 import {
     getPets,
@@ -10,10 +11,13 @@ import { toast } from "react-toastify";
 import { PetContext } from "./index.js";
 
 const PetContextProvider = ({ children }) => {
+    const { user } = useAuth();
     const [pets, setPets] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        if (!user) return;
+        setPets([]);
         const fetchPets = async () => {
             try {
                 const data = await getPets();
@@ -28,7 +32,7 @@ const PetContextProvider = ({ children }) => {
         };
 
         fetchPets();
-    }, []);
+    }, [user]);
 
     return (
         <PetContext.Provider

@@ -13,12 +13,18 @@
         @apply text-primary border-l-4 border-l-primary;
     }
     .card-container {
-        @apply shadow-md p-4 rounded-xl;
+        @apply shadow-md p-4 rounded-xl bg-white border border-neutral200;
     }
     .input {
         @apply rounded-full border border-neutral700 bg-neutral100  p-4;
     }
     .btn-primary {
         @apply rounded-full font-medium py-4 px-9 text-base bg-primary hover:bg-darkPrimary text-neutral100;
+    }
+    .h2-section {
+        @apply text-2xl font-semibold mb-6 text-neutral900;
+    }
+    .radio-btn {
+        @apply appearance-none w-5 h-5 rounded-full border border-neutral900 checked:ring-1 ring-orange-400 ring-offset-2 ring-offset-white checked:bg-primary checked:border-primary;
     }
 }

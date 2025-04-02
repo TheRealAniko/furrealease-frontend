@@ -72,6 +72,7 @@ const AuthContextProvider = ({ children }) => {
                 user,
                 setIsAuthenticated,
                 setCheckSession,
+                checkSession,
             }}>
             {children}
         </AuthContext.Provider>

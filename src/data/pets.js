@@ -23,7 +23,12 @@ export const getPets = async () => {
 };
 
 export const getSinglePet = async (id) => {
-    const res = await fetch(`${baseURL}/${id}`);
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${baseURL}/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
     if (!res.ok) {
         const errorData = await res.json();
         if (!errorData.error) {
@@ -41,10 +46,10 @@ export const createPet = async (formData) => {
     const res = await fetch(baseURL, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json", // 👈 wichtig!
             Authorization: `Bearer ${token}`,
+            // ❗️kein Content-Type setzen, FormData macht das!
         },
-        body: JSON.stringify(formData), // 👈 deine Daten
+        body: formData,
     });
 
     if (!res.ok) {

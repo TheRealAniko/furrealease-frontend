@@ -1,6 +1,7 @@
 import { Cake, Stethoscope, Eye, Pencil } from "lucide-react";
+import { Link } from "react-router";
 
-const PetCard = ({ name, birthdate, vetVisits }) => {
+const PetCard = ({ name, birthdate, vetVisits, id, photoUrl }) => {
     const age = new Date().getFullYear() - new Date(birthdate).getFullYear();
     const lastVetVisit =
         vetVisits.length > 0
@@ -11,7 +12,8 @@ const PetCard = ({ name, birthdate, vetVisits }) => {
         <div className="card-container flex gap-8 text-neutral900">
             <div className="">
                 <img
-                    src="https://plus.unsplash.com/premium_photo-1667030474693-6d0632f97029"
+                    src={photoUrl}
+                    alt={name}
                     className="rounded-full aspect-square object-cover w-52 border border-neutral400"
                 />
             </div>
@@ -27,14 +29,17 @@ const PetCard = ({ name, birthdate, vetVisits }) => {
                     </div>
                 </div>
                 <div className="flex justify-between gap-10 text-greenEyes">
-                    <div className="flex items-center gap-2 font-light text-base">
-                        <Eye className=" w-10 " />
-                        View
-                    </div>
-                    <div className="flex items-center gap-2 font-light text-base">
+                    <Link key={id} to={`/pets/${id}`}>
+                        <button className="flex items-center gap-2 font-light text-base">
+                            <Eye className="w-10" />
+                            View
+                        </button>
+                    </Link>
+
+                    <button className="flex items-center gap-2 font-light text-base">
                         <Pencil className="w-10 " />
                         Edit
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate } from "react-router";
+import { Navigate, useLocation } from "react-router";
 import { toast } from "react-toastify";
 import { Mail, KeyRound, User } from "lucide-react";
 import { signup, signin } from "../data/auth.js";
@@ -10,6 +10,8 @@ const Auth = () => {
     const [isSignUp, setIsSignUp] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const location = useLocation();
+
     // const navigate = useNavigate();
     // const [checkSession, setCheckSession] = useState(true);
 
