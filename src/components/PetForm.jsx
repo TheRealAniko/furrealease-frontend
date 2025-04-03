@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { createPet } from "../data/pets";
-// import { useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import PetProfilImg from "./PetProfileImg";
 
 const PetForm = () => {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const initialState = {
         name: "",
         species: "",
@@ -56,6 +57,7 @@ const PetForm = () => {
             setPhotoPreview(null);
 
             toast.success("Pet created!");
+            navigate("/pets", { state: { reload: true } });
         } catch (error) {
             toast.error(error.message);
         }
@@ -76,26 +78,43 @@ const PetForm = () => {
     };
 
     return (
-        <>
+        <div className="w-full flex gap-10 items-start-full">
+            {photoPreview ? (
+                <div className="mt-4">
+                    <img
+                        src={photoPreview}
+                        alt="Preview"
+                        className="rounded-full w-80 aspect-square object-cover border border-neutral400"
+                    />
+                </div>
+            ) : (
+                <div className="">
+                    <PetProfilImg species={species} />
+                </div>
+            )}
+
+            <div className=""></div>
             <form
                 onSubmit={handleSubmit}
                 className="my-5 md:w-1/2 mx-auto flex flex-col gap-3">
-                <label className="input flex items-center gap-4">
+                <div className="flex overflow-hidden rounded-full border border-neutral700 w-full text-base">
+                    <label
+                        htmlFor="photo"
+                        className="bg-primary px-4 py-4 text-neutral100 text-base cursor-pointer whitespace-nowrap">
+                        Choose Image
+                    </label>
+                    <div className="flex-1 px-4 py-4  text-neutral700 bg-neutral100">
+                        {photo?.name || "No file chosen"}
+                    </div>
                     <input
+                        id="photo"
                         type="file"
                         accept="image/*"
                         onChange={handlePhotoChange}
+                        className="hidden"
                     />
-                </label>
-                {photoPreview && (
-                    <div className="mt-4">
-                        <img
-                            src={photoPreview}
-                            alt="Preview"
-                            className="rounded-xl w-32 h-32 object-cover border border-neutral400"
-                        />
-                    </div>
-                )}
+                </div>
+
                 <label className="input flex items-center gap-2">
                     <input
                         name="name"
@@ -178,9 +197,7 @@ const PetForm = () => {
                     />
                 </label>
                 <fieldset className="input flex gap-6 font-light text-base">
-                    <legend className="sr-only">
-                        Is your pet spayed or neutered?
-                    </legend>
+                    <legend>Is your pet spayed or neutered?</legend>
                     <label className="flex items-center gap-4">
                         <input
                             type="radio"
@@ -264,11 +281,31 @@ const PetForm = () => {
                         />
                     </label>
                 )}
-                <button className="btn btn-primary self-center">
-                    Add {name || "Pet"}
-                </button>
+                <div className="flex gap-8 justify-center mt-6">
+                    <button type="submit" className="btn btn-primary">
+                        Add {name || "Pet"}
+                    </button>
+
+                    <button
+                        type="button"
+                        className="btn btn-outline"
+                        onClick={() => {
+                            setForm(initialState);
+                            setPhoto(null);
+                            setPhotoPreview(null);
+                        }}>
+                        Reset
+                    </button>
+
+                    <button
+                        type="button"
+                        className="btn btn-outline"
+                        onClick={() => navigate(-1)}>
+                        Cancel
+                    </button>
+                </div>
             </form>
-        </>
+        </div>
     );
 };
 

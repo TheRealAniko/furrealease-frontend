@@ -92,8 +92,7 @@ const Auth = () => {
             }
         }
     };
-    if (isAuthenticated)
-        return <Navigate to={location.state?.next || "/dashboard"} />;
+    if (isAuthenticated) return <Navigate to="/dashboard" />;
 
     return (
         <div className="card-container">

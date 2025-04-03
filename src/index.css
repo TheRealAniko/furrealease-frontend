@@ -18,8 +18,17 @@
     .input {
         @apply rounded-full border border-neutral700 bg-neutral100  p-4;
     }
+    .file-input {
+        @apply appearance-none rounded-full border border-neutral700 bg-neutral100;
+    }
     .btn-primary {
         @apply rounded-full font-medium py-4 px-9 text-base bg-primary hover:bg-darkPrimary text-neutral100;
+    }
+    .btn-outline {
+        @apply rounded-full font-medium py-4 px-9 text-base bg-neutral100 border border-primary  text-primary hover:bg-neutral200 hover:border-darkPrimary hover:text-darkPrimary;
+    }
+    .btn-icon {
+        @apply flex items-center gap-2 font-light text-base text-greenEyes hover:text-darkGreenEyes hover:font-normal;
     }
     .h2-section {
         @apply text-2xl font-semibold mb-6 text-neutral900;

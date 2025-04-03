@@ -1,8 +1,19 @@
 import { useParams } from "react-router";
 import { getSinglePet } from "../data/pets";
 import { useEffect, useState } from "react";
-import { CirclePlus, Cake, Stethoscope, Pencil } from "lucide-react";
-import PetForm from "../components/PetForm";
+import {
+    Mars,
+    Venus,
+    Cake,
+    Stethoscope,
+    Pencil,
+    Dna,
+    Wrench,
+    Microchip,
+} from "lucide-react";
+import AddPetBtn from "../components/AddPetBtn";
+import PetProfilImg from "../components/PetProfileImg";
+import { formatAge } from "../utils/formatAge.js";
 
 const PetDetail = () => {
     const [currPet, setCurrPet] = useState({});
@@ -27,39 +38,39 @@ const PetDetail = () => {
         name,
         birthdate,
         photoUrl,
-        // species,
+        species,
+        sex,
+        breed,
+        intact,
         // chipped,
-        // chipNumber,
+        chipNumber,
         vetVisits = [],
         // vaccinations = [],
         // medications = [],
         // weightHistory = [],
         // notes = [],
     } = currPet || {};
-    const age = new Date().getFullYear() - new Date(birthdate).getFullYear();
+
     const lastVetVisit =
         vetVisits.length > 0
             ? new Date(vetVisits.at(-1).date).toLocaleDateString()
-            : "no visits yet";
+            : "No visits yet";
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
             {/* Headline and Button */}
             <div className="flex justify-between items-center mb-6">
                 <h2 className="h2-section">Your Fur Friend {name}</h2>
-                <button className="flex items-center gap-2 font-light text-base text-greenEyes">
-                    <CirclePlus className="w-5 h-5" />
-                    Add a Fur Friend
-                </button>
+                <AddPetBtn />
             </div>
             {/* Pet info container */}
             <div className="card-container flex gap-28 ">
                 <div className="">
                     {/* Image left */}
-                    <img
-                        src={photoUrl}
-                        alt={name}
-                        className="rounded-full aspect-square object-cover w-80 border border-neutral400"
+                    <PetProfilImg
+                        photoUrl={photoUrl}
+                        species={species}
+                        size="w-80"
                     />
                 </div>
                 {/* Infos right */}
@@ -68,16 +79,41 @@ const PetDetail = () => {
                         <Pencil className="w-5 h-5" />
                         Edit Information
                     </button>
-                    <h2 className="font-medium text-4xl">{name}</h2>
-                    <div className="space-y-2">
+                    <h2 className="font-medium text-4xl">
+                        {name}{" "}
+                        {sex === "male" ? (
+                            <Mars className="inline pl-4 w-10 text-inactive" />
+                        ) : sex === "female" ? (
+                            <Venus className="inline pl-4 w-10 text-inactive" />
+                        ) : null}
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         <div className="flex items-center gap-4 font-light text-base">
-                            <Cake className="text-inactive w-6 " /> {age} years
+                            <Cake className="text-inactive w-6 " />
+                            <span>{formatAge(birthdate)}</span>
                         </div>
                         <div className="flex items-center gap-4 font-light text-base">
                             <Stethoscope className="text-inactive w-6 " />{" "}
                             {lastVetVisit}
                         </div>
+                        <div className="flex items-center gap-4 font-light text-base">
+                            <Dna className="text-inactive w-6 " />{" "}
+                            {breed || "No breed info"}
+                        </div>
+                        <div className="flex items-center gap-4 font-light text-base">
+                            <Wrench className="text-inactive w-6 " />{" "}
+                            {intact === "intact"
+                                ? "Not neutered (intact)"
+                                : intact === "neutered"
+                                ? "Spayed / Neutered"
+                                : "No info about neutering"}
+                        </div>
+                        <div className="flex items-center gap-4 font-light text-base">
+                            <Microchip className="text-inactive w-6 " />{" "}
+                            {chipNumber || "No chipnumer"}
+                        </div>
                     </div>
+
                     <div>
                         <p className=" text-lg text-neutral700">
                             {name} is doing great! 🐾{" "}
@@ -112,7 +148,6 @@ const PetDetail = () => {
                     Notes / Observations
                 </div>
             </div>
-            <PetForm />
         </div>
     );
 };

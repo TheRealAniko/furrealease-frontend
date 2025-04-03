@@ -1,27 +1,45 @@
-import { Cake, Stethoscope, Eye, Pencil } from "lucide-react";
+import { Cake, Stethoscope, Eye, Pencil, Mars, Venus } from "lucide-react";
 import { Link } from "react-router";
+import PetProfilImg from "./PetProfileImg.jsx";
+import { formatAge } from "../utils/formatAge.js";
 
-const PetCard = ({ name, birthdate, vetVisits, id, photoUrl }) => {
-    const age = new Date().getFullYear() - new Date(birthdate).getFullYear();
+const PetCard = ({
+    name,
+    birthdate,
+    vetVisits,
+    id,
+    photoUrl,
+    species,
+    sex,
+}) => {
     const lastVetVisit =
         vetVisits.length > 0
             ? new Date(vetVisits.at(-1).date).toLocaleDateString()
             : "no visits yet";
+    console.log("Species:", species);
 
     return (
         <div className="card-container flex gap-8 text-neutral900">
             <div className="">
-                <img
-                    src={photoUrl}
-                    alt={name}
-                    className="rounded-full aspect-square object-cover w-52 border border-neutral400"
+                <PetProfilImg
+                    photoUrl={photoUrl}
+                    species={species}
+                    size="w-52"
                 />
             </div>
             <div className="flex flex-col justify-between">
-                <h2 className="font-medium text-4xl">{name}</h2>
+                <h2 className="font-medium text-4xl">
+                    {name}
+                    {sex === "male" ? (
+                        <Mars className="inline pl-4 w-10 text-inactive" />
+                    ) : sex === "female" ? (
+                        <Venus className="inline pl-4 w-10 text-inactive" />
+                    ) : null}
+                </h2>
                 <div className="space-y-2">
                     <div className="flex items-center gap-4 font-light text-base">
-                        <Cake className="text-inactive w-6 " /> {age} years
+                        <Cake className="text-inactive w-6 " />
+                        <span>{formatAge(birthdate)}</span>
                     </div>
                     <div className="flex items-center gap-4 font-light text-base">
                         <Stethoscope className="text-inactive w-6 " />{" "}
@@ -30,13 +48,13 @@ const PetCard = ({ name, birthdate, vetVisits, id, photoUrl }) => {
                 </div>
                 <div className="flex justify-between gap-10 text-greenEyes">
                     <Link key={id} to={`/pets/${id}`}>
-                        <button className="flex items-center gap-2 font-light text-base">
+                        <button className="btn-icon">
                             <Eye className="w-10" />
                             View
                         </button>
                     </Link>
 
-                    <button className="flex items-center gap-2 font-light text-base">
+                    <button className="btn-icon">
                         <Pencil className="w-10 " />
                         Edit
                     </button>
