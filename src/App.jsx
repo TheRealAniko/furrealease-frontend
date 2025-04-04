@@ -21,7 +21,7 @@ const App = () => {
                     <Routes>
                         {/* Public Routes */}
                         <Route path="/" element={<MainLayout />}>
-                            <Route index element={<Home />} />
+                            <Route index element={<Auth />} />
                             <Route path="auth" element={<Auth />} />
                         </Route>
 
