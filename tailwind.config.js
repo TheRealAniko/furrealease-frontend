@@ -10,6 +10,7 @@ export default {
                 primary: "#D8995A",
                 darkPrimary: "#A76B3C",
                 greenEyes: "#6C8E74",
+                darkGreenEyes: "#3E5948",
                 pinkNose: "#D97373",
                 neutral900: "#221F1A",
                 neutral700: "#4C433E",

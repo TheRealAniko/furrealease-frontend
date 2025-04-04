@@ -9,19 +9,34 @@ import {
     AlarmClock,
     Settings,
     LogOut,
+    Cat,
+    Dog,
+    Rabbit,
 } from "lucide-react";
+import { usePets } from "../context";
+import { useParams } from "react-router";
+
+const speciesIcons = {
+    cat: <Cat className="pl-6 w-10" />,
+    dog: <Dog className="pl-6 w-10" />,
+    small_mammal: <Rabbit className="pl-6 w-10" />,
+    other: <PawPrint className="pl-6 w-10 " />,
+};
 
 const Sidebar = () => {
     const { isAuthenticated, signOut } = useAuth();
     const [isCollapsed, setIsCollapsed] = useState(false);
     if (!isAuthenticated) return null;
+    const { pets } = usePets();
+    const { id } = useParams();
+
     return (
         <aside
             className={`bg-neutral700 min-h-[calc(100vh-4rem)] text-neutral100 font-light text-lg pt-20 pb-8 pr-8 flex flex-col justify-between transition-all duration-300 ease-in-out ${
                 isCollapsed ? "w-20 items-center" : "w-64"
             }`}>
             {/* Menu top */}
-            <div>
+            <div className="">
                 <ul className="space-y-4">
                     <li
                         className="flex  cursor-pointer text-neutral100 hover:text-primary justify-end pb-2"
@@ -56,6 +71,30 @@ const Sidebar = () => {
                             {!isCollapsed && <span>Pets</span>}
                         </NavLink>
                     </li>
+                    {/* if pets show list of pets name aa link  */}
+                    <ul className="space-y-4 ">
+                        {pets.length > 0 &&
+                            pets.map((pet) => (
+                                <li key={pet._id}>
+                                    <NavLink
+                                        to={`/pets/${pet._id}`}
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? "nav-link nav-link-active"
+                                                : "nav-link"
+                                        }>
+                                        {speciesIcons[
+                                            pet.species.toLowerCase()
+                                        ] || speciesIcons.other}
+
+                                        {!isCollapsed && (
+                                            <span>{pet.name}</span>
+                                        )}
+                                    </NavLink>
+                                </li>
+                            ))}
+                    </ul>
+
                     <li>
                         <NavLink
                             to="/reminders"
