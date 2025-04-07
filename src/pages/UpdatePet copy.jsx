@@ -352,7 +352,7 @@ const UpdatePet = () => {
                                     setPhoto(null);
                                     setPhotoPreview(null);
                                 }}>
-                                Retire
+                                Sleep
                             </button>
                         </div>
                     </form>

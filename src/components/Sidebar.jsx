@@ -74,25 +74,27 @@ const Sidebar = () => {
                     {/* if pets show list of pets name aa link  */}
                     <ul className="space-y-4 ">
                         {pets.length > 0 &&
-                            pets.map((pet) => (
-                                <li key={pet._id}>
-                                    <NavLink
-                                        to={`/pets/${pet._id}`}
-                                        className={({ isActive }) =>
-                                            isActive
-                                                ? "nav-link nav-link-active"
-                                                : "nav-link"
-                                        }>
-                                        {speciesIcons[
-                                            pet.species.toLowerCase()
-                                        ] || speciesIcons.other}
+                            pets
+                                .filter((pet) => pet.status !== "sleeping")
+                                .map((pet) => (
+                                    <li key={pet._id}>
+                                        <NavLink
+                                            to={`/pets/${pet._id}`}
+                                            className={({ isActive }) =>
+                                                isActive
+                                                    ? "nav-link nav-link-active"
+                                                    : "nav-link"
+                                            }>
+                                            {speciesIcons[
+                                                pet.species.toLowerCase()
+                                            ] || speciesIcons.other}
 
-                                        {!isCollapsed && (
-                                            <span>{pet.name}</span>
-                                        )}
-                                    </NavLink>
-                                </li>
-                            ))}
+                                            {!isCollapsed && (
+                                                <span>{pet.name}</span>
+                                            )}
+                                        </NavLink>
+                                    </li>
+                                ))}
                     </ul>
 
                     <li>

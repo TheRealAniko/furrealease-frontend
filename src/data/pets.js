@@ -83,21 +83,38 @@ export const updatePet = async (id, formData) => {
     return res.json();
 };
 
-export const retirePet = async (id, data) => {
+export const sleepPet = async (id) => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch(`${baseURL}/${id}`, {
+    const res = await fetch(`${baseURL}/${id}/sleep`, {
         method: "PATCH",
         headers: {
-            "Content-Type": "application/json", // 👈 wichtig!
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data), // 👈 deine Daten
     });
 
     if (!res.ok) {
         const errorData = await res.json();
-        throw new Error(errorData.error || "Retire failed");
+        throw new Error(errorData.error || "Sleep failed");
+    }
+
+    return res.json();
+};
+
+export const unsleepPet = async (id) => {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`${baseURL}/${id}/unsleep`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Unsleep failed");
     }
 
     return res.json();
