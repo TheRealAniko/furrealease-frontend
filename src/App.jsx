@@ -12,6 +12,7 @@ import PetContextProvider from "./context/PetContext";
 import MainLayout from "./layout/MainLayout";
 import ProtectedLayout from "./layout/ProtectedLayout";
 import CreatePet from "./pages/CreatePet";
+import UpdatePet from "./pages/UpdatePet";
 
 const App = () => {
     return (
@@ -33,6 +34,10 @@ const App = () => {
                             <Route
                                 path="pets/new-pet"
                                 element={<CreatePet />}
+                            />
+                            <Route
+                                path="pets/edit-pet/:id"
+                                element={<UpdatePet />}
                             />
                             <Route path="reminders" element={<Reminders />} />
                             <Route path="settings" element={<Settings />} />

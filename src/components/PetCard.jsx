@@ -1,5 +1,5 @@
 import { Cake, Stethoscope, Eye, Pencil, Mars, Venus } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import PetProfilImg from "./PetProfileImg.jsx";
 import { formatAge } from "../utils/formatAge.js";
 
@@ -17,6 +17,7 @@ const PetCard = ({
             ? new Date(vetVisits.at(-1).date).toLocaleDateString()
             : "no visits yet";
     console.log("Species:", species);
+    const navigate = useNavigate();
 
     return (
         <div className="card-container flex gap-8 text-neutral900">
@@ -54,7 +55,9 @@ const PetCard = ({
                         </button>
                     </Link>
 
-                    <button className="btn-icon">
+                    <button
+                        onClick={() => navigate(`/pets/edit-pet/${id}`)}
+                        className="btn-icon">
                         <Pencil className="w-10 " />
                         Edit
                     </button>
