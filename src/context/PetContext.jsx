@@ -5,7 +5,7 @@ import {
     // getSinglePet,
     // updatePet,
     // createPet,
-    // retirePet,
+    // sleepPet,
 } from "../data/pets.js";
 import { toast } from "react-toastify";
 import { PetContext } from "./index.js";
@@ -34,12 +34,24 @@ const PetContextProvider = ({ children }) => {
         fetchPets();
     }, [user]);
 
+    const refreshPets = async () => {
+        try {
+            const data = await getPets();
+            setPets(data);
+            toast.success("Pets updated");
+        } catch (error) {
+            console.error("Failed to refresh pets", error.message);
+            toast.error(error.message);
+        }
+    };
+
     return (
         <PetContext.Provider
             value={{
                 pets,
                 setPets,
                 loading,
+                refreshPets,
             }}>
             {children}
         </PetContext.Provider>

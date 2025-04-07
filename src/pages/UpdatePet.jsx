@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
-import { getSinglePet, updatePet } from "../data/pets";
+import { usePets } from "../context";
+import { getSinglePet, updatePet, sleepPet } from "../data/pets";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import GoBackBtn from "../components/GoBackBtn";
@@ -8,6 +9,7 @@ import { toast } from "react-toastify";
 
 const UpdatePet = () => {
     const { id } = useParams();
+    const { refreshPets } = usePets();
     const navigate = useNavigate();
     const initialState = {
         name: "",
@@ -91,6 +93,7 @@ const UpdatePet = () => {
             setPhoto(null);
 
             toast.success("Pet upadted!");
+            await refreshPets();
             navigate(`/pets/${id}`, { state: { reload: true } });
         } catch (error) {
             console.error("Update failed:", error);
@@ -117,6 +120,19 @@ const UpdatePet = () => {
         setPhoto(file); // Datei speichern
         const previewURL = URL.createObjectURL(file); // temporäre Vorschau-URL
         setPhotoPreview(previewURL); // im state speicher für <img />
+    };
+
+    // handke sleep
+    const handleSleep = async () => {
+        try {
+            await sleepPet(id);
+            toast.success(`${name} is now sleeping 🌙`);
+            await refreshPets();
+            navigate("/pets"); // oder zurück zur Liste
+        } catch (err) {
+            toast.error("Sleep update failed");
+            console.error(err);
+        }
     };
 
     return (
@@ -365,13 +381,9 @@ const UpdatePet = () => {
 
                             <button
                                 type="button"
-                                className="btn btn-outline"
-                                onClick={() => {
-                                    setForm(initialState);
-                                    setPhoto(null);
-                                    setPhotoPreview(null);
-                                }}>
-                                Retire
+                                className="btn btn-outline-grey"
+                                onClick={handleSleep}>
+                                Sleep
                             </button>
                         </div>
                     </form>

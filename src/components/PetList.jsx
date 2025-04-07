@@ -3,7 +3,8 @@ import { usePets } from "../context";
 
 const Petlist = ({ limit }) => {
     const { pets } = usePets();
-    const displayedPets = limit ? pets.slice(0, limit) : pets;
+    const activePets = pets.filter((pet) => pet.status !== "sleeping");
+    const displayedPets = limit ? activePets.slice(0, limit) : activePets;
     return (
         <>
             {displayedPets.map((pet) => (
