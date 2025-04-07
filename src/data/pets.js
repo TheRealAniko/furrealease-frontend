@@ -63,16 +63,16 @@ export const createPet = async (formData) => {
     return res.json();
 };
 
-export const updatePet = async (id, data) => {
+export const updatePet = async (id, formData) => {
     const token = localStorage.getItem("token");
 
     const res = await fetch(`${baseURL}/${id}`, {
         method: "PATCH",
         headers: {
-            "Content-Type": "application/json", // 👈 wichtig!
+            // "Content-Type": "application/json", // 👈 wichtig!
             Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data), // 👈 deine Daten
+        body: formData, // 👈 deine Daten
     });
 
     if (!res.ok) {

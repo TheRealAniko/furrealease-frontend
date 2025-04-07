@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { getSinglePet } from "../data/pets";
 import { useEffect, useState } from "react";
 import {
@@ -18,6 +18,7 @@ import { formatAge } from "../utils/formatAge.js";
 const PetDetail = () => {
     const [currPet, setCurrPet] = useState({});
     const { id } = useParams();
+    const navigate = useNavigate();
     console.log(id);
 
     useEffect(() => {
@@ -75,7 +76,9 @@ const PetDetail = () => {
                 </div>
                 {/* Infos right */}
                 <div className="flex flex-col justify-between w-full">
-                    <button className="flex items-center gap-2 font-light text-base text-greenEyes justify-end">
+                    <button
+                        onClick={() => navigate(`/pets/edit-pet/${id}`)}
+                        className="flex items-center gap-2 font-light text-base text-greenEyes justify-end">
                         <Pencil className="w-5 h-5" />
                         Edit Information
                     </button>
