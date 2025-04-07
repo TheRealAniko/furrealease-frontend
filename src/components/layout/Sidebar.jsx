@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../context/index.js";
+import { useAuth } from "../../context/index.js";
 import { Link, NavLink } from "react-router";
 import {
     CircleChevronLeft,
@@ -13,7 +13,7 @@ import {
     Dog,
     Rabbit,
 } from "lucide-react";
-import { usePets } from "../context";
+import { usePets } from "../../context/index.js";
 import { useParams } from "react-router";
 
 const speciesIcons = {

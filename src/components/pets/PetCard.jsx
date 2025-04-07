@@ -1,7 +1,7 @@
 import { Cake, Stethoscope, Eye, Pencil, Mars, Venus } from "lucide-react";
 import { Link, useNavigate } from "react-router";
 import PetProfilImg from "./PetProfileImg.jsx";
-import { formatAge } from "../utils/formatAge.js";
+import { formatAge } from "../../utils/formatAge.js";
 
 const PetCard = ({
     name,

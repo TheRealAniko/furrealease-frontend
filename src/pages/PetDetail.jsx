@@ -11,9 +11,12 @@ import {
     Wrench,
     Microchip,
 } from "lucide-react";
-import AddPetBtn from "../components/AddPetBtn";
-import PetProfilImg from "../components/PetProfileImg";
+import AddPetBtn from "../components/pets/AddPetBtn.jsx";
+import PetProfilImg from "../components/pets/PetProfileImg.jsx";
 import { formatAge } from "../utils/formatAge.js";
+import WeightCard from "../components/health/weight/WeightCard.jsx";
+import AddButton from "../components/ui/AddBtn.jsx";
+import WeightSection from "../components/health/weight/WeightSection.jsx";
 
 const PetDetail = () => {
     const [currPet, setCurrPet] = useState({});
@@ -48,7 +51,7 @@ const PetDetail = () => {
         vetVisits = [],
         // vaccinations = [],
         // medications = [],
-        // weightHistory = [],
+        weightHistory = [],
         // notes = [],
     } = currPet || {};
 
@@ -144,9 +147,9 @@ const PetDetail = () => {
                 <div className="card-container bg-neutral200 flex justify-between items-center">
                     Vet Visits
                 </div>
-                <div className="card-container bg-neutral200 flex justify-between items-center">
-                    Weight History
-                </div>
+
+                <WeightSection pet={currPet} />
+
                 <div className="card-container bg-neutral200 flex justify-between items-center">
                     Notes / Observations
                 </div>

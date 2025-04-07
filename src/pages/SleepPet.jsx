@@ -1,4 +1,4 @@
-import SleepingPetCard from "../components/SleepingPetCard";
+import SleepingPetCard from "../components/pets/SleepingPetCard";
 import { usePets } from "../context";
 import { unsleepPet } from "../data/pets"; // 👈 wichtig!
 import { toast } from "react-toastify";

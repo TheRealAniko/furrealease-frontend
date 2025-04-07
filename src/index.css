@@ -36,6 +36,9 @@
     .h2-section {
         @apply text-2xl font-semibold mb-6 text-neutral900;
     }
+    .h3-section {
+        @apply text-xl font-medium  text-neutral900;
+    }
     .radio-btn {
         @apply appearance-none w-5 h-5 rounded-full border border-neutral900 checked:ring-1 ring-orange-400 ring-offset-2 ring-offset-white checked:bg-primary checked:border-primary;
     }

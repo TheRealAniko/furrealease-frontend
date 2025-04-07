@@ -1,8 +1,8 @@
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
+import Header from "../components/layout/Header";
+import Sidebar from "../components/layout/Sidebar";
 import { Outlet } from "react-router";
 import { ToastContainer } from "react-toastify";
-import Footer from "../components/Footer";
+import Footer from "../components/layout/Footer";
 
 const LayoutShell = () => {
     return (
