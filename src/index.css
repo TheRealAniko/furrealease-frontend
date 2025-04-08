@@ -31,12 +31,25 @@
         @apply rounded-full font-medium py-4 px-9 text-base bg-neutral100 border border-inactive  text-inactive hover:border-neutral700 hover:text-neutral700;
     }
     .btn-icon {
-        @apply flex items-center gap-2 font-light text-base text-greenEyes hover:text-darkGreenEyes hover:font-normal;
+        @apply flex items-center gap-2 font-light text-base text-greenEyes hover:text-darkGreenEyes;
     }
     .h2-section {
         @apply text-2xl font-semibold mb-6 text-neutral900;
     }
+    .h3-section {
+        @apply text-xl font-medium  text-neutral900;
+    }
     .radio-btn {
         @apply appearance-none w-5 h-5 rounded-full border border-neutral900 checked:ring-1 ring-orange-400 ring-offset-2 ring-offset-white checked:bg-primary checked:border-primary;
+    }
+    .table-head th {
+        @apply bg-neutral700 text-neutral100 font-normal text-base px-4 py-2 first:rounded-l-md last:rounded-r-md;
+    }
+    .table-body td {
+        @apply px-4 py-2 text-neutral900 font-light text-base;
+    }
+
+    .table-body tr {
+        @apply even:bg-neutral200 border-b border-b-inactive;
     }
 }

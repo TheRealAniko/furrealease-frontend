@@ -1,6 +1,6 @@
 import { Undo2, Mars, Venus, Cake, Rainbow } from "lucide-react"; // oder ein anderes Icon
 import PetProfilImg from "./PetProfileImg";
-import { formatAge } from "../utils/formatAge.js";
+import { formatAge } from "../../utils/formatAge.js";
 
 const SleepingPetCard = ({
     _id,

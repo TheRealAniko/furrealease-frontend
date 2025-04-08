@@ -119,3 +119,55 @@ export const unsleepPet = async (id) => {
 
     return res.json();
 };
+
+export const addWeightEntry = async (id, entry) => {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${baseURL}/${id}/weights`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // nicht vergessen!
+        },
+        body: JSON.stringify(entry),
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to add weight entry");
+    }
+
+    return res.json();
+};
+
+export const deleteWeightEntry = async (id, weightId) => {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${baseURL}/${id}/weights/${weightId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // nicht vergessen!
+        },
+    });
+    if (!res.ok) {
+        throw new Error("Failed to delete weight entry");
+    }
+
+    return res.json();
+};
+
+export const updateWeightEntry = async (id, weightId, updatedEntry) => {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${baseURL}/${id}/weights/${weightId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // nicht vergessen!
+        },
+        body: JSON.stringify(updatedEntry),
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to update weight entry");
+    }
+
+    return res.json();
+};

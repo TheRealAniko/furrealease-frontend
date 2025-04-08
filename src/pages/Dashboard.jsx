@@ -1,8 +1,8 @@
 import { usePets } from "../context";
-import Petlist from "../components/PetList";
+import Petlist from "../components/pets/PetList";
 import { Eye } from "lucide-react";
 import { useNavigate } from "react-router";
-import AddPetBtn from "../components/AddPetBtn";
+import AddPetBtn from "../components/pets/AddPetBtn";
 
 const Dashboard = () => {
     const { pets } = usePets();

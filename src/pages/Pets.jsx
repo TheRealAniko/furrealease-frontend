@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { usePets } from "../context";
-import Petlist from "../components/PetList";
-import AddPetBtn from "../components/AddPetBtn";
+import Petlist from "../components/pets/PetList";
+import AddPetBtn from "../components/pets/AddPetBtn";
 import { getPets } from "../data/pets";
 import { Rainbow } from "lucide-react";
 

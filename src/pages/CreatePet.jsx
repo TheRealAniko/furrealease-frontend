@@ -1,5 +1,5 @@
-import GoBackBtn from "../components/GoBackBtn";
-import PetForm from "../components/PetForm";
+import GoBackBtn from "../components/ui/GoBackBtn";
+import PetForm from "../components/pets/PetForm";
 
 const CreatePet = () => {
     return (

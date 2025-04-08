@@ -1,5 +1,5 @@
 import PetCard from "./PetCard";
-import { usePets } from "../context";
+import { usePets } from "../../context";
 
 const Petlist = ({ limit }) => {
     const { pets } = usePets();

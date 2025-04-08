@@ -3,8 +3,8 @@ import { usePets } from "../context";
 import { getSinglePet, updatePet, sleepPet } from "../data/pets";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import GoBackBtn from "../components/GoBackBtn";
-import PetProfilImg from "../components/PetProfileImg";
+import GoBackBtn from "../components/ui/GoBackBtn";
+import PetProfilImg from "../components/pets/PetProfileImg";
 import { toast } from "react-toastify";
 
 const UpdatePet = () => {

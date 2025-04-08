@@ -1,4 +1,4 @@
-import { useAuth } from "../context/index.js";
+import { useAuth } from "../../context/index.js";
 
 const Header = () => {
     const { isAuthenticated } = useAuth();
