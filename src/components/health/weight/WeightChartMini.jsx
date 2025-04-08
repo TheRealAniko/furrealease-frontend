@@ -3,7 +3,10 @@ import { BarChart, Bar, XAxis, ResponsiveContainer, Tooltip } from "recharts";
 const WeightChartMini = ({ weightHistory }) => {
     if (!weightHistory || weightHistory.length === 0) return null;
 
-    const data = weightHistory
+    const chartDataSorted = [...weightHistory].sort(
+        (a, b) => new Date(a.date) - new Date(b.date)
+    );
+    const data = chartDataSorted
         .slice(-7) // nur die letzten 7 Werte
         .map((entry) => ({
             date: new Date(entry.date).toLocaleDateString("en-US", {

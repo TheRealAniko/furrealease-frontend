@@ -14,27 +14,29 @@ import {
 import AddPetBtn from "../components/pets/AddPetBtn.jsx";
 import PetProfilImg from "../components/pets/PetProfileImg.jsx";
 import { formatAge } from "../utils/formatAge.js";
-import WeightCard from "../components/health/weight/WeightCard.jsx";
-import AddButton from "../components/ui/AddBtn.jsx";
 import WeightSection from "../components/health/weight/WeightSection.jsx";
+import WeightModal from "../components/health/weight/WeightModal";
 
 const PetDetail = () => {
     const [currPet, setCurrPet] = useState({});
+    const [showWeightModal, setShowWeightModal] = useState(false);
+    const [openWeightModalWithAdd, setOpenWeightModalWithAdd] = useState(false);
+
     const { id } = useParams();
     const navigate = useNavigate();
     console.log(id);
 
+    const fetchPet = async () => {
+        try {
+            const data = await getSinglePet(id);
+            setCurrPet(data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     useEffect(() => {
         if (!id) return;
-        const fetchPet = async () => {
-            try {
-                const data = await getSinglePet(id);
-                setCurrPet(data);
-            } catch (err) {
-                console.error(err);
-            }
-        };
-
         fetchPet();
     }, [id]);
 
@@ -141,6 +143,14 @@ const PetDetail = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 py-10">
+                <WeightSection
+                    pet={currPet}
+                    onOpenModal={() => setShowWeightModal(true)}
+                    onOpenAddModal={() => {
+                        setShowWeightModal(true);
+                        setOpenWeightModalWithAdd(true);
+                    }}
+                />
                 <div className="card-container bg-neutral200 flex justify-between items-center">
                     Health Tracker
                 </div>
@@ -148,7 +158,17 @@ const PetDetail = () => {
                     Vet Visits
                 </div>
 
-                <WeightSection pet={currPet} />
+                {showWeightModal && (
+                    <WeightModal
+                        pet={currPet}
+                        onClose={() => {
+                            setShowWeightModal(false);
+                            setOpenWeightModalWithAdd(false);
+                        }}
+                        onUpdatePet={fetchPet}
+                        openWithAdd={openWeightModalWithAdd}
+                    />
+                )}
 
                 <div className="card-container bg-neutral200 flex justify-between items-center">
                     Notes / Observations
