@@ -50,6 +50,6 @@
     }
 
     .table-body tr {
-        @apply even:bg-neutral200 border-b border-b-inactive;
+        @apply even:bg-neutral200;
     }
 }

@@ -1,16 +1,18 @@
 const NoteRow = ({ note, showActions, onEdit, onDelete }) => {
     return (
         <tr className="overflow-hidden">
-            <td className="whitespace-nowrap text-sm text-neutral700">
-                {new Date(note.date).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "2-digit",
-                    year: "numeric",
-                })}
+            <td>{note.note}</td>
+            <td>{note.category}</td>
+            <td className="whitespace-nowrap">
+                {note.date
+                    ? new Date(note.date).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "2-digit",
+                          year: "numeric",
+                      })
+                    : "No date"}
             </td>
-            <td className="text-sm text-neutral700">{note.category}</td>
-            <td className="text-sm text-neutral700">{note.note}</td>
-            {showActions ? (
+            {showActions && (
                 <>
                     <td>
                         <button
@@ -26,11 +28,6 @@ const NoteRow = ({ note, showActions, onEdit, onDelete }) => {
                             🗑 Delete
                         </button>
                     </td>
-                </>
-            ) : (
-                <>
-                    <td></td>
-                    <td></td>
                 </>
             )}
         </tr>

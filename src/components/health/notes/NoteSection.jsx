@@ -12,16 +12,24 @@ const NoteSection = ({ pet, onOpenModal }) => {
             </div>
             {notes.length > 0 ? (
                 <>
-                    {notes.slice(0, 1).map((note) => (
-                        <p key={note._id} className="text-sm text-neutral700">
-                            {new Date(note.date).toLocaleDateString("en-US", {
-                                month: "short",
-                                day: "2-digit",
-                            })}
-                            {": "}
-                            <NoteRow note={notes[0]} showActions={false} />
-                        </p>
-                    ))}
+                    <table className="w-full mt-2 text-left border-separate border-spacing-y-2">
+                        <thead className="table-head">
+                            <tr className="overflow-hidden">
+                                <th>Notes & Observations</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody className="table-body">
+                            {notes.slice(0, 2).map((note) => (
+                                <NoteRow
+                                    key={note._id}
+                                    note={note}
+                                    showActions={false}
+                                />
+                            ))}
+                        </tbody>
+                    </table>
                     <div className="flex justify-end mt-4">
                         <button onClick={onOpenModal} className="btn-icon">
                             <Eye className="w-5 h-5" />
