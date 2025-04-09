@@ -18,6 +18,9 @@
     .input {
         @apply rounded-full border border-neutral700 bg-neutral100  p-4;
     }
+    .textarea {
+        @apply rounded-xl border border-neutral700 bg-neutral100 p-4;
+    }
     .file-input {
         @apply appearance-none rounded-full border border-neutral700 bg-neutral100;
     }
@@ -50,6 +53,6 @@
     }
 
     .table-body tr {
-        @apply even:bg-neutral200 border-b border-b-inactive;
+        @apply even:bg-neutral200;
     }
 }

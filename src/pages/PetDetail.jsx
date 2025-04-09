@@ -16,11 +16,15 @@ import PetProfilImg from "../components/pets/PetProfileImg.jsx";
 import { formatAge } from "../utils/formatAge.js";
 import WeightSection from "../components/health/weight/WeightSection.jsx";
 import WeightModal from "../components/health/weight/WeightModal";
+import NoteSection from "../components/health/notes/NoteSection.jsx";
+import NoteModal from "../components/health/notes/NoteModal.jsx";
 
 const PetDetail = () => {
     const [currPet, setCurrPet] = useState({});
     const [showWeightModal, setShowWeightModal] = useState(false);
     const [openWeightModalWithAdd, setOpenWeightModalWithAdd] = useState(false);
+    const [showNoteModal, setShowNoteModal] = useState(false);
+    const [openNoteModalWithAdd, setOpenNoteModalWithAdd] = useState(false);
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -151,6 +155,15 @@ const PetDetail = () => {
                         setOpenWeightModalWithAdd(true);
                     }}
                 />
+                <NoteSection
+                    pet={currPet}
+                    onOpenModal={() => setShowNoteModal(true)}
+                    onOpenAddModal={() => {
+                        setShowNoteModal(true);
+                        setOpenNoteModalWithAdd(true);
+                    }}
+                />
+
                 <div className="card-container bg-neutral200 flex justify-between items-center">
                     Health Tracker
                 </div>
@@ -170,9 +183,17 @@ const PetDetail = () => {
                     />
                 )}
 
-                <div className="card-container bg-neutral200 flex justify-between items-center">
-                    Notes / Observations
-                </div>
+                {showNoteModal && (
+                    <NoteModal
+                        pet={currPet}
+                        onClose={() => {
+                            setShowNoteModal(false);
+                            setOpenNoteModalWithAdd(false);
+                        }}
+                        onUpdatePet={fetchPet}
+                        openWithAdd={openNoteModalWithAdd}
+                    />
+                )}
             </div>
         </div>
     );
