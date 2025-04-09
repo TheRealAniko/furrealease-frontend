@@ -16,6 +16,7 @@ import PetProfilImg from "../components/pets/PetProfileImg.jsx";
 import { formatAge } from "../utils/formatAge.js";
 import WeightSection from "../components/health/weight/WeightSection.jsx";
 import WeightModal from "../components/health/weight/WeightModal";
+import NoteSection from "../components/health/notes/NoteSection.jsx";
 
 const PetDetail = () => {
     const [currPet, setCurrPet] = useState({});
@@ -151,6 +152,15 @@ const PetDetail = () => {
                         setOpenWeightModalWithAdd(true);
                     }}
                 />
+                <NoteSection
+                    pet={currPet}
+                    // onOpenModal={() => setShowWeightModal(true)}
+                    // onOpenAddModal={() => {
+                    //     setShowWeightModal(true);
+                    //     setOpenWeightModalWithAdd(true);
+                    // }}
+                />
+
                 <div className="card-container bg-neutral200 flex justify-between items-center">
                     Health Tracker
                 </div>
@@ -169,10 +179,6 @@ const PetDetail = () => {
                         openWithAdd={openWeightModalWithAdd}
                     />
                 )}
-
-                <div className="card-container bg-neutral200 flex justify-between items-center">
-                    Notes / Observations
-                </div>
             </div>
         </div>
     );

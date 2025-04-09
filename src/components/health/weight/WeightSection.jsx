@@ -12,7 +12,7 @@ const WeightSection = ({ pet, onOpenModal, onOpenAddModal }) => {
         <div className="card-container">
             <div className="flex justify-between items-center mb-6">
                 <h3 className="h3-section">Weight</h3>
-                <AddButton onClick={onOpenAddModal} label="Add Weight" />
+                <AddButton onClick={onOpenAddModal} label="Add" />
             </div>
 
             {weightHistory.length > 0 && (
