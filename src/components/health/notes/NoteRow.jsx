@@ -1,3 +1,5 @@
+import { Pencil, Trash2 } from "lucide-react";
+
 const NoteRow = ({ note, showActions, onEdit, onDelete }) => {
     return (
         <tr className="overflow-hidden">
@@ -18,14 +20,15 @@ const NoteRow = ({ note, showActions, onEdit, onDelete }) => {
                         <button
                             onClick={() => onEdit(note)}
                             className="btn-icon">
-                            ✏️ Edit
+                            <Pencil className="w-5 h-5" />
+                            Edit
                         </button>
                     </td>
                     <td>
                         <button
                             onClick={() => onDelete(note._id)}
-                            className="btn-icon text-error">
-                            🗑 Delete
+                            className="btn-icon text-error hover:text-[#A24140]">
+                            <Trash2 className="w-5 h-5" /> Delete
                         </button>
                     </td>
                 </>

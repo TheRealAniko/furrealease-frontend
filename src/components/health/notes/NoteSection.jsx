@@ -2,13 +2,19 @@ import AddButton from "../../ui/AddBtn";
 import { Eye } from "lucide-react";
 import NoteRow from "./NoteRow";
 
-const NoteSection = ({ pet, onOpenModal }) => {
+const NoteSection = ({ pet, onOpenModal, onOpenAddModal }) => {
     const notes = pet?.notes || [];
+
+    const notesSorted = [...(pet?.notes || [])].sort((a, b) => {
+        const dateA = a.date ? new Date(a.date) : new Date(0); // ganz alt
+        const dateB = b.date ? new Date(b.date) : new Date(0);
+        return dateB - dateA;
+    });
     return (
         <div className="card-container">
             <div className="flex justify-between items-center mb-6 ">
                 <h3 className="h3-section">Notes & Observations</h3>
-                <AddButton onClick={"TODO: Open add"} label="Add" />
+                <AddButton onClick={onOpenAddModal} label="Add" />
             </div>
             {notes.length > 0 ? (
                 <>
@@ -21,7 +27,7 @@ const NoteSection = ({ pet, onOpenModal }) => {
                             </tr>
                         </thead>
                         <tbody className="table-body">
-                            {notes.slice(0, 2).map((note) => (
+                            {notesSorted.slice(0, 2).map((note) => (
                                 <NoteRow
                                     key={note._id}
                                     note={note}

@@ -210,7 +210,7 @@ export const deleteNote = async (id, noteId) => {
 
 export const updateNote = async (id, noteId, updatedNote) => {
     const token = localStorage.getItem("token");
-    const res = await fetch(`${baseURL}/${id}/weights/${noteId}`, {
+    const res = await fetch(`${baseURL}/${id}/notes/${noteId}`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
