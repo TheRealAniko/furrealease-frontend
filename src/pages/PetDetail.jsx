@@ -18,6 +18,8 @@ import WeightSection from "../components/health/weight/WeightSection.jsx";
 import WeightModal from "../components/health/weight/WeightModal";
 import NoteSection from "../components/health/notes/NoteSection.jsx";
 import NoteModal from "../components/health/notes/NoteModal.jsx";
+import MedSection from "../components/health/medications/MedSection.jsx";
+import MedModal from "../components/health/medications/MedModal.jsx";
 
 const PetDetail = () => {
     const [currPet, setCurrPet] = useState({});
@@ -25,6 +27,8 @@ const PetDetail = () => {
     const [openWeightModalWithAdd, setOpenWeightModalWithAdd] = useState(false);
     const [showNoteModal, setShowNoteModal] = useState(false);
     const [openNoteModalWithAdd, setOpenNoteModalWithAdd] = useState(false);
+    const [showMedModal, setShowMedModal] = useState(false);
+    const [openMedModalWithAdd, setOpenMedModalWithAdd] = useState(false);
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -164,9 +168,14 @@ const PetDetail = () => {
                     }}
                 />
 
-                <div className="card-container bg-neutral200 flex justify-between items-center">
-                    Health Tracker
-                </div>
+                <MedSection
+                    pet={currPet}
+                    onOpenModal={() => setShowMedModal(true)}
+                    onOpenAddModal={() => {
+                        setShowMedModal(true);
+                        setOpenMedModalWithAdd(true);
+                    }}
+                />
                 <div className="card-container bg-neutral200 flex justify-between items-center">
                     Vet Visits
                 </div>
@@ -192,6 +201,18 @@ const PetDetail = () => {
                         }}
                         onUpdatePet={fetchPet}
                         openWithAdd={openNoteModalWithAdd}
+                    />
+                )}
+
+                {showMedModal && (
+                    <MedModal
+                        pet={currPet}
+                        onClose={() => {
+                            setShowMedModal(false);
+                            setOpenMedModalWithAdd(false);
+                        }}
+                        onUpdatePet={fetchPet}
+                        openWithAdd={openMedModalWithAdd}
                     />
                 )}
             </div>

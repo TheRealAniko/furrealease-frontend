@@ -194,7 +194,7 @@ export const addNote = async (id, noteData) => {
 
 export const deleteNote = async (id, noteId) => {
     const token = localStorage.getItem("token");
-    const res = await fetch(`${baseURL}/${id}/weights/${noteId}`, {
+    const res = await fetch(`${baseURL}/${id}/notes/${noteId}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
@@ -221,6 +221,59 @@ export const updateNote = async (id, noteId, updatedNote) => {
 
     if (!res.ok) {
         throw new Error("Failed to update weight entry");
+    }
+
+    return res.json();
+};
+
+// Medication
+export const addMed = async (id, medData) => {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${baseURL}/${id}/medications`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // nicht vergessen!
+        },
+        body: JSON.stringify(medData),
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to add medication");
+    }
+
+    return res.json();
+};
+
+export const deleteMed = async (id, medId) => {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${baseURL}/${id}/medications/${medId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // nicht vergessen!
+        },
+    });
+    if (!res.ok) {
+        throw new Error("Failed to delete medication");
+    }
+
+    return res.json();
+};
+
+export const updateMed = async (id, medId, updateMed) => {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${baseURL}/${id}/medications/${medId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // nicht vergessen!
+        },
+        body: JSON.stringify(updateMed),
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to update medications");
     }
 
     return res.json();
