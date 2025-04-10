@@ -18,6 +18,9 @@
     .input {
         @apply rounded-full border border-neutral700 bg-neutral100  p-4;
     }
+    .input-small {
+        @apply rounded-lg border border-neutral400 bg-neutral100  p-2;
+    }
     .textarea {
         @apply rounded-xl border border-neutral700 bg-neutral100 p-4;
     }
@@ -54,5 +57,11 @@
 
     .table-body tr {
         @apply even:bg-neutral200;
+    }
+    .inner-head {
+        @apply bg-neutral700 text-neutral100 font-normal text-base px-4 py-2 rounded-md;
+    }
+    .inner-body {
+        @apply text-base p-4 font-light;
     }
 }
