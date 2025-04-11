@@ -95,12 +95,14 @@ const Auth = () => {
     if (isAuthenticated) return <Navigate to="/dashboard" />;
 
     return (
-        <div className="card-container">
+        <div className="card-container mx-auto max-w-screen-md	">
             <div>
-                <h2>{isSignUp ? "Create your account" : "Sign In"}</h2>
+                <h2 className="h2-section">
+                    {isSignUp ? "Create your account" : "Sign In"}
+                </h2>
             </div>
             <form
-                className="my-5 md:w-1/2 mx-auto flex flex-col gap-3"
+                className="my-5 px-20 mx-auto flex flex-col gap-3"
                 onSubmit={handleSubmit}>
                 {isSignUp && (
                     <>

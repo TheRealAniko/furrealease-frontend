@@ -6,3 +6,11 @@ export const baseMed = {
     endDate: "",
     comment: "",
 };
+
+export const baseVacc = {
+    name: "",
+    interval: "",
+    dosage: "",
+    vet: "",
+    comment: "",
+};
