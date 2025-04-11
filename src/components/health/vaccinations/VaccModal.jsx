@@ -1,28 +1,26 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { addMed, deleteMed, updateMed } from "../../../data/pets";
-import { baseMed } from "../../../utils/defaults";
+import { addVacc, deleteVacc, updateVacc } from "../../../data/pets";
+import { baseVacc } from "../../../utils/defaults";
 import AddBtn from "../../ui/AddBtn";
-import MedForm from "./MedForm";
-import MedCard from "./MedCard";
+import VaccCard from "./VaccCard";
+import VaccForm from "./VaccForm";
 
-const MedModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
-    const meds = pet?.medications || [];
+const VaccModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
+    const vaccinations = pet?.vaccinations || [];
 
     const [showAddRow, setShowAddRow] = useState(openWithAdd);
     const [editRowId, setEditRowId] = useState(null);
 
-    const [newMed, setNewMed] = useState({
-        ...baseMed,
-        startDate: new Date().toISOString().split("T")[0],
+    const [newVacc, setNewVacc] = useState({
+        ...baseVacc,
+        date: new Date().toISOString().split("T")[0],
+    });
+    const [editVacc, setEditVacc] = useState({
+        ...baseVacc,
+        date: "", // wird beim Edit initial gesetzt
     });
 
-    const [editMed, setEditMed] = useState({
-        ...baseMed,
-        startDate: "", // wird beim Edit initial gesetzt
-    });
-
-    // Öffnet Add-Form automatisch, wenn Modal mit Add gestartet wird
     useEffect(() => {
         if (openWithAdd) setShowAddRow(true);
     }, [openWithAdd]);
@@ -30,64 +28,62 @@ const MedModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
     // Für Add-Form
     const handleChangeNew = (e) => {
         const { name, value } = e.target;
-        setNewMed((prev) => ({ ...prev, [name]: value }));
+        setNewVacc((prev) => ({ ...prev, [name]: value }));
     };
 
-    // Für Edit-Form
     const handleChangeEdit = (e) => {
         const { name, value } = e.target;
-        setEditMed((prev) => ({ ...prev, [name]: value }));
+        setEditVacc((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleSave = async () => {
         try {
-            await addMed(pet._id, newMed);
+            await addVacc(pet._id, newVacc);
             setShowAddRow(false);
-            setNewMed({
-                ...baseMed,
-                startDate: new Date().toISOString().split("T")[0],
+            setNewVacc({
+                ...baseVacc,
+                date: new Date().toISOString().split("T")[0],
             });
 
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet();
-                toast.success("New medication created!");
+                toast.success("New vaccination created!");
             }
         } catch (err) {
             toast.error(err.message);
         }
     };
 
-    const handleUpdate = async (medId) => {
+    const handleUpdate = async (vaccId) => {
         try {
-            await updateMed(pet._id, medId, editMed);
+            await updateVacc(pet._id, vaccId, editVacc);
             setEditRowId(null);
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet();
-                toast.success("Medication updated!");
+                toast.success("Vaccination updated!");
             }
         } catch (err) {
-            toast.error("Error while updating medication");
+            toast.error("Error while updating vaccination");
         }
     };
 
-    const handleEditStart = (med) => {
-        setEditRowId(med._id);
-        setEditMed({
-            ...med,
-            startDate: med.startDate?.split("T")[0],
-            endDate: med.endDate ? med.endDate.split("T")[0] : "",
+    const handleEditStart = (vacc) => {
+        setEditRowId(vacc._id);
+        setEditVacc({
+            ...vacc,
+            date: vacc.date?.split("T")[0],
         });
     };
 
-    const handleDelete = async (medId) => {
+    const handleDelete = async (vaccId) => {
         try {
-            await deleteMed(pet._id, medId);
+            await deleteVacc(pet._id, vaccId);
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet(); // Re-fetch daten
-                toast.success("Medication deleted!");
+                toast.success("VAccination deleted!");
             }
         } catch (err) {
-            toast.error("Error while deleting mediction");
+            toast.error("Error while deleting vaccination");
         }
     };
 
@@ -95,7 +91,7 @@ const MedModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
             <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-screen-lg max-h-[90vh] overflow-y-auto">
                 <div className="flex justify-between items-center mb-4">
-                    <h3 className="h3-section">Medication: {pet.name}</h3>
+                    <h3 className="h3-section">Vaccination: {pet.name}</h3>
                     <button
                         onClick={onClose}
                         className="text-greenEyes hover:text-darkGreenEyes text-lg">
@@ -115,31 +111,31 @@ const MedModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
 
                 {/* Add-Form */}
                 {showAddRow && (
-                    <MedForm
-                        med={newMed}
+                    <VaccForm
+                        vacc={newVacc}
                         handleChange={handleChangeNew}
                         onSave={handleSave}
                         onCancel={() => setShowAddRow(false)}
                     />
                 )}
 
-                {/* Existing Medications */}
+                {/* Existing Vaccination */}
                 <div className="grid gap-6 grid-cols-2 mt-4">
-                    {meds.map((med) =>
-                        editRowId === med._id ? (
-                            <MedForm
-                                key={med._id}
-                                med={editMed}
+                    {vaccinations.map((vacc) =>
+                        editRowId === vacc._id ? (
+                            <VaccForm
+                                key={vacc._id}
+                                vacc={editVacc}
                                 handleChange={handleChangeEdit}
-                                onSave={() => handleUpdate(med._id)}
+                                onSave={() => handleUpdate(vacc._id)}
                                 onCancel={() => setEditRowId(null)}
                                 isEdit={true}
                             />
                         ) : (
-                            <MedCard
-                                key={med._id}
-                                med={med}
-                                onEdit={() => handleEditStart(med)}
+                            <VaccCard
+                                key={vacc._id}
+                                vacc={vacc}
+                                onEdit={() => handleEditStart(vacc)}
                                 onDelete={handleDelete}
                             />
                         )
@@ -150,4 +146,4 @@ const MedModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
     );
 };
 
-export default MedModal;
+export default VaccModal;

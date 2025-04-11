@@ -20,6 +20,8 @@ import NoteSection from "../components/health/notes/NoteSection.jsx";
 import NoteModal from "../components/health/notes/NoteModal.jsx";
 import MedSection from "../components/health/medications/MedSection.jsx";
 import MedModal from "../components/health/medications/MedModal.jsx";
+import VaccSection from "../components/health/vaccinations/VaccSection.jsx";
+import VaccModal from "../components/health/vaccinations/VaccModal.jsx";
 
 const PetDetail = () => {
     const [currPet, setCurrPet] = useState({});
@@ -29,6 +31,8 @@ const PetDetail = () => {
     const [openNoteModalWithAdd, setOpenNoteModalWithAdd] = useState(false);
     const [showMedModal, setShowMedModal] = useState(false);
     const [openMedModalWithAdd, setOpenMedModalWithAdd] = useState(false);
+    const [showVaccModal, setShowVaccModal] = useState(false);
+    const [openVaccModalWithAdd, setOpenVaccModalWithAdd] = useState(false);
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -176,9 +180,14 @@ const PetDetail = () => {
                         setOpenMedModalWithAdd(true);
                     }}
                 />
-                <div className="card-container bg-neutral200 flex justify-between items-center">
-                    Vet Visits
-                </div>
+                <VaccSection
+                    pet={currPet}
+                    onOpenModal={() => setShowVaccModal(true)}
+                    onOpenAddModal={() => {
+                        setShowVaccModal(true);
+                        setOpenVaccModalWithAdd(true);
+                    }}
+                />
 
                 {showWeightModal && (
                     <WeightModal
@@ -213,6 +222,18 @@ const PetDetail = () => {
                         }}
                         onUpdatePet={fetchPet}
                         openWithAdd={openMedModalWithAdd}
+                    />
+                )}
+
+                {showVaccModal && (
+                    <VaccModal
+                        pet={currPet}
+                        onClose={() => {
+                            setShowVaccModal(false);
+                            setOpenVaccModalWithAdd(false);
+                        }}
+                        onUpdatePet={fetchPet}
+                        openWithAdd={openVaccModalWithAdd}
                     />
                 )}
             </div>

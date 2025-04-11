@@ -278,3 +278,56 @@ export const updateMed = async (id, medId, updateMed) => {
 
     return res.json();
 };
+
+// Vaccination
+export const addVacc = async (id, vaccData) => {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${baseURL}/${id}/vaccinations`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // nicht vergessen!
+        },
+        body: JSON.stringify(vaccData),
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to add vaccination");
+    }
+
+    return res.json();
+};
+
+export const deleteVacc = async (id, vaccId) => {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${baseURL}/${id}/vaccinations/${vaccId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // nicht vergessen!
+        },
+    });
+    if (!res.ok) {
+        throw new Error("Failed to delete vaccination");
+    }
+
+    return res.json();
+};
+
+export const updateVacc = async (id, vaccId, updateVacc) => {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${baseURL}/${id}/vaccinations/${vaccId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // nicht vergessen!
+        },
+        body: JSON.stringify(updateVacc),
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to update vaccination");
+    }
+
+    return res.json();
+};

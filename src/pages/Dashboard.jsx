@@ -1,6 +1,6 @@
 import { usePets } from "../context";
 import Petlist from "../components/pets/PetList";
-import { Eye } from "lucide-react";
+import { Eye, CirclePlus } from "lucide-react";
 import { useNavigate } from "react-router";
 import AddPetBtn from "../components/pets/AddPetBtn";
 
@@ -38,6 +38,16 @@ const Dashboard = () => {
                     </button>
                 </div>
             )}
+            <div className="flex justify-between items-center mb-6">
+                <h2 className="h2-section">Reminders</h2>
+                <button className="btn-icon">
+                    <CirclePlus className="w-5 h-5" />
+                    Add a Reminder
+                </button>
+            </div>
+            <div className="card-container flex gap-28 bg-neutral200">
+                No reminders yet
+            </div>
         </div>
     );
 };
