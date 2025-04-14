@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { toastSuccess, toastError } from "../../utils/toastHelper.js";
 import { createPet } from "../../data/pets";
 import { useNavigate } from "react-router";
-import { toast } from "react-toastify";
 import PetProfilImg from "./PetProfileImg";
 
 const PetForm = () => {
@@ -56,10 +56,10 @@ const PetForm = () => {
             setPhoto(null);
             setPhotoPreview(null);
 
-            toast.success("Pet created!");
+            toastSuccess("Pet created!");
             navigate("/pets", { state: { reload: true } });
-        } catch (error) {
-            toast.error(error.message);
+        } catch (err) {
+            toastError(err.message || "Error while creating pet");
         }
     };
 

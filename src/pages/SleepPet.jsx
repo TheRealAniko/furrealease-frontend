@@ -1,7 +1,7 @@
 import SleepingPetCard from "../components/pets/SleepingPetCard";
+import { toastSuccess, toastError } from "../utils/toastHelper.js";
 import { usePets } from "../context";
 import { unsleepPet } from "../data/pets"; // 👈 wichtig!
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 
 const SleepPets = () => {
@@ -12,12 +12,11 @@ const SleepPets = () => {
     const handleUnsleep = async (id) => {
         try {
             await unsleepPet(id);
-            toast.success("Welcome back 💚");
             await refreshPets();
+            toastSuccess("Welcome back 💚");
             navigate("/pets");
         } catch (err) {
-            toast.error("Could not bring pet back");
-            console.error(err);
+            toastError(err.message || "Could not bring pet back");
         }
     };
 

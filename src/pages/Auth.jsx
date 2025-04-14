@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Navigate, useLocation } from "react-router";
-import { toast } from "react-toastify";
+import { toastSuccess } from "../utils/toastHelper.js";
 import { Mail, KeyRound, User } from "lucide-react";
 import { signup, signin } from "../data/auth.js";
 import { useAuth } from "../context/index.js";
@@ -61,7 +61,7 @@ const Auth = () => {
                 });
                 // setIsAuthenticated(true);
                 // setCheckSession(true);
-                toast.success(res.success);
+                toastSuccess(res.success);
                 resetForm();
                 setIsSignUp(false);
                 // setTimeout(() => navigate("/auth"), 500);
@@ -69,7 +69,6 @@ const Auth = () => {
             } catch (err) {
                 console.error(err);
                 setError(err.message || "Sign Up failed. Try again.");
-                toast.error(err.message || "Sign Up failed. Try again.");
             } finally {
                 setLoading(false);
             }
@@ -82,11 +81,10 @@ const Auth = () => {
                 const res = await signin({ email, password });
                 setIsAuthenticated(true);
                 setCheckSession(true);
-                toast.success(res.success);
+                toastSuccess(res.success);
             } catch (err) {
                 console.error(err);
                 setError(err.message || "Sign In failed. Try again.");
-                toast.error(err.message || "Sign In failed. Try again.");
             } finally {
                 setLoading(false);
             }
