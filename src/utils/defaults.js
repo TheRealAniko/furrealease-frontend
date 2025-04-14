@@ -14,3 +14,11 @@ export const baseVacc = {
     vet: "",
     comment: "",
 };
+
+export const baseRem = {
+    title: "",
+    category: "",
+    petId: "",
+    recurring: "none",
+    comment: "",
+};

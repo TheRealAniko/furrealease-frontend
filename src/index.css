@@ -30,8 +30,14 @@
     .btn-primary {
         @apply rounded-full font-medium py-4 px-9 text-base bg-primary hover:bg-darkPrimary text-neutral100;
     }
+    .btn-primary-xs {
+        @apply px-6 py-1 text-sm rounded-full border bg-primary hover:bg-darkPrimary  text-neutral100;
+    }
     .btn-outline {
         @apply rounded-full font-medium py-4 px-9 text-base bg-neutral100 border border-primary  text-primary hover:bg-neutral200 hover:border-darkPrimary hover:text-darkPrimary;
+    }
+    .btn-outline-xs {
+        @apply px-6 py-1 text-sm rounded-full border border-primary text-primary hover:border-darkPrimary hover:text-darkPrimary;
     }
     .btn-outline-grey {
         @apply rounded-full font-medium py-4 px-9 text-base bg-neutral100 border border-inactive  text-inactive hover:border-neutral700 hover:text-neutral700;
@@ -63,5 +69,8 @@
     }
     .inner-body {
         @apply text-base p-4 font-light;
+    }
+    .modal-card {
+        @apply bg-neutral100 rounded-md border border-neutral400;
     }
 }
