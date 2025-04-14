@@ -3,6 +3,7 @@ import Petlist from "../components/pets/PetList";
 import { Eye, CirclePlus } from "lucide-react";
 import { useNavigate } from "react-router";
 import AddPetBtn from "../components/pets/AddPetBtn";
+import RemDashboard from "../components/reminders/RemDashboard";
 
 const Dashboard = () => {
     const { pets } = usePets();
@@ -46,7 +47,15 @@ const Dashboard = () => {
                 </button>
             </div>
             <div className="card-container flex gap-28 bg-neutral200">
-                No reminders yet
+                <RemDashboard />
+            </div>
+            <div className="flex justify-end items-center mb-6 py-8">
+                <button
+                    onClick={() => navigate("/reminders")}
+                    className="btn-icon">
+                    <Eye className="w-5 h-5" />
+                    See all Reminders
+                </button>
             </div>
         </div>
     );

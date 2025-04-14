@@ -64,4 +64,7 @@
     .inner-body {
         @apply text-base p-4 font-light;
     }
+    .modal-card {
+        @apply bg-neutral100 rounded-md border border-neutral400;
+    }
 }
