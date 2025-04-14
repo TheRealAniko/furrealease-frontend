@@ -15,6 +15,17 @@ export const baseVacc = {
     comment: "",
 };
 
+export const baseWeight = {
+    weight: "",
+};
+
+export const baseVisit = {
+    reason: "",
+    vet: "",
+    petId: "",
+    comment: "",
+};
+
 export const baseRem = {
     title: "",
     category: "",

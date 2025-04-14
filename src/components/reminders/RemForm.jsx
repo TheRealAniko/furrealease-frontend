@@ -58,7 +58,6 @@ const RemForm = ({
 
     return (
         <div>
-            <h3>the form</h3>
             <form>
                 <div className="p-4 text-base font-light space-y-4">
                     {/* title & pet */}
