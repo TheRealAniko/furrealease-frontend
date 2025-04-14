@@ -41,14 +41,14 @@ const Dashboard = () => {
             )}
             <div className="flex justify-between items-center mb-6">
                 <h2 className="h2-section">Reminders</h2>
-                <button className="btn-icon">
+                <button
+                    onClick={() => navigate("/reminders?addReminder=true")}
+                    className="btn-icon">
                     <CirclePlus className="w-5 h-5" />
                     Add a Reminder
                 </button>
             </div>
-            <div className="card-container flex gap-28 bg-neutral200">
-                <RemDashboard />
-            </div>
+            <RemDashboard />
             <div className="flex justify-end items-center mb-6 py-8">
                 <button
                     onClick={() => navigate("/reminders")}

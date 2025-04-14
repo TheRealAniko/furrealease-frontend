@@ -1,6 +1,7 @@
 import { useRems } from "../../context";
 import { usePets } from "../../context";
 import { useState } from "react";
+import { Pencil, Trash2 } from "lucide-react";
 import { format, isAfter } from "date-fns";
 import { toast } from "react-toastify";
 import { updateRem, deleteRem } from "../../data/rem";
@@ -84,57 +85,74 @@ const RemCard = ({ rem, isActive, onClick }) => {
                     isEdit
                 />
             ) : (
-                // normale Card anzeigen
-                <div className=" p-4 rounded-md cursor-pointer">
-                    <div className="flex items-center gap-4 py-2 border-b border-neutral200 text-sm">
+                <div className="py-4 border-b border-neutral400">
+                    <div className="cursor-pointer flex items-center gap-4">
                         <input
                             type="radio"
                             checked={rem.status === "done"}
                             readOnly
                             onClick={(e) => {
-                                e.stopPropagation(); // verhindert Detail-Öffnung
-                                handleStatusToggle(); // ⬅️ das ist alles
+                                e.stopPropagation();
+                                handleStatusToggle();
                             }}
                             className="radio-btn"
                         />
-
-                        <span className="text-neutral500 w-[120px]">
-                            {new Date(rem.date).toLocaleDateString("en-US", {
-                                day: "2-digit",
-                                month: "short",
-                                year: "numeric",
-                            })}
-                        </span>
-                        <span
+                        <div
                             onClick={onClick}
-                            className={`font-medium ${
-                                rem.status === "done"
-                                    ? "line-through text-neutral400"
-                                    : "text-neutral900"
-                            }`}>
-                            {rem.title}
-                        </span>
-
-                        <span className="text-xs text-gray-500">
-                            {rem.status}
-                        </span>
+                            className="flex justify-between items-center w-full">
+                            <div
+                                className={`${
+                                    rem.status === "done"
+                                        ? "line-through text-neutral400"
+                                        : "text-neutral900"
+                                }`}>
+                                {rem.title}
+                            </div>
+                            <div className="text-sm text-neutral600 whitespace-nowrap">
+                                {new Date(rem.date).toLocaleDateString(
+                                    "en-US",
+                                    {
+                                        day: "2-digit",
+                                        month: "short",
+                                        year: "numeric",
+                                    }
+                                )}
+                            </div>
+                        </div>
                     </div>
 
                     {isActive && (
-                        <div className="mt-2 text-sm text-gray-700">
-                            <p>{rem.notes}</p>
-                            <p className="text-xs text-neutral400 italic">
-                                {getPetName(rem.petId)}
-                            </p>
-
-                            <div className="flex gap-2 mt-2">
-                                <button onClick={() => setIsEditing(true)}>
+                        <>
+                            <div className="mt-2 ml-8 flex gap-4">
+                                {rem.petId && (
+                                    <span className="border border-primary px-4 py-1 text-neutral700 rounded-full text-xs">
+                                        {getPetName(rem.petId)}
+                                    </span>
+                                )}
+                                {rem.category && (
+                                    <span className="border border-neutral400 px-4 py-1 text-neutral700 rounded-full text-xs">
+                                        {rem.category}
+                                    </span>
+                                )}
+                            </div>
+                            <div className="mt-2 ml-8 flex gap-4 italic text-neutral700">
+                                {rem.notes && <p>{rem.notes}</p>}
+                            </div>
+                            <div className="flex justify-end gap-10 text-greenEyes px-4 pt-4">
+                                <button
+                                    onClick={() => setIsEditing(true)}
+                                    className="btn-icon">
+                                    <Pencil className="w-5 h-5" />
                                     Edit
                                 </button>
-
-                                <button onClick={handleDelete}>Delete</button>
+                                <button
+                                    onClick={handleDelete}
+                                    className="btn-icon text-error hover:text-[#A24140]">
+                                    <Trash2 className="w-5 h-5" />
+                                    Delete
+                                </button>
                             </div>
-                        </div>
+                        </>
                     )}
                 </div>
             )}

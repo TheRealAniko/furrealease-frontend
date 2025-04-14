@@ -10,6 +10,7 @@ import {
     startOfMonth,
 } from "date-fns";
 import RemCard from "./RemCard";
+import { CirclePlus } from "lucide-react";
 
 const RemList = () => {
     const {
@@ -66,36 +67,13 @@ const RemList = () => {
     const doneRems = rems.filter((rem) => rem.status === "done");
 
     return (
-        <div className="w-full">
-            {/* <div className="mb-4 ">
-                <h3 className="h3-section">
-                    Your Reminders for {format(currentMonth, "MMMM yyyy")}
-                </h3>
-            </div> */}
-            {overdueRems.length > 0 && (
-                <>
-                    <div className=" bg-error text-neutral100 font-normal text-base px-4 py-2 rounded-md">
-                        Overdue
-                    </div>
-                    {overdueRems.map((rem) => (
-                        <RemCard
-                            key={rem._id}
-                            rem={rem}
-                            isActive={activeReminder?._id === rem._id}
-                            onClick={() =>
-                                setActiveReminder(
-                                    activeReminder?._id === rem._id ? null : rem
-                                )
-                            }
-                        />
-                    ))}
-                </>
-            )}
-            <div className="bg-primary text-neutral100 font-normal text-base px-4 py-2 rounded-md">
+        <div className="w-full p-6">
+            {/* Today or selected day */}
+            <h4 className="h3-section ">
                 {selectedDate
                     ? `Reminders for ${format(selectedDate, "dd MMM yyyy")}`
                     : "Today"}
-            </div>
+            </h4>
 
             {(selectedDate
                 ? rems.filter(
@@ -124,7 +102,7 @@ const RemList = () => {
                   ).length === 0
                 : todayRems.length === 0) && (
                 <div className="mt-2 space-y-2">
-                    <p className="text-sm text-neutral-500 italic">
+                    <p className=" text-neutral700 italic">
                         {selectedDate
                             ? "No reminders for this date."
                             : "No reminders for today."}
@@ -134,50 +112,23 @@ const RemList = () => {
 
             {/* Add Button immer sichtbar bei zukünftigem Datum */}
             {selectedDate && isAfter(selectedDate, today) && (
-                <div className="mt-2">
+                <div className="mt-2 flex justify-end gap-10">
                     <button
                         onClick={() => {
                             setShowRemModal(true);
                             setEditingRem(null);
                         }}
-                        className="text-sm text-primary underline">
-                        + Add Reminder for {format(selectedDate, "dd MMM yyyy")}
+                        className="btn-icon">
+                        <CirclePlus className="w-5 h-5" />
+                        Add Reminder for {format(selectedDate, "dd MMM yyyy")}
                     </button>
                 </div>
             )}
-
-            {doneRems.length > 0 && (
-                <div className="mt-4">
-                    <button
-                        onClick={() => setShowCompleted((prev) => !prev)}
-                        className="bg-inactive text-neutral100 font-normal text-base px-4 py-2 rounded-md w-full text-left">
-                        {showCompleted ? "Hide completed" : "Show completed"}
-                    </button>
-
-                    {showCompleted && (
-                        <div className="mt-2 space-y-2">
-                            {doneRems.map((rem) => (
-                                <RemCard
-                                    key={rem._id}
-                                    rem={rem}
-                                    isActive={activeReminder?._id === rem._id}
-                                    onClick={() =>
-                                        setActiveReminder(
-                                            activeReminder?._id === rem._id
-                                                ? null
-                                                : rem
-                                        )
-                                    }
-                                />
-                            ))}
-                        </div>
-                    )}
-                </div>
-            )}
-
-            {/* {remindersForSelectedDate.length > 0 ? (
-                <div className="space-y-2">
-                    {remindersForSelectedDate.map((rem) => (
+            {/* Overdue Reminders */}
+            {overdueRems.length > 0 && (
+                <>
+                    <h4 className="h3-section text-error pt-4">Overdue</h4>
+                    {overdueRems.map((rem) => (
                         <RemCard
                             key={rem._id}
                             rem={rem}
@@ -189,10 +140,8 @@ const RemList = () => {
                             }
                         />
                     ))}
-                </div>
-            ) : (
-                <p>no reminders</p>
-            )} */}
+                </>
+            )}
         </div>
     );
 };

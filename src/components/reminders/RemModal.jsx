@@ -87,14 +87,17 @@ const RemModal = ({ onClose, selectedDate, openWithAdd = false }) => {
                         ✕ close
                     </button>
                 </div>
-                <RemForm
-                    onSave={() => {
-                        refreshRems(); // 🔁 Daten neu laden
-                        onClose(); // ✅ Modal schließen
-                    }}
-                    onCancel={onClose}
-                    selectedDate={selectedDate}
-                />
+                {openWithAdd && (
+                    <RemForm
+                        onSave={() => {
+                            refreshRems();
+                            onClose();
+                        }}
+                        onCancel={onClose}
+                        selectedDate={selectedDate}
+                        isEdit={false}
+                    />
+                )}
             </div>
         </div>
     );

@@ -28,33 +28,34 @@ const RemDashboard = () => {
     ).length;
 
     return (
-        <div className="mt-10">
-            <h3 className="h3-section mb-4">Reminders</h3>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6 text-sm text-neutral-700">
-                <div className="bg-neutral-100 rounded-md px-3 py-2">
-                    <p className="font-semibold text-lg">{completed}</p>
-                    <p className="text-xs">Completed</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {/* Todays Reminders */}
+            {todayRems.length > 0 && (
+                <div className="card-container text-neutral900">
+                    <h4 className="h3-section  pb-4">Today</h4>
+                    <div className="space-y-2">
+                        {todayRems.map((rem) => (
+                            <RemCard
+                                key={rem._id}
+                                rem={rem}
+                                isActive={activeReminderDash?._id === rem._id}
+                                onClick={() =>
+                                    setActiveReminderDash(
+                                        activeReminderDash?._id === rem._id
+                                            ? null
+                                            : rem
+                                    )
+                                }
+                                compact
+                            />
+                        ))}
+                    </div>
                 </div>
-                <div className="bg-neutral-100 rounded-md px-3 py-2">
-                    <p className="font-semibold text-lg">{recurring}</p>
-                    <p className="text-xs">Recurring</p>
-                </div>
-                <div className="bg-neutral-100 rounded-md px-3 py-2">
-                    <p className="font-semibold text-lg">{overdue.length}</p>
-                    <p className="text-xs">Overdue</p>
-                </div>
-                <div className="bg-neutral-100 rounded-md px-3 py-2">
-                    <p className="font-semibold text-lg">{upcoming.length}</p>
-                    <p className="text-xs">Coming Up</p>
-                </div>
-            </div>
-
+            )}
+            {/* Overdue Reminders */}
             {overdue.length > 0 && (
-                <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-red-600 mb-2">
-                        Overdue
-                    </h4>
+                <div className="card-container text-neutral900">
+                    <h4 className="h3-section text-error pb-4">Overdue</h4>
                     <div className="space-y-2">
                         {overdue.map((rem) => (
                             <RemCard
@@ -75,27 +76,27 @@ const RemDashboard = () => {
                 </div>
             )}
 
-            {todayRems.length > 0 && (
-                <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-amber-600 mb-2">
-                        Today
-                    </h4>
-                    <div className="space-y-2">
-                        {todayRems.map((rem) => (
-                            <RemCard key={rem._id} rem={rem} compact />
-                        ))}
-                    </div>
-                </div>
-            )}
-
+            {/* Upcomming Reminders */}
             {upcoming.length > 0 && (
-                <div className="mb-4">
-                    <h4 className="text-sm font-semibold text-neutral-700 mb-2">
+                <div className="card-container">
+                    <h4 className="h3-section  text-greenEyes  pb-4">
                         Coming up
                     </h4>
                     <div className="space-y-2">
                         {upcoming.map((rem) => (
-                            <RemCard key={rem._id} rem={rem} compact />
+                            <RemCard
+                                key={rem._id}
+                                rem={rem}
+                                isActive={activeReminderDash?._id === rem._id}
+                                onClick={() =>
+                                    setActiveReminderDash(
+                                        activeReminderDash?._id === rem._id
+                                            ? null
+                                            : rem
+                                    )
+                                }
+                                compact
+                            />
                         ))}
                     </div>
                 </div>
