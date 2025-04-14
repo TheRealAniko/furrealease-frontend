@@ -22,6 +22,9 @@ import MedSection from "../components/health/medications/MedSection.jsx";
 import MedModal from "../components/health/medications/MedModal.jsx";
 import VaccSection from "../components/health/vaccinations/VaccSection.jsx";
 import VaccModal from "../components/health/vaccinations/VaccModal.jsx";
+import VisitsSection from "../components/health/visits/VisitsSection.jsx";
+import { formatDate } from "../utils/formateDate.js";
+import VisitModal from "../components/health/visits/VisitModal.jsx";
 
 const PetDetail = () => {
     const [currPet, setCurrPet] = useState({});
@@ -33,6 +36,8 @@ const PetDetail = () => {
     const [openMedModalWithAdd, setOpenMedModalWithAdd] = useState(false);
     const [showVaccModal, setShowVaccModal] = useState(false);
     const [openVaccModalWithAdd, setOpenVaccModalWithAdd] = useState(false);
+    const [showVisitModal, setShowVisitModal] = useState(false);
+    const [openVisitModalWithAdd, setOpenVisitModalWithAdd] = useState(false);
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -114,7 +119,7 @@ const PetDetail = () => {
                         </div>
                         <div className="flex items-center gap-4 font-light text-base">
                             <Stethoscope className="text-inactive w-6 " />{" "}
-                            {lastVetVisit}
+                            {formatDate(lastVetVisit)}
                         </div>
                         <div className="flex items-center gap-4 font-light text-base">
                             <Dna className="text-inactive w-6 " />{" "}
@@ -155,6 +160,14 @@ const PetDetail = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 py-10">
+                <VisitsSection
+                    pet={currPet}
+                    onOpenModal={() => setShowVisitModal(true)}
+                    onOpenAddModal={() => {
+                        setShowVisitModal(true);
+                        setOpenVisitModalWithAdd(true);
+                    }}
+                />
                 <WeightSection
                     pet={currPet}
                     onOpenModal={() => setShowWeightModal(true)}
@@ -234,6 +247,18 @@ const PetDetail = () => {
                         }}
                         onUpdatePet={fetchPet}
                         openWithAdd={openVaccModalWithAdd}
+                    />
+                )}
+
+                {showVisitModal && (
+                    <VisitModal
+                        pet={currPet}
+                        onClose={() => {
+                            setShowVisitModal(false);
+                            setOpenVisitModalWithAdd(false);
+                        }}
+                        onUpdatePet={fetchPet}
+                        openWithAdd={openVisitModalWithAdd}
                     />
                 )}
             </div>

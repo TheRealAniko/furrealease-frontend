@@ -8,6 +8,7 @@ import {
 import WeightChartMini from "./WeightChartMini";
 import { Pencil, Trash2, Save, X } from "lucide-react";
 import AddBtn from "../../ui/AddBtn";
+import WeightForm from "../weight/WeightForm";
 
 const WeightModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
     const weightHistory = pet?.weightHistory || [];
@@ -114,44 +115,12 @@ const WeightModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
                     <tbody className="table-body">
                         {showAddRow && (
                             <tr>
-                                <>
-                                    <td>
-                                        <input
-                                            type="number"
-                                            name="weight"
-                                            value={newEntry.weight}
-                                            onChange={handleChange}
-                                            className="input input-bordered w-full text-sm"
-                                            placeholder="kg"
-                                            required
-                                        />
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="date"
-                                            name="date"
-                                            value={newEntry.date}
-                                            onChange={handleChange}
-                                            className="input input-bordered w-full text-sm"
-                                            required
-                                        />
-                                    </td>
-                                    <td>—</td>
-                                    <td>
-                                        <button
-                                            onClick={handleSave}
-                                            className="btn-icon">
-                                            <Save className="w-5 h-5" /> Save
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button
-                                            onClick={() => setShowAddRow(false)}
-                                            className="btn-icon  text-error hover:text-[#A24140]">
-                                            <X className="w-5 h-5" /> Cancel
-                                        </button>
-                                    </td>
-                                </>
+                                <WeightForm
+                                    formData={newEntry}
+                                    setFormData={setNewEntry}
+                                    onSave={handleSave}
+                                    onCancel={() => setShowAddRow(false)}
+                                />
                             </tr>
                         )}
                         {weightHistorySorted.map((entry, index) => {

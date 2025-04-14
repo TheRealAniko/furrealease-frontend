@@ -1,9 +1,14 @@
 import { Save, X, Circle } from "lucide-react";
-import { useState } from "react";
-import { formatDate, getDueDate } from "../../../utils/formateDate";
 import { getVaccinationStatus } from "../../../utils/vaccStatus";
 
-const VaccForm = ({ vacc, handleChange, onSave, onCancel, isEdit = false }) => {
+const VaccForm = ({
+    vacc,
+    handleChange,
+    onSave,
+    onCancel,
+    isEdit = false,
+    showButtons = true,
+}) => {
     const statusClass = {
         fresh: "text-success fill-success",
         dueSoon: "text-warning fill-warning",
@@ -12,7 +17,7 @@ const VaccForm = ({ vacc, handleChange, onSave, onCancel, isEdit = false }) => {
 
     return (
         <div>
-            <form>
+            <div>
                 <div
                     className={` text-neutral100 font-normal text-base px-4 py-2 rounded-md ${
                         isEdit ? "bg-pinkNose" : "bg-greenEyes"
@@ -125,18 +130,23 @@ const VaccForm = ({ vacc, handleChange, onSave, onCancel, isEdit = false }) => {
                 </div>
 
                 {/* Buttons */}
-                <div className="flex justify-end gap-6 text-greenEyes px-4 pb-4">
-                    <button type="button" onClick={onSave} className="btn-icon">
-                        <Save className="w-5 h-5" /> Save
-                    </button>
-                    <button
-                        type="button"
-                        onClick={onCancel}
-                        className="btn-icon text-error hover:text-[#A24140]">
-                        <X className="w-5 h-5" /> Cancel
-                    </button>
-                </div>
-            </form>
+                {showButtons && (
+                    <div className="flex justify-end gap-6 text-greenEyes px-4 pb-4">
+                        <button
+                            type="button"
+                            onClick={onSave}
+                            className="btn-icon">
+                            <Save className="w-5 h-5" /> Save
+                        </button>
+                        <button
+                            type="button"
+                            onClick={onCancel}
+                            className="btn-icon text-error hover:text-[#A24140]">
+                            <X className="w-5 h-5" /> Cancel
+                        </button>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

@@ -331,3 +331,56 @@ export const updateVacc = async (id, vaccId, updateVacc) => {
 
     return res.json();
 };
+
+// Vet Visits
+export const addVisit = async (id, visitData) => {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${baseURL}/${id}/vet-visits`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // nicht vergessen!
+        },
+        body: JSON.stringify(visitData),
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to add vet visit");
+    }
+
+    return res.json();
+};
+
+export const deleteVisit = async (id, visitId) => {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${baseURL}/${id}/vet-visits/${visitId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // nicht vergessen!
+        },
+    });
+    if (!res.ok) {
+        throw new Error("Failed to delete vet visit");
+    }
+
+    return res.json();
+};
+
+export const updateVisit = async (id, visitId, updateVisit) => {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${baseURL}/${id}/vet-visits/${visitId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // nicht vergessen!
+        },
+        body: JSON.stringify(updateVisit),
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to update vet visit");
+    }
+
+    return res.json();
+};
