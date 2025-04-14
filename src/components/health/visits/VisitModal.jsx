@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toastSuccess, toastError } from "../../../utils/toastHelper.js";
 import {
     baseVacc,
     baseMed,
@@ -121,10 +122,9 @@ const VisitModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
                 await onUpdatePet();
             }
 
-            toast.success("Vet visit successfully saved!");
+            toastSuccess("Vet visit successfully saved!");
         } catch (err) {
-            console.error("🔥 ERROR in handleSave:", err);
-            toast.error(err.message || "Fehler beim Speichern der Visit.");
+            toastError(err.message || "Fehler beim Speichern der Visit.");
         }
     };
 
@@ -134,10 +134,10 @@ const VisitModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
             setEditRowId(null);
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet();
-                toast.success("Vet visit record updated!");
+                toastSuccess("Vet visit record updated!");
             }
         } catch (err) {
-            toast.error("Error while updating vet visit record");
+            toastError(err.message || "Error while updating vet visit record");
         }
     };
 
@@ -154,10 +154,10 @@ const VisitModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
             await deleteVisit(pet._id, visitId);
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet();
-                toast.success("Vet visit record deleted!");
+                toastSuccess("Vet visit record deleted!");
             }
         } catch (err) {
-            toast.error("Error while deleting vet visit record");
+            toastError(err.message || "Error while deleting vet visit record");
         }
     };
 

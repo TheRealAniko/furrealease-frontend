@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toastSuccess, toastError } from "../../../utils/toastHelper";
 import { toast } from "react-toastify";
 import { addNote, deleteNote, updateNote } from "../../../data/pets";
 import NoteRow from "./NoteRow";
@@ -42,39 +43,36 @@ const NoteModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
             // Refetch (du brauchst dafür ein prop!)
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet();
-                toast.success("New note created!");
+                toastSuccess("New note created!");
             }
         } catch (err) {
-            toast.error(err.message);
+            toastError(err.message || "Error while updating note");
         }
     };
 
     const handleDelete = async (noteId) => {
         try {
             await deleteNote(pet._id, noteId);
-            toast.success("Note deleted");
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet(); // Re-fetch daten
-                toast.success("Note deleted!");
+                toastSuccess("Note deleted!");
             }
         } catch (err) {
-            toast.error("Error while deleting note");
+            toastError(err.message || "Error while deleting note");
         }
     };
 
     const handleUpdate = async (noteId) => {
         try {
             await updateNote(pet._id, noteId, editedNote);
-            toast.success("Note updated");
-
             setEditRowId(null);
 
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet(); // Re-fetch daten
-                toast.success("Note updated!");
+                toastSuccess("Note updated!");
             }
         } catch (err) {
-            toast.error("Error while updating note");
+            toastError(err.message || "Error while updating note");
         }
     };
 

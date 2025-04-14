@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { toastSuccess, toastError } from "../utils/toastHelper.js";
 import { me, signin } from "../data/auth.js";
-import { toast } from "react-toastify";
 import { AuthContext } from ".";
 
 const AuthContextProvider = ({ children }) => {
@@ -46,19 +46,19 @@ const AuthContextProvider = ({ children }) => {
             setIsAuthenticated(false);
             setUser(null);
 
-            toast.success("You have been logged out");
-        } catch (error) {
-            toast.error(error.message);
+            toastSuccess("You have been logged out");
+        } catch (err) {
+            toastError(err.message || "Log out failed");
         }
     };
 
     const logIn = async (credentials) => {
         try {
             const res = await signin(credentials);
-            toast.success(res.success);
+            toastSuccess(res.success);
             setCheckSession(true);
         } catch (err) {
-            toast.error(err.message || "Sign In failed");
+            toastError(err.message || "Sign In failed");
             throw err;
         }
     };

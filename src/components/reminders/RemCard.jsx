@@ -1,9 +1,8 @@
 import { useRems } from "../../context";
 import { usePets } from "../../context";
+import { toastSuccess, toastError } from "../../utils/toastHelper";
 import { useState } from "react";
 import { Pencil, Trash2 } from "lucide-react";
-import { format, isAfter } from "date-fns";
-import { toast } from "react-toastify";
 import { updateRem, deleteRem } from "../../data/rem";
 import RemForm from "./RemForm";
 
@@ -28,21 +27,21 @@ const RemCard = ({ rem, isActive, onClick }) => {
 
         try {
             await updateRem(rem._id, { status: updatedStatus });
-            toast.success("Reminder updated");
+            toastSuccess("Reminder updated");
             refreshRems();
         } catch (err) {
-            toast.error("Could not update reminder");
+            toastError(err.message || "Could not update reminder");
         }
     };
 
     const handleDelete = async () => {
         try {
             await deleteRem(rem._id);
-            toast.success("Reminder deleted");
+            toastSuccess("Reminder deleted");
             refreshRems();
             setActiveReminder(null); // optional
         } catch (err) {
-            toast.error("Could not delete reminder");
+            toastError(err.message || "Could not delete reminder");
         }
     };
 
@@ -53,7 +52,7 @@ const RemCard = ({ rem, isActive, onClick }) => {
                 !updatedData.category ||
                 !updatedData.date
             ) {
-                toast.error("Please fill all fields");
+                toastError("Please fill all fields");
                 return;
             }
 
@@ -63,11 +62,11 @@ const RemCard = ({ rem, isActive, onClick }) => {
             };
 
             await updateRem(rem._id, cleaned);
-            toast.success("Reminder updated");
+            toastSuccess("Reminder updated");
             refreshRems();
             setIsEditing(false);
         } catch (err) {
-            toast.error("Could not update reminder");
+            toastError(err.message || "Could not update reminder");
         }
     };
     const getPetName = (petId) => {

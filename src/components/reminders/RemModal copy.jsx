@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toastSuccess, toastErrors } from "../../../utils/toastHelper.js";
 import { toast } from "react-toastify";
 import { createRem, deleteRem, updateRem } from "../../data/rem";
 import { baseRem } from "../../utils/defaults";
@@ -40,11 +41,11 @@ const RemModal = ({ onClose, openWithAdd = false }) => {
     const handleSave = async () => {
         try {
             if (!newReminder.category) {
-                toast.error("Please select a category.");
+                toastErrors("Please select a category.");
                 return;
             }
             await createRem(newReminder);
-            toast.success("Reminder created!");
+            toastSuccess("Reminder created!");
             refreshRems();
             setShowAddRow(false);
             setNewReminder({
@@ -52,18 +53,18 @@ const RemModal = ({ onClose, openWithAdd = false }) => {
                 date: new Date().toISOString().split("T")[0],
             });
         } catch (err) {
-            toast.error(err.message);
+            toastErrors(err.message || "Error whille saving.");
         }
     };
 
     const handleUpdate = async (remId) => {
         try {
             await updateRem(remId, editReminder);
-            toast.success("Reminder updated!");
+            toastSuccess("Reminder updated!");
             refreshRems();
             setEditRowId(null);
         } catch (err) {
-            toast.error("Error while updating reminder");
+            toastErrors(err.message || "Error while updating reminder");
         }
     };
 
@@ -78,10 +79,10 @@ const RemModal = ({ onClose, openWithAdd = false }) => {
     const handleDelete = async (remId) => {
         try {
             await deleteRem(remId);
-            toast.success("Reminder deleted!");
+            toastSuccess("Reminder deleted!");
             refreshRems();
         } catch (err) {
-            toast.error("Error while deleting reminder");
+            toastErrors(err.message || "Error while deleting reminder");
         }
     };
 

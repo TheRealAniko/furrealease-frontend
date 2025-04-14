@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
 import { addMed, deleteMed, updateMed } from "../../../data/pets";
 import { baseMed } from "../../../utils/defaults";
+import { toastSuccess, toastError } from "../../../utils/toastHelper.js";
 import AddBtn from "../../ui/AddBtn";
 import MedForm from "./MedForm";
 import MedCard from "./MedCard";
@@ -50,10 +50,10 @@ const MedModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
 
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet();
-                toast.success("New medication created!");
+                toastSuccess("Medication created.");
             }
         } catch (err) {
-            toast.error(err.message);
+            toastError(err.message || "Error while saving medication.");
         }
     };
 
@@ -63,10 +63,10 @@ const MedModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
             setEditRowId(null);
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet();
-                toast.success("Medication updated!");
+                toastSuccess("Medication updated!");
             }
         } catch (err) {
-            toast.error("Error while updating medication");
+            toastError(err.message || "Error while updating medication");
         }
     };
 
@@ -84,10 +84,10 @@ const MedModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
             await deleteMed(pet._id, medId);
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet(); // Re-fetch daten
-                toast.success("Medication deleted!");
+                toastSuccess("Medication deleted!");
             }
         } catch (err) {
-            toast.error("Error while deleting mediction");
+            toastError(err.message || "Error while deleting mediction");
         }
     };
 

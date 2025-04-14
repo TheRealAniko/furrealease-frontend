@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
+import { toastSuccess, toastError } from "../../../utils/toastHelper.js";
 import { addVacc, deleteVacc, updateVacc } from "../../../data/pets";
 import { baseVacc } from "../../../utils/defaults";
 import AddBtn from "../../ui/AddBtn";
@@ -47,10 +47,10 @@ const VaccModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
 
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet();
-                toast.success("New vaccination created!");
+                toastSuccess("New vaccination created!");
             }
         } catch (err) {
-            toast.error(err.message);
+            toastError(err.message || "Error while creating vaccination");
         }
     };
 
@@ -60,10 +60,10 @@ const VaccModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
             setEditRowId(null);
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet();
-                toast.success("Vaccination updated!");
+                toastSuccess("Vaccination updated!");
             }
         } catch (err) {
-            toast.error("Error while updating vaccination");
+            toastError(err.message || "Error while updating vaccination");
         }
     };
 
@@ -80,10 +80,10 @@ const VaccModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
             await deleteVacc(pet._id, vaccId);
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet(); // Re-fetch daten
-                toast.success("VAccination deleted!");
+                toastSuccess("Vaccination deleted!");
             }
         } catch (err) {
-            toast.error("Error while deleting vaccination");
+            toastError(err.message || "Error while deleting vaccination");
         }
     };
 

@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import { usePets } from "../context";
+import { toastSuccess, toastError } from "../utils/toastHelper.js";
 import { getSinglePet, updatePet, sleepPet } from "../data/pets";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -39,8 +40,8 @@ const UpdatePet = () => {
                 });
 
                 setPhotoPreview(data.photoUrl || null);
-            } catch (error) {
-                toast.error("Failed to load pet data");
+            } catch (err) {
+                console.error(err);
             }
         };
         fetchPet();
@@ -92,12 +93,11 @@ const UpdatePet = () => {
             setPhotoPreview(photoUrl || null);
             setPhoto(null);
 
-            toast.success("Pet upadted!");
+            toastSuccess("Pet upadted!");
             await refreshPets();
             navigate(`/pets/${id}`, { state: { reload: true } });
-        } catch (error) {
-            console.error("Update failed:", error);
-            toast.error(error.message);
+        } catch (err) {
+            toastError(err.message || "Error updating pet");
 
             // Zusätzliche Info loggen:
             if (!res.ok) {
@@ -126,11 +126,11 @@ const UpdatePet = () => {
     const handleSleep = async () => {
         try {
             await sleepPet(id);
-            toast.success(`${name} is now sleeping 🌙`);
             await refreshPets();
+            toastSuccess(`${name} is now sleeping 🌙`);
             navigate("/pets"); // oder zurück zur Liste
         } catch (err) {
-            toast.error("Sleep update failed");
+            toastError(err.message || "Sleep update failed");
             console.error(err);
         }
     };

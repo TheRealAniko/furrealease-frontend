@@ -7,7 +7,6 @@ import {
     // createPet,
     // sleepPet,
 } from "../data/pets.js";
-import { toast } from "react-toastify";
 import { PetContext } from "./index.js";
 
 const PetContextProvider = ({ children }) => {
@@ -22,10 +21,8 @@ const PetContextProvider = ({ children }) => {
             try {
                 const data = await getPets();
                 setPets(data);
-                toast.success("All Pets fetched");
-            } catch (error) {
-                console.error("Failed to load pets", error.message);
-                toast.error(error.message);
+            } catch (err) {
+                console.error(err);
             } finally {
                 setLoading(false);
             }
@@ -38,10 +35,8 @@ const PetContextProvider = ({ children }) => {
         try {
             const data = await getPets();
             setPets(data);
-            toast.success("Pets updated");
         } catch (error) {
-            console.error("Failed to refresh pets", error.message);
-            toast.error(error.message);
+            console.error(err);
         }
     };
 

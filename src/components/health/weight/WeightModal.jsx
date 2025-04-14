@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
+import { toastSuccess, toastError } from "../../../utils/toastHelper.js";
 import {
     addWeightEntry,
     deleteWeightEntry,
@@ -41,37 +41,34 @@ const WeightModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
             // Refetch (du brauchst dafür ein prop!)
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet();
-                toast.success("New weight entry created!");
+                toastSuccess("New weight entry created!");
             }
         } catch (err) {
-            toast.error(error.message);
+            toastError(err.message || "Error while creating weight entry");
         }
     };
     const handleDelete = async (weightId) => {
         try {
             await deleteWeightEntry(pet._id, weightId);
-            toast.success("Entry deleted");
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet(); // Re-fetch daten
-                toast.success("Weight entry deleted!");
+                toastSuccess("Weight entry deleted!");
             }
-        } catch (error) {
-            toast.error("Error while deleting entry");
+        } catch (err) {
+            toastError(err.message || "Error while deleting entry");
         }
     };
     const handleUpdate = async (weightId) => {
         try {
             await updateWeightEntry(pet._id, weightId, editedEntry);
-            toast.success("Weight updated");
-
             setEditRowId(null);
 
             if (typeof onUpdatePet === "function") {
                 await onUpdatePet(); // Re-fetch daten
-                toast.success("Weight entry updated!");
+                toastSuccess("Weight entry updated!");
             }
-        } catch (error) {
-            toast.error("Error while updating entry");
+        } catch (err) {
+            toastError(err.message || "Error while updating entry");
         }
     };
 

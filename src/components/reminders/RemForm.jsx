@@ -1,9 +1,7 @@
 import { useState } from "react";
+import { toastError } from "../../utils/toastHelper.js";
 import { usePets } from "../../context";
 import { Save, X, Circle } from "lucide-react";
-import { createRem } from "../../data/rem";
-import { toast } from "react-toastify";
-import { updateRem } from "../../data/rem";
 
 const RemForm = ({
     onCancel,
@@ -45,14 +43,13 @@ const RemForm = ({
                 !cleanedData.title ||
                 !cleanedData.date
             ) {
-                toast.error("Please fill all required fields.");
+                toastError("Please fill all required fields.");
                 return;
             }
 
             onSave?.(cleanedData); // ➤ Rückgabe an Parent
         } catch (err) {
-            console.error("SAVE ERROR", err.message);
-            toast.error(err.message);
+            toastError(err.message || "Error while saving reminder");
         }
     };
 

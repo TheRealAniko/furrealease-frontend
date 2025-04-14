@@ -1,4 +1,4 @@
-import { Undo2, Mars, Venus, Cake, Rainbow } from "lucide-react"; // oder ein anderes Icon
+import { Undo2, Mars, Venus, Cake, Rainbow } from "lucide-react";
 import PetProfilImg from "./PetProfileImg";
 import { formatAge } from "../../utils/formatAge.js";
 
@@ -12,17 +12,6 @@ const SleepingPetCard = ({
     onActivate,
     sleepingSince,
 }) => {
-    const handleUnsleep = async (id) => {
-        try {
-            await unsleepPet(id);
-            toast.success("Welcome back 💚");
-            // evtl. pets neu laden / context updaten
-        } catch (err) {
-            toast.error("Could not bring pet back");
-            console.error(err);
-        }
-    };
-
     return (
         <div className="card-container flex gap-8 text-neutral900">
             <div className="">
