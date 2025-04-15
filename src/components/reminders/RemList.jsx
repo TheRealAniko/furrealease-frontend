@@ -8,6 +8,8 @@ import {
     isBefore,
     isSameMonth,
     startOfMonth,
+    startOfDay,
+    startOfToday,
 } from "date-fns";
 import RemCard from "./RemCard";
 import { CirclePlus } from "lucide-react";
@@ -23,11 +25,7 @@ const RemList = () => {
         rems,
     } = useRems();
     const [showCompleted, setShowCompleted] = useState(false);
-    const today = new Date();
-    // const futureReminders = rems.filter(
-    //     (rem) =>
-    //         isToday(new Date(rem.date)) || isAfter(new Date(rem.date), today)
-    // );
+    const today = startOfToday();
 
     const visibleReminders = rems.filter((rem) => {
         const date = new Date(rem.date);
@@ -45,7 +43,7 @@ const RemList = () => {
         : visibleReminders; // bestehende Logik
 
     const overdueRems = rems.filter((rem) => {
-        const date = new Date(rem.date);
+        const date = startOfDay(new Date(rem.date));
         return isBefore(date, today) && rem.status !== "done";
     });
 

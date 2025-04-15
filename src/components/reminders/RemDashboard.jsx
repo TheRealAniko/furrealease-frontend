@@ -1,24 +1,40 @@
 import { useRems } from "../../context";
 import RemCard from "./RemCard";
-import { isAfter, isBefore, isSameDay } from "date-fns";
+import {
+    isAfter,
+    isBefore,
+    isSameDay,
+    startOfDay,
+    startOfToday,
+} from "date-fns";
+
 import { useState } from "react";
 
 const RemDashboard = () => {
     const { rems } = useRems();
     const [activeReminderDash, setActiveReminderDash] = useState(null);
 
-    const today = new Date();
+    const today = startOfToday();
 
     const overdue = rems.filter(
-        (r) => isBefore(new Date(r.date), today) && r.status !== "done"
+        (r) =>
+            isBefore(startOfDay(new Date(r.date)), today) &&
+            r.status !== "done" &&
+            !isSameDay(startOfDay(new Date(r.date)), today)
     );
 
     const todayRems = rems.filter(
-        (r) => isSameDay(new Date(r.date), today) && r.status !== "done"
+        (r) =>
+            isSameDay(startOfDay(new Date(r.date)), today) &&
+            r.status !== "done"
     );
 
     const upcoming = rems
-        .filter((r) => isAfter(new Date(r.date), today) && r.status !== "done")
+        .filter(
+            (r) =>
+                isAfter(startOfDay(new Date(r.date)), today) &&
+                r.status !== "done"
+        )
         .sort((a, b) => new Date(a.date) - new Date(b.date))
         .slice(0, 3);
 
