@@ -6,7 +6,6 @@ import {
     baseVisit,
     baseWeight,
 } from "../../../utils/defaults";
-import { toast } from "react-toastify";
 import {
     addVacc,
     addVisit,
@@ -57,7 +56,20 @@ const VisitModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
 
     const handleChangeNew = (e) => {
         const { name, value } = e.target;
+
         setNewVisit((prev) => ({ ...prev, [name]: value }));
+
+        // dynamisch Daten an die SubForms übergeben
+        if (name === "vet") {
+            setMedData((prev) => ({ ...prev, vet: value }));
+            setVaccData((prev) => ({ ...prev, vet: value }));
+        }
+
+        if (name === "date") {
+            setMedData((prev) => ({ ...prev, startDate: value }));
+            setVaccData((prev) => ({ ...prev, date: value }));
+            setWeightData((prev) => ({ ...prev, date: value }));
+        }
     };
 
     const handleChangeEdit = (e) => {
@@ -165,9 +177,7 @@ const VisitModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
             <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-screen-lg max-h-[90vh] overflow-y-auto">
                 <div className="flex justify-between items-center mb-4">
-                    <h3 className="h3-section">
-                        Vet visit records: {pet.name}
-                    </h3>
+                    <h3 className="h3-section">Visit Records: {pet.name}</h3>
                     <button
                         onClick={onClose}
                         className="text-greenEyes hover:text-darkGreenEyes text-lg">
@@ -206,25 +216,30 @@ const VisitModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
                 )}
 
                 <div className="grid gap-6 grid-cols-2 mt-4">
-                    {vetVisits.map((visit) =>
-                        editRowId === visit._id ? (
-                            <VisitForm
-                                key={visit._id}
-                                visit={editVisit}
-                                handleChange={handleChangeEdit}
-                                onSave={() => handleUpdate(visit._id)}
-                                onCancel={() => setEditRowId(null)}
-                                isEdit={true}
-                            />
-                        ) : (
-                            <VisitCard
-                                key={visit._id}
-                                visit={visit}
-                                onEdit={() => handleEditStart(visit)}
-                                onDelete={handleDelete}
-                            />
-                        )
-                    )}
+                    {[...vetVisits]
+                        .reverse()
+                        .map((visit) =>
+                            editRowId === visit._id ? (
+                                <VisitForm
+                                    key={visit._id}
+                                    visit={editVisit}
+                                    handleChange={handleChangeEdit}
+                                    onSave={() => handleUpdate(visit._id)}
+                                    onCancel={() => setEditRowId(null)}
+                                    isEdit={true}
+                                />
+                            ) : (
+                                <VisitCard
+                                    key={visit._id}
+                                    visit={visit}
+                                    weightHistory={pet.weightHistory}
+                                    medications={pet.medications}
+                                    vaccinations={pet.vaccinations}
+                                    onEdit={() => handleEditStart(visit)}
+                                    onDelete={handleDelete}
+                                />
+                            )
+                        )}
                 </div>
             </div>
         </div>

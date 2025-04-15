@@ -69,7 +69,9 @@ const Dashboard = () => {
                     <RemDashboard />
                     <div className="flex justify-end items-center mb-6 py-8">
                         <button
-                            onClick={() => navigate("/reminders")}
+                            onClick={() => {
+                                navigate("/reminders"); // KEINE searchParams
+                            }}
                             className="btn-icon">
                             <Eye className="w-5 h-5" />
                             See all Reminders

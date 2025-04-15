@@ -1,13 +1,12 @@
 import { Save, X } from "lucide-react";
 
-const WeightForm = ({
+const NoteForm = ({
     formData,
     setFormData,
     onSave,
     onCancel,
     isEdit = false,
     showButtons = true,
-    inlineMode = false,
 }) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,63 +24,62 @@ const WeightForm = ({
                     className={` text-neutral100 font-normal text-base px-4 py-2 rounded-md ${
                         isEdit ? "bg-pinkNose" : "bg-greenEyes"
                     }`}>
-                    {isEdit ? "Update Weight" : "New Weight"}
+                    {isEdit ? "Update Observation" : "New Observation"}
                 </div>
-
                 <div className="p-4 text-base font-light space-y-4">
-                    {/* Weight & Date */}
-                    <div
-                        className={`flex flex-col ${
-                            isEdit ? "space-y-4" : "md:flex-row md:gap-4"
-                        }`}>
+                    {/* Observation */}
+                    <div className="flex flex-col md:flex-row md:gap-4">
+                        <textarea
+                            name="note"
+                            value={formData.note}
+                            onChange={handleChange}
+                            className="grow input-small"
+                            placeholder="Enter your note"
+                            rows={2}
+                        />
+                    </div>
+                    {/* Category & Date */}
+                    <div className="flex flex-col md:flex-row md:gap-4">
                         <label className="flex input-small w-full">
                             {isEdit && (
                                 <span className="text-neutral400 pr-4">
-                                    Weigt:
+                                    Category:
                                 </span>
                             )}
-                            <input
-                                type="number"
-                                name="weight"
-                                value={formData.weight}
+                            <select
+                                name="category"
+                                value={formData.category}
                                 onChange={handleChange}
-                                className="grow"
-                                placeholder="kg"
-                                required
-                            />
+                                className="select select-bordered w-full text-sm">
+                                <option value="" disabled>
+                                    Select category
+                                </option>
+                                <option value="Symptom">Symptom</option>
+                                <option value="Behavior">Behavior</option>
+                                <option value="Feeding">Feeding</option>
+                                <option value="Sleep">Sleep</option>
+                                <option value="Other">Other</option>
+                            </select>
                         </label>
 
-                        <label className="flex input-small w-full">
-                            {isEdit && (
-                                <span className="text-neutral400 pr-4">
-                                    On:
-                                </span>
-                            )}
-
+                        <label className="input-small w-full flex">
+                            <span className="text-neutral400 pr-4">On:</span>
                             <input
                                 type="date"
                                 name="date"
                                 value={formData.date}
                                 onChange={handleChange}
-                                className="grow"
-                                required
+                                className="w-full"
                             />
                         </label>
                     </div>
                 </div>
-
-                {/* Buttons */}
                 {showButtons && (
                     <div className="flex justify-end gap-6 text-greenEyes px-4 pb-4">
-                        <button
-                            type="button"
-                            onClick={onSave}
-                            className="btn-icon">
+                        <button onClick={onSave} className="btn-icon">
                             <Save className="w-5 h-5" /> Save
                         </button>
-
                         <button
-                            type="button"
                             onClick={onCancel}
                             className="btn-icon text-error hover:text-[#A24140]">
                             <X className="w-5 h-5" /> Cancel
@@ -92,5 +90,4 @@ const WeightForm = ({
         </div>
     );
 };
-
-export default WeightForm;
+export default NoteForm;

@@ -28,6 +28,13 @@ const Reminders = () => {
         }
     }, [addReminder, setShowRemModal]);
 
+    useEffect(() => {
+        if (!addReminder) {
+            setShowRemModal(false);
+            setOpenWithAdd(false);
+        }
+    }, [addReminder]);
+
     const [activeReminderTop, setActiveReminderTop] = useState(null);
     const [activeReminderBottom, setActiveReminderBottom] = useState(null);
 

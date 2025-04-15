@@ -27,6 +27,7 @@ import { formatDate } from "../utils/formateDate.js";
 import VisitModal from "../components/health/visits/VisitModal.jsx";
 import { useRems } from "../context";
 import RemCard from "../components/reminders/RemCard.jsx";
+import PetRemSection from "../components/pets/PetRemSection.jsx";
 
 const PetDetail = () => {
     const [currPet, setCurrPet] = useState({});
@@ -80,7 +81,7 @@ const PetDetail = () => {
     const lastVisit = vetVisits.at(-1);
     const lastVetVisit = formatDate(lastVisit?.date);
 
-    const petRems = rems.filter((r) => r.petRef === currPet._id);
+    const petRems = rems.filter((r) => r.petId?.toString() === currPet._id);
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
@@ -151,20 +152,7 @@ const PetDetail = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 py-10">
-                <div className="card-container col-span-2">
-                    <h3 className="h3-section mb-4">Reminders for {name}</h3>
-                    {petRems.length > 0 ? (
-                        <div className="space-y-2">
-                            {petRems.map((rem) => (
-                                <RemCard key={rem._id} rem={rem} />
-                            ))}
-                        </div>
-                    ) : (
-                        <p className="italic text-neutral700">
-                            No pet-specific reminders.
-                        </p>
-                    )}
-                </div>
+                <PetRemSection pet={currPet} />
 
                 <VisitsSection
                     pet={currPet}

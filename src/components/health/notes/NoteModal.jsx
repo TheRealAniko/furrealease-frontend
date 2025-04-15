@@ -5,6 +5,7 @@ import { addNote, deleteNote, updateNote } from "../../../data/pets";
 import NoteRow from "./NoteRow";
 import { Pencil, Trash2, Save, X } from "lucide-react";
 import AddBtn from "../../ui/AddBtn";
+import NoteForm from "./NoteForm";
 
 const NoteModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
     const notes = pet?.notes || [];
@@ -86,7 +87,9 @@ const NoteModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
             <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-screen-lg">
                 <div className="flex justify-between items-center mb-4">
-                    <h3 className="h3-section">Notes & Observations</h3>
+                    <h3 className="h3-section">
+                        Notes & Observations: {pet.name}
+                    </h3>
                     <button
                         onClick={onClose}
                         className="text-greenEyes hover:text-darkGreenEyes text-lg">
@@ -116,147 +119,29 @@ const NoteModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
                     <tbody className="table-body">
                         {showAddRow && (
                             <tr>
-                                <td>
-                                    <textarea
-                                        name="note"
-                                        value={newNote.note}
-                                        onChange={handleChange}
-                                        className="textarea w-full text-sm"
-                                        placeholder="Enter your note"
-                                        rows={2}
+                                <td colSpan={5}>
+                                    <NoteForm
+                                        formData={newNote}
+                                        setFormData={setNewNote}
+                                        onSave={handleSave}
+                                        onCancel={() => setShowAddRow(false)}
                                     />
-                                </td>
-                                <td>
-                                    <label className="input flex items-center gap-2">
-                                        <select
-                                            name="category"
-                                            value={newNote.category}
-                                            onChange={handleChange}
-                                            className="grow font-light text-base">
-                                            <option value="" disabled>
-                                                Select a category
-                                            </option>
-                                            <option value="Symptom">
-                                                Symptom
-                                            </option>
-                                            <option value="Behavior">
-                                                Behavior
-                                            </option>
-                                            <option value="Feeding">
-                                                Feeding
-                                            </option>
-                                            <option value="Sleep">Sleep</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                    </label>
-                                </td>
-                                <td>
-                                    <input
-                                        type="date"
-                                        name="date"
-                                        value={newNote.date}
-                                        onChange={handleChange}
-                                        className="input input-bordered w-full text-sm"
-                                    />
-                                </td>
-                                <td>
-                                    {" "}
-                                    <button
-                                        onClick={handleSave}
-                                        className="btn-icon">
-                                        <Save className="w-5 h-5" /> Save
-                                    </button>
-                                </td>
-                                <td>
-                                    {" "}
-                                    <button
-                                        onClick={() => setShowAddRow(false)}
-                                        className="btn-icon  text-error hover:text-[#A24140]">
-                                        <X className="w-5 h-5" /> Cancel
-                                    </button>
                                 </td>
                             </tr>
                         )}
                         {notesSorted.map((note) =>
                             editRowId === note._id ? (
                                 <tr key={note._id}>
-                                    <td>
-                                        <textarea
-                                            name="note"
-                                            value={editedNote.note}
-                                            onChange={(e) =>
-                                                setEditedNote((prev) => ({
-                                                    ...prev,
-                                                    note: e.target.value,
-                                                }))
-                                            }
-                                            className="textarea w-full text-sm"
-                                            rows={2}
-                                        />
-                                    </td>
-                                    <td>
-                                        <label className="input flex items-center gap-2">
-                                            <select
-                                                name="category"
-                                                value={editedNote.category}
-                                                onChange={(e) =>
-                                                    setEditedNote((prev) => ({
-                                                        ...prev,
-                                                        category:
-                                                            e.target.value,
-                                                    }))
-                                                }
-                                                className="select select-bordered w-full text-sm">
-                                                <option value="" disabled>
-                                                    Select a category
-                                                </option>
-                                                <option value="Symptom">
-                                                    Symptom
-                                                </option>
-                                                <option value="Behavior">
-                                                    Behavior
-                                                </option>
-                                                <option value="Feeding">
-                                                    Feeding
-                                                </option>
-                                                <option value="Sleep">
-                                                    Sleep
-                                                </option>
-                                                <option value="Other">
-                                                    Other
-                                                </option>
-                                            </select>
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <input
-                                            type="date"
-                                            name="date"
-                                            value={editedNote.date}
-                                            onChange={(e) =>
-                                                setEditedNote((prev) => ({
-                                                    ...prev,
-                                                    date: e.target.value,
-                                                }))
-                                            }
-                                            className="input input-bordered w-full text-sm"
-                                        />
-                                    </td>
-                                    <td>
-                                        <button
-                                            onClick={() =>
+                                    <td colSpan={5}>
+                                        <NoteForm
+                                            formData={editedNote}
+                                            setFormData={setEditedNote}
+                                            onSave={() =>
                                                 handleUpdate(note._id)
                                             }
-                                            className="btn-icon">
-                                            <Save className="w-5 h-5" /> Save
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button
-                                            onClick={() => setEditRowId(null)}
-                                            className="btn-icon text-error hover:text-[#A24140]">
-                                            <X className="w-5 h-5" /> Cancel
-                                        </button>
+                                            onCancel={() => setEditRowId(null)}
+                                            isEdit
+                                        />
                                     </td>
                                 </tr>
                             ) : (

@@ -6,7 +6,7 @@ const VisitsSection = ({ pet, onOpenModal, onOpenAddModal }) => {
     const vetVisits = pet?.vetVisits || [];
 
     return (
-        <div className="card-container">
+        <div className="card-container flex flex-col h-full">
             <div className="flex justify-between items-center mb-4 ">
                 <h3 className="h3-section">Vet Visits</h3>
                 <AddButton onClick={onOpenAddModal} label="Add" />
@@ -24,22 +24,26 @@ const VisitsSection = ({ pet, onOpenModal, onOpenAddModal }) => {
                             </thead>
 
                             <tbody className="table-body">
-                                {vetVisits.slice(0, 2).map((visit) => (
-                                    <tr
-                                        key={visit._id}
-                                        className="bg-neutral100 rounded-md border border-neutral400 overflow-hidden">
-                                        <td className="flex gap-4">
-                                            <Hospital className="text-inactive w-6 " />
-                                            {visit.reason}
-                                        </td>
-                                        <td>{formatDate(visit.date)}</td>
-                                        <td>{visit.vet}</td>
-                                    </tr>
-                                ))}
+                                {[...vetVisits] // neue Kopie, um reverse() nicht zu mutieren
+                                    .reverse()
+                                    .slice(0, 2)
+                                    .map((visit) => (
+                                        <tr
+                                            key={visit._id}
+                                            className="bg-neutral100 rounded-md border border-neutral400 overflow-hidden">
+                                            <td className="flex gap-4">
+                                                <Hospital className="text-inactive w-6 " />
+                                                {visit.reason}
+                                            </td>
+                                            <td>{formatDate(visit.date)}</td>
+                                            <td>{visit.vet}</td>
+                                        </tr>
+                                    ))}
                             </tbody>
                         </table>
                     </div>
-
+                    <div className="flex-grow" />{" "}
+                    {/* <-- Spacer schiebt den Button runter */}
                     <div className="flex justify-end mt-4">
                         <button onClick={onOpenModal} className="btn-icon">
                             <Eye className="w-5 h-5" />

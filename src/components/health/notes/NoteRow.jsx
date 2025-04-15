@@ -1,9 +1,12 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, NotebookPen } from "lucide-react";
 
 const NoteRow = ({ note, showActions, onEdit, onDelete }) => {
     return (
         <tr className="overflow-hidden">
-            <td>{note.note}</td>
+            <td className="flex gap-4">
+                <NotebookPen className="text-inactive w-6 " />
+                {note.note}
+            </td>
             <td>{note.category}</td>
             <td className="whitespace-nowrap">
                 {note.date
