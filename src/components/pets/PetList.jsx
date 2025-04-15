@@ -7,9 +7,12 @@ const Petlist = ({ limit }) => {
     const displayedPets = limit ? activePets.slice(0, limit) : activePets;
     return (
         <>
-            {displayedPets.map((pet) => (
-                <PetCard key={pet._id} id={pet._id} {...pet} />
-            ))}
+            {displayedPets
+                .slice()
+                .reverse()
+                .map((pet) => (
+                    <PetCard key={pet._id} id={pet._id} {...pet} />
+                ))}
         </>
     );
 };

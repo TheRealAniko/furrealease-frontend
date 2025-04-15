@@ -25,7 +25,7 @@ const RemForm = ({
         ),
         recurring: defaultValues?.recurring || "none",
         category: defaultValues?.category || "",
-        comment: defaultValues?.comment || "",
+        notes: defaultValues?.notes || "",
     });
 
     const handleChange = (e) => {
@@ -35,12 +35,15 @@ const RemForm = ({
 
     const handleSave = async () => {
         try {
-            const cleanedData = { ...formData };
+            const cleanedData = {
+                ...formData,
+                date: new Date(formData.date).toISOString(), // ➤ wichtig für Mongo!
+            };
 
             if (!cleanedData.petId) delete cleanedData.petId;
             if (
-                !cleanedData.category ||
                 !cleanedData.title ||
+                !cleanedData.category ||
                 !cleanedData.date
             ) {
                 toastError("Please fill all required fields.");
@@ -147,10 +150,10 @@ const RemForm = ({
                                 </span>
                             )} */}
                             <input
-                                name="comment"
-                                value={formData.comment}
+                                name="notes"
+                                value={formData.notes}
                                 onChange={handleChange}
-                                placeholder="Comment"
+                                placeholder="Notes"
                                 className="grow"
                             />
                         </label>

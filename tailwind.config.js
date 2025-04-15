@@ -14,6 +14,7 @@ export default {
                 pinkNose: "#D97373",
                 neutral900: "#221F1A",
                 neutral700: "#4C433E",
+                neutral600: "#6F635C",
                 neutral400: "#D8D5D1",
                 neutral200: "#F8F4EF",
                 neutral100: "#FDFEFF",

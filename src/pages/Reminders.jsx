@@ -24,6 +24,7 @@ const Reminders = () => {
     useEffect(() => {
         if (addReminder) {
             setShowRemModal(true);
+            setOpenWithAdd(true);
         }
     }, [addReminder, setShowRemModal]);
 
