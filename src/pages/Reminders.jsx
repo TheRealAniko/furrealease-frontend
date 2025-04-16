@@ -121,6 +121,7 @@ const Reminders = () => {
                     <RemList
                         activeReminder={activeReminderTop}
                         setActiveReminder={setActiveReminderTop}
+                        setParentOpenWithAdd={setOpenWithAdd}
                     />
                     {showRemModal && (
                         <RemModal
