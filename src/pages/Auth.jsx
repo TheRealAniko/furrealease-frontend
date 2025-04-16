@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { Navigate, useLocation } from "react-router";
+import { Navigate, useLocation, useSearchParams } from "react-router";
 import { toastSuccess } from "../utils/toastHelper.js";
 import { Mail, KeyRound, User } from "lucide-react";
 import { signup, signin } from "../data/auth.js";
 import { useAuth } from "../context/index.js";
 
 const Auth = () => {
+    const [searchParams] = useSearchParams();
+    const defaultIsSignUp = searchParams.get("signup") === "true";
     const { isAuthenticated, setCheckSession, setIsAuthenticated } = useAuth();
-    const [isSignUp, setIsSignUp] = useState(false);
+    const [isSignUp, setIsSignUp] = useState(defaultIsSignUp);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const location = useLocation();

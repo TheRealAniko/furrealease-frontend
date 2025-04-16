@@ -23,9 +23,9 @@ const App = () => {
                 <RemContextProvider>
                     <BrowserRouter>
                         <Routes>
+                            <Route path="/" element={<Home />} />
                             {/* Public Routes */}
-                            <Route path="/" element={<MainLayout />}>
-                                <Route index element={<Auth />} />
+                            <Route element={<MainLayout />}>
                                 <Route path="auth" element={<Auth />} />
                             </Route>
 

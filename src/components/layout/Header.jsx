@@ -1,4 +1,5 @@
 import { useAuth } from "../../context/index.js";
+import { Link, NavLink } from "react-router";
 
 const Header = () => {
     const { isAuthenticated } = useAuth();
@@ -6,9 +7,11 @@ const Header = () => {
         <header className="fixed top-0 z-50 bg-neutral900 text-neutral100 w-full h-16 border-b border-b-neutral100 flex">
             <div className="container mx-auto self-center flex justify-between ">
                 <div className="self-center ">
-                    <h1 className="font-sans text-3xl font-thin">
-                        FurRealEase
-                    </h1>
+                    <NavLink to="/">
+                        <h1 className="font-sans text-3xl font-thin">
+                            FurRealEase
+                        </h1>
+                    </NavLink>
                 </div>
                 {isAuthenticated && (
                     <>
