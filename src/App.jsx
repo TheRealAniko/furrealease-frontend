@@ -24,10 +24,9 @@ const App = () => {
                     <BrowserRouter>
                         <Routes>
                             <Route path="/" element={<Home />} />
+                            <Route path="auth" element={<Auth />} />
                             {/* Public Routes */}
-                            <Route element={<MainLayout />}>
-                                <Route path="auth" element={<Auth />} />
-                            </Route>
+                            <Route element={<MainLayout />}></Route>
 
                             {/* Protected Routes */}
                             <Route element={<ProtectedLayout />}>

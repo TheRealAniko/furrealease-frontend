@@ -2,14 +2,37 @@ import { useNavigate } from "react-router";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import { Hospital, Syringe, AlarmClock } from "lucide-react";
+import Cat from "../assets/Cat.svg";
+import Dog from "../assets/Dog.svg";
+import Rabbit from "../assets/Rabbit.svg";
 
 const Home = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen flex flex-col justify-between  bg-neutral200 text-neutral900">
+        <div className="min-h-screen flex flex-col justify-between  bg-neutral200 text-neutral900 relativ">
+            <Header />
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <img
+                    src={Dog}
+                    className="hidden md:block absolute w-72 top-20 left-10 "
+                    alt="Dog Illustration"
+                />
+                <img
+                    src={Cat}
+                    className="hidden md:block absolute w-64 top-24 right-0"
+                    alt="Cat Illustration"
+                />
+                <img
+                    src={Rabbit}
+                    className="hidden sm:block absolute w-56 top-1/4 left-2/3"
+                    alt="Rabbit Illustration"
+                />
+            </div>
             {/* Hero Section */}
-            <section className="text-center pt-28 px-6">
+            {/* Spacer*/}
+            <div className="flex-grow" />{" "}
+            <section className="relative z-10 text-center  px-6">
                 <h1 className="text-5xl md:text-8xl font-bold mb-6 text-primary">
                     FurRealEase
                 </h1>
@@ -30,10 +53,10 @@ const Home = () => {
                     </button>
                 </div>
             </section>
-
-            {/* Feature Section */}
-            <div className="container mx-auto">
-                <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-38">
+            {/* Spacer*/}
+            <div className="flex-grow" /> {/* Feature Section */}
+            <div className="container mx-auto relative z-10 ">
+                <section className="grid grid-cols-1 md:grid-cols-3 gap-6 ">
                     <Feature
                         icon={
                             <Syringe
@@ -66,8 +89,11 @@ const Home = () => {
                     />
                 </section>
             </div>
-
-            <Footer />
+            {/* Spacer*/}
+            <div className="flex-grow" />{" "}
+            <div className="relative z-10">
+                <Footer />
+            </div>
         </div>
     );
 };

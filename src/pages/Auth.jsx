@@ -1,9 +1,21 @@
 import { useState } from "react";
 import { Navigate, useLocation, useSearchParams } from "react-router";
 import { toastSuccess } from "../utils/toastHelper.js";
-import { Mail, KeyRound, User } from "lucide-react";
+import {
+    Mail,
+    KeyRound,
+    User,
+    Hospital,
+    Syringe,
+    AlarmClock,
+} from "lucide-react";
 import { signup, signin } from "../data/auth.js";
 import { useAuth } from "../context/index.js";
+import Cat from "../assets/Cat.svg";
+import Dog from "../assets/Dog.svg";
+import Rabbit from "../assets/Rabbit.svg";
+import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
 
 const Auth = () => {
     const [searchParams] = useSearchParams();
@@ -95,107 +107,182 @@ const Auth = () => {
     if (isAuthenticated) return <Navigate to="/dashboard" />;
 
     return (
-        <div className="card-container mx-auto max-w-screen-md	">
-            <div>
-                <h2 className="h2-section">
-                    {isSignUp ? "Create your account" : "Sign In"}
-                </h2>
+        <div className="min-h-screen flex flex-col justify-between  bg-neutral200 text-neutral900 relativ">
+            <Header />
+            {/* Illustrations */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <img
+                    src={Dog}
+                    className="hidden md:block absolute w-72 top-20 left-10 "
+                    alt="Dog Illustration"
+                />
+                <img
+                    src={Cat}
+                    className="hidden md:block absolute w-64 top-24 right-0"
+                    alt="Cat Illustration"
+                />
+                <img
+                    src={Rabbit}
+                    className="hidden sm:block absolute w-56 top-1/4 left-2/3"
+                    alt="Rabbit Illustration"
+                />
             </div>
-            <form
-                className="my-5 px-20 mx-auto flex flex-col gap-3"
-                onSubmit={handleSubmit}>
-                {isSignUp && (
-                    <>
-                        {/* Input for SignUp */}
+            {/* Spacer*/}
+            <div className="flex-grow" />{" "}
+            <div className="relative z-10  items-center">
+                {/* Auth Container */}
+                <div className="card-container mx-auto  max-w-screen-md ">
+                    <div>
+                        <h2 className="h2-section">
+                            {isSignUp ? "Create your account" : "Sign In"}
+                        </h2>
+                    </div>
+                    <form
+                        className="my-5 px-20 mx-auto flex flex-col gap-3"
+                        onSubmit={handleSubmit}>
+                        {isSignUp && (
+                            <>
+                                {/* Input for SignUp */}
+                                <label className="input flex items-center gap-2">
+                                    <User className="text-neutral700" />
+                                    <input
+                                        name="firstName"
+                                        value={firstName}
+                                        onChange={handleChange}
+                                        type="text"
+                                        className="grow font-light text-base"
+                                        placeholder="First Name"
+                                    />
+                                </label>
+                                <label className="input flex items-center gap-2">
+                                    <User className="text-neutral700" />
+                                    <input
+                                        name="lastName"
+                                        value={lastName}
+                                        onChange={handleChange}
+                                        type="text"
+                                        className="grow font-light text-base"
+                                        placeholder="Last Name"
+                                    />
+                                </label>
+                            </>
+                        )}
                         <label className="input flex items-center gap-2">
-                            <User className="text-neutral700" />
+                            <Mail className="text-neutral700" />
                             <input
-                                name="firstName"
-                                value={firstName}
+                                name="email"
+                                value={email}
                                 onChange={handleChange}
-                                type="text"
+                                type="email"
                                 className="grow font-light text-base"
-                                placeholder="First Name"
+                                placeholder="Email"
                             />
                         </label>
-                        <label className="input flex items-center gap-2">
-                            <User className="text-neutral700" />
-                            <input
-                                name="lastName"
-                                value={lastName}
-                                onChange={handleChange}
-                                type="text"
-                                className="grow font-light text-base"
-                                placeholder="Last Name"
-                            />
-                        </label>
-                    </>
-                )}
-                <label className="input flex items-center gap-2">
-                    <Mail className="text-neutral700" />
-                    <input
-                        name="email"
-                        value={email}
-                        onChange={handleChange}
-                        type="email"
-                        className="grow font-light text-base"
-                        placeholder="Email"
-                    />
-                </label>
-                <label className="input flex items-center gap-2">
-                    <KeyRound className="text-neutral700" />
-                    <input
-                        name="password"
-                        value={password}
-                        onChange={handleChange}
-                        type="password"
-                        className="grow font-light text-base"
-                        placeholder="Password"
-                    />
-                </label>
-                {isSignUp && (
-                    <>
-                        {/* Input for SignUp */}
                         <label className="input flex items-center gap-2">
                             <KeyRound className="text-neutral700" />
                             <input
-                                name="confirmPassword"
-                                value={confirmPassword}
+                                name="password"
+                                value={password}
                                 onChange={handleChange}
                                 type="password"
                                 className="grow font-light text-base"
-                                placeholder="Confirm your password..."
+                                placeholder="Password"
                             />
                         </label>
-                    </>
-                )}
+                        {isSignUp && (
+                            <>
+                                {/* Input for SignUp */}
+                                <label className="input flex items-center gap-2">
+                                    <KeyRound className="text-neutral700" />
+                                    <input
+                                        name="confirmPassword"
+                                        value={confirmPassword}
+                                        onChange={handleChange}
+                                        type="password"
+                                        className="grow font-light text-base"
+                                        placeholder="Confirm your password..."
+                                    />
+                                </label>
+                            </>
+                        )}
 
-                <small className="text-center">
-                    {isSignUp
-                        ? "Already have an account?"
-                        : "Don't have an account?"}{" "}
-                    <button
-                        type="button"
-                        className="text-primary hover:underline"
-                        onClick={() => setIsSignUp(!isSignUp)}>
-                        {isSignUp ? "Sign In" : "Create One"}
-                    </button>
-                </small>
+                        <small className="text-center">
+                            {isSignUp
+                                ? "Already have an account?"
+                                : "Don't have an account?"}{" "}
+                            <button
+                                type="button"
+                                className="text-primary hover:underline"
+                                onClick={() => setIsSignUp(!isSignUp)}>
+                                {isSignUp ? "Sign In" : "Create One"}
+                            </button>
+                        </small>
 
-                {error && (
-                    <p className="text-error text-sm text-center mt-2">
-                        {error}
-                    </p>
-                )}
+                        {error && (
+                            <p className="text-error text-sm text-center mt-2">
+                                {error}
+                            </p>
+                        )}
 
-                <button
-                    className="btn btn-primary self-center"
-                    disabled={loading}>
-                    {isSignUp ? "Create Account" : "Log In"}
-                </button>
-            </form>
+                        <button
+                            className="btn btn-primary self-center"
+                            disabled={loading}>
+                            {isSignUp ? "Create Account" : "Log In"}
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {/* Spacer*/}
+            <div className="flex-grow" /> {/* Feature Section */}
+            {/* <div className="container mx-auto relative z-10 ">
+                <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-38">
+                    <Feature
+                        icon={
+                            <Syringe
+                                strokeWidth={1.25}
+                                className="text-primary w-20 h-20"
+                            />
+                        }
+                        title="Vaccinations & Medications"
+                        text="Track treatments with automated reminders."
+                    />
+                    <Feature
+                        icon={
+                            <Hospital
+                                strokeWidth={1.25}
+                                className="text-primary w-20 h-20"
+                            />
+                        }
+                        title="Weight & Vet Visits"
+                        text="Log vet visits and monitor weight history easily."
+                    />
+                    <Feature
+                        icon={
+                            <AlarmClock
+                                strokeWidth={1.25}
+                                className="text-primary w-20 h-20"
+                            />
+                        }
+                        title="Smart Reminders"
+                        text="Stay ahead with categorized, pet-specific reminders."
+                    />
+                </section>
+            </div> */}
+            {/* Spacer*/}
+            <div className="flex-grow" /> {/* Feature Section */}
+            <div className="relative z-10">
+                <Footer />
+            </div>
         </div>
     );
 };
+
+const Feature = ({ icon, title, text }) => (
+    <div className="card-container flex flex-col items-center py-8">
+        <div className="text-4xl mb-6">{icon}</div>
+        <h3 className="h2-section mb-4">{title}</h3>
+        <p className="text-base text-neutral600">{text}</p>
+    </div>
+);
 
 export default Auth;
