@@ -84,7 +84,7 @@ const RemCard = ({ rem, isActive, onClick }) => {
                     isEdit
                 />
             ) : (
-                <div className="py-4 border-b border-neutral400">
+                <div className="py-3 border-b border-neutral400">
                     <div className="cursor-pointer flex items-center gap-4">
                         <input
                             type="radio"
@@ -109,7 +109,7 @@ const RemCard = ({ rem, isActive, onClick }) => {
                             </div>
                             <div className="text-sm text-neutral600 whitespace-nowrap">
                                 {new Date(rem.date).toLocaleDateString(
-                                    "en-US",
+                                    navigator.language,
                                     {
                                         day: "2-digit",
                                         month: "short",
@@ -122,20 +122,28 @@ const RemCard = ({ rem, isActive, onClick }) => {
 
                     {isActive && (
                         <>
-                            <div className="mt-2 ml-8 flex gap-4">
-                                {rem.petId && (
-                                    <span className="border border-primary px-4 py-1 text-neutral700 rounded-full text-xs">
-                                        {getPetName(rem.petId)}
-                                    </span>
-                                )}
-                                {rem.category && (
-                                    <span className="border border-neutral400 px-4 py-1 text-neutral700 rounded-full text-xs">
-                                        {rem.category}
-                                    </span>
-                                )}
-                            </div>
-                            <div className="mt-2 ml-8 flex gap-4 italic text-neutral700">
-                                {rem.notes && <p>{rem.notes}</p>}
+                            <div className="mt-4 px-4 space-y-2">
+                                <div className="flex flex-wrap gap-4 items-center">
+                                    {rem.petId && (
+                                        <span className="border border-orange-300 bg-orange-50 px-4 py-1 text-neutral700 rounded-full text-xs">
+                                            {getPetName(rem.petId)}
+                                        </span>
+                                    )}
+                                    {rem.category && (
+                                        <span className="border border-neutral300 bg-neutral100 px-4 py-1 text-neutral700 rounded-full text-xs">
+                                            {rem.category}
+                                        </span>
+                                    )}
+                                    {rem.notes && (
+                                        <p className=" text-neutral700 max-w-prose">
+                                            <span className="font-medium">
+                                                {" "}
+                                                Note:
+                                            </span>{" "}
+                                            {rem.notes}
+                                        </p>
+                                    )}
+                                </div>
                             </div>
                             <div className="flex justify-end gap-10 text-greenEyes px-4 pt-4">
                                 <button

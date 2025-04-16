@@ -42,10 +42,10 @@ const PetForm = () => {
             formData.append("name", name);
             formData.append("species", species);
             formData.append("breed", breed);
-            formData.append("sex", sex);
+            if (sex) formData.append("sex", sex);
             formData.append("birthdate", birthdate);
-            formData.append("intact", intact);
-            formData.append("chipped", chipped);
+            if (intact) formData.append("intact", intact);
+            if (chipped) formData.append("chipped", chipped);
             if (chipNumber) formData.append("chipNumber", chipNumber);
             if (photo) formData.append("photo", photo); // 📸
 

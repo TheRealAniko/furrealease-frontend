@@ -50,9 +50,17 @@ const RemModal = ({ onClose, selectedDate, openWithAdd = false }) => {
                 </div>
                 {openWithAdd && (
                     <RemForm
-                        onSave={() => {
-                            refreshRems();
-                            onClose();
+                        onSave={async (formData) => {
+                            try {
+                                await createRem(formData); // Reminder speichern
+                                await refreshRems(); // Liste aktualisieren
+                                onClose(); // Modal schließen
+                            } catch (err) {
+                                console.error(
+                                    "❌ Fehler beim Speichern:",
+                                    err.message
+                                );
+                            }
                         }}
                         onCancel={onClose}
                         selectedDate={selectedDate}

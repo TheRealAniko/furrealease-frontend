@@ -17,10 +17,10 @@ import { usePets } from "../../context/index.js";
 import { useParams } from "react-router";
 
 const speciesIcons = {
-    cat: <Cat className="pl-6 w-10" />,
-    dog: <Dog className="pl-6 w-10" />,
-    small_mammal: <Rabbit className="pl-6 w-10" />,
-    other: <PawPrint className="pl-6 w-10 " />,
+    cat: <Cat className="pl-4 w-10" />,
+    dog: <Dog className="pl-4 w-10" />,
+    small_mammal: <Rabbit className="pl-4 w-10" />,
+    other: <PawPrint className="pl-4 w-10 " />,
 };
 
 const Sidebar = () => {
@@ -59,43 +59,86 @@ const Sidebar = () => {
                             {!isCollapsed && <span>Home</span>}
                         </NavLink>
                     </li>
-                    <li>
-                        <NavLink
-                            to="/pets"
-                            className={({ isActive }) =>
-                                isActive
-                                    ? "nav-link nav-link-active"
-                                    : "nav-link"
-                            }>
-                            <PawPrint className="pl-4 w-10" />
-                            {!isCollapsed && <span>Pets</span>}
-                        </NavLink>
-                    </li>
-                    {/* if pets show list of pets name aa link  */}
-                    <ul className="space-y-4 ">
-                        {pets.length > 0 &&
-                            pets
-                                .filter((pet) => pet.status !== "sleeping")
-                                .map((pet) => (
-                                    <li key={pet._id}>
-                                        <NavLink
-                                            to={`/pets/${pet._id}`}
-                                            className={({ isActive }) =>
-                                                isActive
-                                                    ? "nav-link nav-link-active"
-                                                    : "nav-link"
-                                            }>
-                                            {speciesIcons[
-                                                pet.species.toLowerCase()
-                                            ] || speciesIcons.other}
+                    {/* Pets */}
+                    {/* === Pets Section === */}
+                    {pets.length === 1 && (
+                        <li>
+                            <NavLink
+                                to={`/pets/${pets[0]._id}`}
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? "nav-link nav-link-active"
+                                        : "nav-link"
+                                }>
+                                {speciesIcons[pets[0].species.toLowerCase()] ||
+                                    speciesIcons.other}
+                                {!isCollapsed && <span>{pets[0].name}</span>}
+                            </NavLink>
+                        </li>
+                    )}
 
-                                            {!isCollapsed && (
-                                                <span>{pet.name}</span>
-                                            )}
-                                        </NavLink>
-                                    </li>
+                    {pets.length === 2 && (
+                        <div className="border-t border-b border-white/30 mt-2 py-2 space-y-2">
+                            {pets
+                                .filter((pet) => pet.status !== "sleeping")
+                                .slice()
+                                .reverse()
+                                .map((pet) => (
+                                    <NavLink
+                                        key={pet._id}
+                                        to={`/pets/${pet._id}`}
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? "nav-link nav-link-active"
+                                                : "nav-link"
+                                        }>
+                                        {speciesIcons[
+                                            pet.species.toLowerCase()
+                                        ] || speciesIcons.other}
+                                        {!isCollapsed && (
+                                            <span>{pet.name}</span>
+                                        )}
+                                    </NavLink>
                                 ))}
-                    </ul>
+                        </div>
+                    )}
+
+                    {pets.length > 2 && (
+                        <div className="border-t border-b border-white/30 mt-2 py-2 space-y-2">
+                            <NavLink
+                                to="/pets"
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? "nav-link nav-link-active"
+                                        : "nav-link"
+                                }>
+                                <PawPrint className="pl-4 w-10" />
+                                {!isCollapsed && <span>Pets</span>}
+                            </NavLink>
+
+                            {pets
+                                .filter((pet) => pet.status !== "sleeping")
+                                .slice()
+                                .reverse()
+                                .map((pet) => (
+                                    <NavLink
+                                        key={pet._id}
+                                        to={`/pets/${pet._id}`}
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? "nav-link nav-link-active"
+                                                : "nav-link"
+                                        }>
+                                        {speciesIcons[
+                                            pet.species.toLowerCase()
+                                        ] || speciesIcons.other}
+                                        {!isCollapsed && (
+                                            <span>{pet.name}</span>
+                                        )}
+                                    </NavLink>
+                                ))}
+                        </div>
+                    )}
 
                     <li>
                         <NavLink

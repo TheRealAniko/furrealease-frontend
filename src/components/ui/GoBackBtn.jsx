@@ -4,7 +4,8 @@ import { CirclePlus, ChevronLeft } from "lucide-react";
 const GoBackBtn = () => {
     const navigate = useNavigate();
     const handleGoBack = () => {
-        navigate(-1);
+        setTimeout(() => navigate(-1), 100); // 💡 kleiner Delay!
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     };
     return (
         <button

@@ -23,7 +23,7 @@ const VisitForm = ({
     setWeightData,
 }) => {
     return (
-        <div>
+        <div className="rounded-md border border-neutral400 bg-neutral200">
             <form>
                 <div
                     className={`text-neutral100 font-normal text-base px-4 py-2 rounded-md ${
@@ -108,49 +108,47 @@ const VisitForm = ({
                     </div>
 
                     {/* Checkboxes für Subdaten */}
-                    <div className="flex gap-4 mt-4 px-4">
-                        <label className="flex gap-2 items-center">
-                            <input
-                                type="checkbox"
-                                checked={addVacc}
-                                onChange={() => setAddVacc(!addVacc)}
-                            />
-                            Add Vaccination
-                        </label>
-
-                        <label className="flex gap-2 items-center">
-                            <input
-                                type="checkbox"
-                                checked={addMed}
-                                onChange={() => setAddMed(!addMed)}
-                            />
-                            Add Medication
-                        </label>
-
-                        <label className="flex gap-2 items-center">
-                            <input
-                                type="checkbox"
-                                checked={addWeight}
-                                onChange={() => setAddWeight(!addWeight)}
-                            />
-                            Add Weight
-                        </label>
-                    </div>
-
-                    {/* Subformulare */}
-                    {addVacc && (
-                        <VaccForm
-                            vacc={vaccData}
-                            handleChange={(e) =>
-                                setVaccData((prev) => ({
-                                    ...prev,
-                                    [e.target.name]: e.target.value,
-                                }))
-                            }
-                            showButtons={false}
-                        />
+                    {!isEdit && (
+                        <div className="flex gap-4 mt-4 px-4">
+                            <label className="flex gap-2 items-center">
+                                <input
+                                    type="checkbox"
+                                    checked={addWeight}
+                                    onChange={() => setAddWeight(!addWeight)}
+                                />
+                                Add Weight
+                            </label>
+                            <label className="flex gap-2 items-center">
+                                <input
+                                    type="checkbox"
+                                    checked={addMed}
+                                    onChange={() => setAddMed(!addMed)}
+                                />
+                                Add Medication
+                            </label>
+                            <label className="flex gap-2 items-center">
+                                <input
+                                    type="checkbox"
+                                    checked={addVacc}
+                                    onChange={() => setAddVacc(!addVacc)}
+                                />
+                                Add Vaccination
+                            </label>
+                        </div>
                     )}
 
+                    {/* Subformulare */}
+                    {addWeight && (
+                        <div className="mt-4">
+                            <WeightForm
+                                formData={weightData}
+                                setFormData={setWeightData}
+                                onSave={() => {}}
+                                onCancel={() => setAddWeight(false)}
+                                showButtons={false}
+                            />
+                        </div>
+                    )}
                     {addMed && (
                         <MedForm
                             med={medData}
@@ -163,17 +161,17 @@ const VisitForm = ({
                             showButtons={false}
                         />
                     )}
-
-                    {addWeight && (
-                        <div className="mt-4">
-                            <WeightForm
-                                formData={weightData}
-                                setFormData={setWeightData}
-                                onSave={() => {}}
-                                onCancel={() => setAddWeight(false)}
-                                showButtons={false}
-                            />
-                        </div>
+                    {addVacc && (
+                        <VaccForm
+                            vacc={vaccData}
+                            handleChange={(e) =>
+                                setVaccData((prev) => ({
+                                    ...prev,
+                                    [e.target.name]: e.target.value,
+                                }))
+                            }
+                            showButtons={false}
+                        />
                     )}
                 </div>
 

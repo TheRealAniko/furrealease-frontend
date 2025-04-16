@@ -12,7 +12,7 @@ const VaccSection = ({ pet, onOpenModal, onOpenAddModal }) => {
     };
 
     return (
-        <div className="card-container">
+        <div className="card-container flex flex-col h-full">
             <div className="flex justify-between items-center mb-4 ">
                 <h3 className="h3-section">Vaccination</h3>
                 <AddButton onClick={onOpenAddModal} label="Add" />
@@ -59,7 +59,8 @@ const VaccSection = ({ pet, onOpenModal, onOpenAddModal }) => {
                             </tbody>
                         </table>
                     </div>
-
+                    <div className="flex-grow" />{" "}
+                    {/* <-- Spacer schiebt den Button runter */}
                     <div className="flex justify-end mt-4">
                         <button onClick={onOpenModal} className="btn-icon">
                             <Eye className="w-5 h-5" />

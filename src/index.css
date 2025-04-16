@@ -28,25 +28,25 @@
         @apply appearance-none rounded-full border border-neutral700 bg-neutral100;
     }
     .btn-primary {
-        @apply rounded-full font-medium py-4 px-9 text-base bg-primary hover:bg-darkPrimary text-neutral100;
+        @apply rounded-full font-medium py-2.5 px-8 text-base bg-primary hover:bg-darkPrimary text-neutral100;
     }
     .btn-primary-xs {
         @apply px-6 py-1 text-sm rounded-full border bg-primary hover:bg-darkPrimary  text-neutral100;
     }
     .btn-outline {
-        @apply rounded-full font-medium py-4 px-9 text-base bg-neutral100 border border-primary  text-primary hover:bg-neutral200 hover:border-darkPrimary hover:text-darkPrimary;
+        @apply rounded-full font-medium py-2.5 px-8 text-base bg-neutral100 border border-primary  text-primary hover:bg-neutral200 hover:border-darkPrimary hover:text-darkPrimary;
     }
     .btn-outline-xs {
         @apply px-6 py-1 text-sm rounded-full border border-primary text-primary hover:border-darkPrimary hover:text-darkPrimary;
     }
     .btn-outline-grey {
-        @apply rounded-full font-medium py-4 px-9 text-base bg-neutral100 border border-inactive  text-inactive hover:border-neutral700 hover:text-neutral700;
+        @apply rounded-full font-medium py-2.5 px-8 text-base bg-neutral100 border border-inactive  text-inactive hover:border-neutral700 hover:text-neutral700;
     }
     .btn-icon {
         @apply flex items-center gap-2 font-light text-base text-greenEyes hover:text-darkGreenEyes;
     }
     .h2-section {
-        @apply text-2xl font-semibold mb-6 text-neutral900;
+        @apply text-2xl font-semibold  text-neutral900;
     }
     .h3-section {
         @apply text-xl font-medium  text-neutral900;

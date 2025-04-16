@@ -8,7 +8,7 @@ const AddPetBtn = () => {
                 {" "}
                 <button className="btn-icon">
                     <CirclePlus className="w-5 h-5" />
-                    Add a Fur Friend
+                    Add Fur Friend
                 </button>
             </NavLink>
         </>

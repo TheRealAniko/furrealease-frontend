@@ -25,6 +25,9 @@ import VaccModal from "../components/health/vaccinations/VaccModal.jsx";
 import VisitsSection from "../components/health/visits/VisitsSection.jsx";
 import { formatDate } from "../utils/formateDate.js";
 import VisitModal from "../components/health/visits/VisitModal.jsx";
+import { useRems } from "../context";
+import RemCard from "../components/reminders/RemCard.jsx";
+import PetRemSection from "../components/pets/PetRemSection.jsx";
 
 const PetDetail = () => {
     const [currPet, setCurrPet] = useState({});
@@ -38,6 +41,7 @@ const PetDetail = () => {
     const [openVaccModalWithAdd, setOpenVaccModalWithAdd] = useState(false);
     const [showVisitModal, setShowVisitModal] = useState(false);
     const [openVisitModalWithAdd, setOpenVisitModalWithAdd] = useState(false);
+    const { rems } = useRems();
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -74,10 +78,10 @@ const PetDetail = () => {
         // notes = [],
     } = currPet || {};
 
-    const lastVetVisit =
-        vetVisits.length > 0
-            ? new Date(vetVisits.at(-1).date).toLocaleDateString()
-            : "No visits yet";
+    const lastVisit = vetVisits.at(-1);
+    const lastVetVisit = formatDate(lastVisit?.date);
+
+    const petRems = rems.filter((r) => r.petId?.toString() === currPet._id);
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
@@ -119,7 +123,7 @@ const PetDetail = () => {
                         </div>
                         <div className="flex items-center gap-4 font-light text-base">
                             <Stethoscope className="text-inactive w-6 " />{" "}
-                            {formatDate(lastVetVisit)}
+                            {lastVetVisit || "No visits yet"}
                         </div>
                         <div className="flex items-center gap-4 font-light text-base">
                             <Dna className="text-inactive w-6 " />{" "}
@@ -139,27 +143,17 @@ const PetDetail = () => {
                         </div>
                     </div>
 
-                    <div>
-                        <p className=" text-lg text-neutral700">
-                            {name} is doing great! 🐾{" "}
-                            {!lastVetVisit ? (
-                                <span>
-                                    Last check-up was {lastVetVisit} months ago.
-                                </span>
-                            ) : (
-                                <span className="px-4">
-                                    Time for a check-up or nail trim?
-                                </span>
-                            )}{" "}
-                            <button className="btn btn-primary self-center">
-                                Set a reminder
-                            </button>
-                        </p>
+                    <div className="text-lg text-neutral700 pb-6">
+                        <span className=" pr-2">{name} is doing great! </span>
+
+                        {!lastVetVisit && <span>Time for a check-up?</span>}
                     </div>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 py-10">
+                <PetRemSection pet={currPet} />
+
                 <VisitsSection
                     pet={currPet}
                     onOpenModal={() => setShowVisitModal(true)}

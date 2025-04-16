@@ -1,5 +1,6 @@
 import { useRems } from "../../context";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router";
 import {
     format,
     isAfter,
@@ -8,11 +9,13 @@ import {
     isBefore,
     isSameMonth,
     startOfMonth,
+    startOfDay,
+    startOfToday,
 } from "date-fns";
 import RemCard from "./RemCard";
 import { CirclePlus } from "lucide-react";
 
-const RemList = () => {
+const RemList = ({ setParentOpenWithAdd }) => {
     const {
         selectedDate,
         activeReminder,
@@ -23,11 +26,7 @@ const RemList = () => {
         rems,
     } = useRems();
     const [showCompleted, setShowCompleted] = useState(false);
-    const today = new Date();
-    // const futureReminders = rems.filter(
-    //     (rem) =>
-    //         isToday(new Date(rem.date)) || isAfter(new Date(rem.date), today)
-    // );
+    const today = startOfToday();
 
     const visibleReminders = rems.filter((rem) => {
         const date = new Date(rem.date);
@@ -45,7 +44,7 @@ const RemList = () => {
         : visibleReminders; // bestehende Logik
 
     const overdueRems = rems.filter((rem) => {
-        const date = new Date(rem.date);
+        const date = startOfDay(new Date(rem.date));
         return isBefore(date, today) && rem.status !== "done";
     });
 
@@ -65,6 +64,24 @@ const RemList = () => {
     });
 
     const doneRems = rems.filter((rem) => rem.status === "done");
+
+    const [searchParams] = useSearchParams();
+    const addReminder = searchParams.get("addReminder") === "true";
+    const [openWithAdd, setOpenWithAdd] = useState(false);
+
+    useEffect(() => {
+        if (addReminder) {
+            setShowRemModal(true);
+            setOpenWithAdd(true);
+        }
+    }, [addReminder, setShowRemModal]);
+
+    useEffect(() => {
+        if (!addReminder) {
+            setShowRemModal(false);
+            setOpenWithAdd(false);
+        }
+    }, [addReminder]);
 
     return (
         <div className="w-full p-6">
@@ -115,6 +132,7 @@ const RemList = () => {
                 <div className="mt-2 flex justify-end gap-10">
                     <button
                         onClick={() => {
+                            setParentOpenWithAdd(true);
                             setShowRemModal(true);
                             setEditingRem(null);
                         }}

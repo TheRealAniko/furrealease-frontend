@@ -24,8 +24,16 @@ const Reminders = () => {
     useEffect(() => {
         if (addReminder) {
             setShowRemModal(true);
+            setOpenWithAdd(true);
         }
     }, [addReminder, setShowRemModal]);
+
+    useEffect(() => {
+        if (!addReminder) {
+            setShowRemModal(false);
+            setOpenWithAdd(false);
+        }
+    }, [addReminder]);
 
     const [activeReminderTop, setActiveReminderTop] = useState(null);
     const [activeReminderBottom, setActiveReminderBottom] = useState(null);
@@ -113,6 +121,7 @@ const Reminders = () => {
                     <RemList
                         activeReminder={activeReminderTop}
                         setActiveReminder={setActiveReminderTop}
+                        setParentOpenWithAdd={setOpenWithAdd}
                     />
                     {showRemModal && (
                         <RemModal

@@ -2,6 +2,7 @@ import {
     startOfMonth,
     endOfMonth,
     startOfWeek,
+    startOfDay,
     endOfWeek,
     addDays,
     addMonths,
@@ -47,8 +48,23 @@ const RemCalendar = () => {
         }
         return days;
     };
-    const hasReminder = (day) => {
-        return rems?.some((rem) => isSameDay(new Date(rem.date), day));
+    const getReminderClass = (day) => {
+        const today = new Date();
+
+        const remForDay = rems?.filter(
+            (rem) =>
+                rem.status !== "done" &&
+                isSameDay(startOfDay(new Date(rem.date)), startOfDay(day))
+        );
+
+        if (remForDay?.length > 0) {
+            const hasOverdue = remForDay.some(
+                (rem) => new Date(rem.date) < today
+            );
+            return hasOverdue ? "border border-error" : "border border-primary";
+        }
+
+        return "";
     };
 
     const handleDayClick = (day) => {
@@ -102,9 +118,7 @@ const RemCalendar = () => {
                                 isSameDay(day, selectedDate)
                                     ? "bg-darkPrimary rounded-full  text-neutral100"
                                     : ""
-                            } ${
-                                hasReminder(day) ? "border border-primary" : ""
-                            } ${
+                            } ${getReminderClass(day)} ${
                                 isToday(day) ? "bg-primary text-neutral100" : ""
                             }
 

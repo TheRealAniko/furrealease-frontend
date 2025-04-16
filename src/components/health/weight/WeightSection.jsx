@@ -9,7 +9,7 @@ const WeightSection = ({ pet, onOpenModal, onOpenAddModal }) => {
     );
 
     return (
-        <div className="card-container">
+        <div className="card-container flex flex-col h-full">
             <div className="flex justify-between items-center mb-6">
                 <h3 className="h3-section">Weight</h3>
                 <AddButton onClick={onOpenAddModal} label="Add" />
@@ -37,10 +37,12 @@ const WeightSection = ({ pet, onOpenModal, onOpenAddModal }) => {
                               })
                             : "—"}
                     </p>
+                    <div className="flex-grow" />{" "}
+                    {/* <-- Spacer schiebt den Button runter */}
                     <div className="flex justify-end mt-4">
                         <button onClick={onOpenModal} className="btn-icon">
                             <Eye className="w-5 h-5" />
-                            View All Entries
+                            View All
                         </button>
                     </div>
                 </>
