@@ -38,7 +38,7 @@ const MedForm = ({
                                 value={med.name}
                                 onChange={handleChange}
                                 placeholder="Medication name"
-                                className="grow"
+                                className="grow focus:outline-none"
                             />
                         </label>
                         <label className="flex input-small w-full">
@@ -52,7 +52,7 @@ const MedForm = ({
                                 value={med.reason}
                                 onChange={handleChange}
                                 placeholder="Reason"
-                                className="grow"
+                                className="grow focus:outline-none"
                             />
                         </label>
                     </div>
@@ -73,7 +73,7 @@ const MedForm = ({
                                 value={med.dosage}
                                 onChange={handleChange}
                                 placeholder="Dosage"
-                                className="grow"
+                                className="grow focus:outline-none"
                             />
                         </label>
                         <label className="flex input-small w-full">
@@ -86,7 +86,7 @@ const MedForm = ({
                                 name="route"
                                 value={med.route}
                                 onChange={handleChange}
-                                className="grow">
+                                className="grow focus:outline-none">
                                 <option value="">Select method</option>
                                 <option value="oral">oral</option>
                                 <option value="injection">injection</option>
@@ -110,7 +110,7 @@ const MedForm = ({
                                 name="startDate"
                                 value={med.startDate}
                                 onChange={handleChange}
-                                className="w-full"
+                                className="w-full focus:outline-none"
                             />
                         </label>
 
@@ -125,7 +125,7 @@ const MedForm = ({
                                     name="endDate"
                                     value={med.endDate}
                                     onChange={handleChange}
-                                    className="w-full"
+                                    className="w-full focus:outline-none"
                                 />
                             </label>
                         )}

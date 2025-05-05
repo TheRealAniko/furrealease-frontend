@@ -51,7 +51,7 @@ const VisitForm = ({
                                 value={visit.reason}
                                 onChange={handleChange}
                                 placeholder="Visit reason"
-                                className="grow"
+                                className="grow focus:outline-none"
                             />
                         </label>
                         <label className="flex input-small w-full">
@@ -66,7 +66,7 @@ const VisitForm = ({
                                 value={visit.date}
                                 onChange={handleChange}
                                 placeholder="On:"
-                                className="grow"
+                                className="grow focus:outline-none"
                             />
                         </label>
                     </div>
@@ -87,7 +87,7 @@ const VisitForm = ({
                                 value={visit.vet}
                                 onChange={handleChange}
                                 placeholder="Vet"
-                                className="grow"
+                                className="grow focus:outline-none"
                             />
                         </label>
 
@@ -102,7 +102,7 @@ const VisitForm = ({
                                 value={visit.notes}
                                 onChange={handleChange}
                                 placeholder="Note"
-                                className="grow"
+                                className="grow focus:outline-none"
                             />
                         </label>
                     </div>

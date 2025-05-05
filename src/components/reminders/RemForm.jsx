@@ -73,7 +73,7 @@ const RemForm = ({
                                 value={formData.title}
                                 onChange={handleChange}
                                 placeholder="Title"
-                                className="grow"
+                                className="grow focus:outline-none"
                                 required
                             />
                         </label>
@@ -82,7 +82,7 @@ const RemForm = ({
                                 name="petId"
                                 value={formData.petId}
                                 onChange={handleChange}
-                                className="w-full">
+                                className="w-full focus:outline-none">
                                 <option value="">Pet related (optional)</option>
                                 {pets.map((pet) => (
                                     <option key={pet._id} value={pet._id}>
@@ -107,7 +107,7 @@ const RemForm = ({
                                 value={formData.date}
                                 onChange={handleChange}
                                 placeholder="Due:"
-                                className="grow"
+                                className="grow focus:outline-none"
                                 required
                             />
                         </label>
@@ -116,7 +116,7 @@ const RemForm = ({
                                 name="recurring"
                                 value={formData.recurring}
                                 onChange={handleChange}
-                                className="w-full">
+                                className="w-full focus:outline-none">
                                 <option value="none">No Repeat</option>
                                 <option value="daily">Daily</option>
                                 <option value="weekly">Weekly</option>
@@ -133,7 +133,7 @@ const RemForm = ({
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                className="w-full">
+                                className="w-full focus:outline-none">
                                 <option value="">Select...</option>
                                 <option value="medication">Medication</option>
                                 <option value="vet">Vet</option>
@@ -154,7 +154,7 @@ const RemForm = ({
                                 value={formData.notes}
                                 onChange={handleChange}
                                 placeholder="Notes"
-                                className="grow"
+                                className="grow focus:outline-none"
                             />
                         </label>
                     </div>
