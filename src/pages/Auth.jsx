@@ -143,63 +143,63 @@ const Auth = () => {
                         {isSignUp && (
                             <>
                                 {/* Input for SignUp */}
-                                <label className="input flex items-center gap-2">
+                                <label className="input-wrapper flex items-center gap-2">
                                     <User className="text-neutral700" />
                                     <input
                                         name="firstName"
                                         value={firstName}
                                         onChange={handleChange}
                                         type="text"
-                                        className="grow font-light text-base"
+                                        className="input-field"
                                         placeholder="First Name"
                                     />
                                 </label>
-                                <label className="input flex items-center gap-2">
+                                <label className="input-wrapper flex items-center gap-2">
                                     <User className="text-neutral700" />
                                     <input
                                         name="lastName"
                                         value={lastName}
                                         onChange={handleChange}
                                         type="text"
-                                        className="grow font-light text-base"
+                                        className="input-field"
                                         placeholder="Last Name"
                                     />
                                 </label>
                             </>
                         )}
-                        <label className="input flex items-center gap-2">
+                        <label className="input-wrapper flex items-center gap-2">
                             <Mail className="text-neutral700" />
                             <input
                                 name="email"
                                 value={email}
                                 onChange={handleChange}
                                 type="email"
-                                className="grow font-light text-base"
+                                className="input-field"
                                 placeholder="Email"
                             />
                         </label>
-                        <label className="input flex items-center gap-2">
+                        <label className="input-wrapper flex items-center gap-2">
                             <KeyRound className="text-neutral700" />
                             <input
                                 name="password"
                                 value={password}
                                 onChange={handleChange}
                                 type="password"
-                                className="grow font-light text-base"
+                                className="input-field"
                                 placeholder="Password"
                             />
                         </label>
                         {isSignUp && (
                             <>
                                 {/* Input for SignUp */}
-                                <label className="input flex items-center gap-2">
+                                <label className="input-wrapper flex items-center gap-2">
                                     <KeyRound className="text-neutral700" />
                                     <input
                                         name="confirmPassword"
                                         value={confirmPassword}
                                         onChange={handleChange}
                                         type="password"
-                                        className="grow font-light text-base"
+                                        className="input-field"
                                         placeholder="Confirm your password..."
                                     />
                                 </label>
@@ -234,55 +234,11 @@ const Auth = () => {
             </div>
             {/* Spacer*/}
             <div className="flex-grow" /> {/* Feature Section */}
-            {/* <div className="container mx-auto relative z-10 ">
-                <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-38">
-                    <Feature
-                        icon={
-                            <Syringe
-                                strokeWidth={1.25}
-                                className="text-primary w-20 h-20"
-                            />
-                        }
-                        title="Vaccinations & Medications"
-                        text="Track treatments with automated reminders."
-                    />
-                    <Feature
-                        icon={
-                            <Hospital
-                                strokeWidth={1.25}
-                                className="text-primary w-20 h-20"
-                            />
-                        }
-                        title="Weight & Vet Visits"
-                        text="Log vet visits and monitor weight history easily."
-                    />
-                    <Feature
-                        icon={
-                            <AlarmClock
-                                strokeWidth={1.25}
-                                className="text-primary w-20 h-20"
-                            />
-                        }
-                        title="Smart Reminders"
-                        text="Stay ahead with categorized, pet-specific reminders."
-                    />
-                </section>
-            </div> */}
-            {/* Spacer*/}
-            <div className="flex-grow" /> {/* Feature Section */}
             <div className="relative z-10">
                 <Footer />
             </div>
         </div>
     );
 };
-
-const Feature = ({ icon, title, text }) => (
-    <div className="card-container flex flex-col items-center py-8">
-        <div className="text-4xl mb-6">{icon}</div>
-        <h3 className="h2-section mb-4">{title}</h3>
-        <p className="text-base text-neutral600">{text}</p>
-    </div>
-);
 
 export default Auth;

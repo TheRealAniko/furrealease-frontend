@@ -15,11 +15,18 @@
     .card-container {
         @apply shadow-md p-4 rounded-xl bg-white border border-neutral200;
     }
-    .input {
-        @apply rounded-full border border-neutral700 bg-neutral100  p-4;
+    .input-wrapper {
+        @apply rounded-full border border-neutral700 bg-neutral100  p-4 focus-within:border-pinkNose focus-within:ring-2 focus-within:ring-pinkNose/50 transition;
     }
+    .input-field {
+        @apply grow font-light text-base focus:outline-none;
+    }
+    .legend-overlay {
+        @apply absolute -top-3 left-6 bg-neutral100 px-4;
+    }
+
     .input-small {
-        @apply rounded-lg border border-neutral400 bg-neutral100  p-2;
+        @apply rounded-lg border border-neutral400 bg-neutral100  p-2 focus-within:border-pinkNose focus-within:ring-2 focus-within:ring-pinkNose/50 transition;
     }
     .textarea {
         @apply rounded-xl border border-neutral700 bg-neutral100 p-4;

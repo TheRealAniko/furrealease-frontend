@@ -50,7 +50,7 @@ const NoteForm = ({
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                className="select select-bordered w-full text-sm">
+                                className="select select-bordered w-full text-sm focus:outline-none">
                                 <option value="" disabled>
                                     Select category
                                 </option>
@@ -69,7 +69,7 @@ const NoteForm = ({
                                 name="date"
                                 value={formData.date}
                                 onChange={handleChange}
-                                className="w-full"
+                                className="w-full focus:outline-none"
                             />
                         </label>
                     </div>

@@ -168,7 +168,6 @@ const UpdatePet = () => {
                         </div>
                     )}
 
-                    <div className=""></div>
                     <form
                         onSubmit={handleSubmit}
                         className="my-5 md:w-1/2 mx-auto flex flex-col gap-3">
@@ -191,19 +190,19 @@ const UpdatePet = () => {
                             />
                         </div>
 
-                        <label className="input flex items-center gap-2 text-inactive">
+                        <label className="input-wrapper flex items-center gap-2 text-inactive">
                             {name && <span>Name:</span>}
                             <input
                                 name="name"
                                 value={name}
                                 onChange={handleChange}
                                 type="text"
-                                className="grow font-light text-base text-neutral900"
+                                className="input-field text-neutral900"
                                 placeholder="Name"
                                 required
                             />
                         </label>
-                        <label className="input flex items-center gap-2 text-inactive">
+                        <label className="input-wrapper flex items-center gap-2 text-inactive">
                             {species && <span>Species:</span>}
                             <select
                                 name="species"
@@ -220,17 +219,17 @@ const UpdatePet = () => {
                                 <option value="other">Other</option>
                             </select>
                         </label>
-                        <label className="input flex items-center gap-2">
+                        <label className="input-wrapper flex items-center gap-2">
                             <input
                                 name="breed"
                                 value={breed}
                                 onChange={handleChange}
                                 type="text"
-                                className="grow font-light text-base"
+                                className="input-field"
                                 placeholder="Breed"
                             />
                         </label>
-                        <fieldset className="input flex gap-6 font-light text-base">
+                        <fieldset className="rounded-full border border-neutral700 bg-neutral100  py-4 px-6 flex gap-6 font-light text-base">
                             <legend className="sr-only">Sex</legend>
                             <label className="flex items-center gap-4">
                                 <input
@@ -266,7 +265,7 @@ const UpdatePet = () => {
                                 No Info
                             </label>
                         </fieldset>
-                        <label className="input flex items-center gap-2 text-inactive">
+                        <label className="input-wrapper flex items-center gap-2 text-inactive">
                             {birthdate && <span>Day of birth:</span>}
                             <input
                                 name="birthdate"
@@ -277,7 +276,7 @@ const UpdatePet = () => {
                                 placeholder="Birthdate"
                             />
                         </label>
-                        <fieldset className="input flex gap-6 font-light text-base">
+                        <fieldset className="rounded-full border border-neutral700 bg-neutral100  pt-2 pb-4 px-6 flex gap-6 font-light text-base">
                             <legend className="px-4">
                                 Is {name} spayed or neutered?
                             </legend>
@@ -316,7 +315,7 @@ const UpdatePet = () => {
                             </label>
                         </fieldset>
 
-                        <fieldset className="input flex gap-6 font-light text-base">
+                        <fieldset className="rounded-full border border-neutral700 bg-neutral100  pt-2 pb-4 px-6 flex gap-6 font-light text-base">
                             <legend className="px-4">
                                 Is {name} microchipped?
                             </legend>
@@ -355,7 +354,7 @@ const UpdatePet = () => {
                             </label>
                         </fieldset>
                         {chipped === "yes" && (
-                            <label className="input  items-center gap-4 text-inactive">
+                            <label className="input-wrapper  items-center gap-4 text-inactive">
                                 {chipNumber && <span>Chipnumber: </span>}
                                 <input
                                     name="chipNumber"

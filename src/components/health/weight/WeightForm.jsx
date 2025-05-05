@@ -45,7 +45,7 @@ const WeightForm = ({
                                 name="weight"
                                 value={formData.weight}
                                 onChange={handleChange}
-                                className="grow"
+                                className="grow focus:outline-none"
                                 placeholder="kg"
                                 required
                             />
@@ -63,7 +63,7 @@ const WeightForm = ({
                                 name="date"
                                 value={formData.date}
                                 onChange={handleChange}
-                                className="grow"
+                                className="grow focus:outline-none"
                                 required
                             />
                         </label>

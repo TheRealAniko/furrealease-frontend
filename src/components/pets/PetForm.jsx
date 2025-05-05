@@ -115,23 +115,23 @@ const PetForm = () => {
                     />
                 </div>
 
-                <label className="input flex items-center gap-2">
+                <label className="input-wrapper flex items-center gap-2">
                     <input
                         name="name"
                         value={name}
                         onChange={handleChange}
                         type="text"
-                        className="grow font-light text-base"
+                        className="input-field"
                         placeholder="Name"
                         required
                     />
                 </label>
-                <label className="input flex items-center gap-2">
+                <label className="input-wrapper flex items-center gap-2">
                     <select
                         name="species"
                         value={species}
                         onChange={handleChange}
-                        className="grow font-light text-base"
+                        className="input-field"
                         required>
                         <option value="">Choose pet...</option>
                         <option value="cat">Cat</option>
@@ -140,17 +140,17 @@ const PetForm = () => {
                         <option value="other">Other</option>
                     </select>
                 </label>
-                <label className="input flex items-center gap-2">
+                <label className="input-wrapper flex items-center gap-2">
                     <input
                         name="breed"
                         value={breed}
                         onChange={handleChange}
                         type="text"
-                        className="grow font-light text-base"
+                        className="input-field"
                         placeholder="Breed"
                     />
                 </label>
-                <fieldset className="input flex gap-6 font-light text-base">
+                <fieldset className="rounded-full border border-neutral700 bg-neutral100  py-4 px-6 flex gap-6 font-light text-base">
                     <legend className="sr-only">Sex</legend>
                     <label className="flex items-center gap-4">
                         <input
@@ -186,18 +186,22 @@ const PetForm = () => {
                         No Info
                     </label>
                 </fieldset>
-                <label className="input flex items-center gap-2">
+                <label className="input-wrapper flex items-center gap-2">
                     <input
                         name="birthdate"
                         value={birthdate}
                         onChange={handleChange}
                         type="date"
-                        className="grow font-light text-base"
+                        className="input-field"
                         placeholder="Birthdate"
                     />
                 </label>
-                <fieldset className="input flex gap-6 font-light text-base">
-                    <legend>Is your pet spayed or neutered?</legend>
+
+                <fieldset className="rounded-full border border-neutral700 bg-neutral100  pt-2 pb-4 px-6 flex gap-6 font-light text-base">
+                    <legend className="px-4">
+                        Is your pet spayed or neutered?
+                    </legend>
+
                     <label className="flex items-center gap-4">
                         <input
                             type="radio"
@@ -233,7 +237,7 @@ const PetForm = () => {
                     </label>
                 </fieldset>
 
-                <fieldset className="input flex gap-6 font-light text-base">
+                <fieldset className="rounded-full border border-neutral700 bg-neutral100  pt-2 pb-4 px-6 flex gap-6 font-light text-base">
                     <legend className="px-4">Is your pet microchipped?</legend>
                     <label className="flex items-center gap-4">
                         <input
@@ -270,13 +274,13 @@ const PetForm = () => {
                     </label>
                 </fieldset>
                 {chipped === "yes" && (
-                    <label className="input  items-center gap-4">
+                    <label className="input-wrapper  items-center gap-4">
                         <input
                             name="chipNumber"
                             value={chipNumber}
                             onChange={handleChange}
                             type="text"
-                            className="grow font-light text-base"
+                            className="input-field"
                             placeholder="Chip Number"
                         />
                     </label>

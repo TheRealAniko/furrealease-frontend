@@ -56,7 +56,7 @@ const VaccForm = ({
                                 value={vacc.name}
                                 onChange={handleChange}
                                 placeholder="Vaccine name"
-                                className="grow"
+                                className="grow focus:outline-none"
                             />
                         </label>
                         <label className="flex input-small w-full">
@@ -71,7 +71,7 @@ const VaccForm = ({
                                 value={vacc.date}
                                 onChange={handleChange}
                                 placeholder="On:"
-                                className="grow"
+                                className="grow focus:outline-none"
                             />
                         </label>
                         <label className="flex input-small w-full">
@@ -86,7 +86,7 @@ const VaccForm = ({
                                 value={vacc.interval}
                                 onChange={handleChange}
                                 placeholder="Repeat (in years):"
-                                className="grow"
+                                className="grow focus:outline-none"
                             />
                         </label>
                     </div>
@@ -107,7 +107,7 @@ const VaccForm = ({
                                 value={vacc.vet}
                                 onChange={handleChange}
                                 placeholder="Vet"
-                                className="grow"
+                                className="grow focus:outline-none"
                             />
                         </label>
 
@@ -123,7 +123,7 @@ const VaccForm = ({
                                 value={vacc.comment}
                                 onChange={handleChange}
                                 placeholder="Comment"
-                                className="grow"
+                                className="grow focus:outline-none"
                             />
                         </label>
                     </div>
