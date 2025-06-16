@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router";
+import Auth from "./pages/Auth";
+import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
+import PetDetail from "./pages/PetDetail";
+import Pets from "./pages/Pets";
+import Reminders from "./pages/Reminders";
+import Settings from "./pages/Settings";
+import AuthContextProvider from "./context/AuthContext";
+import PetContextProvider from "./context/PetContext";
+import RemContextProvider from "./context/RemContext";
 
-function App() {
-  const [count, setCount] = useState(0)
+import MainLayout from "./layout/MainLayout";
+import ProtectedLayout from "./layout/ProtectedLayout";
+import CreatePet from "./pages/CreatePet";
+import UpdatePet from "./pages/UpdatePet";
+import SleepPets from "./pages/SleepPet";
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+const App = () => {
+    return (
+        <AuthContextProvider>
+            <PetContextProvider>
+                <RemContextProvider>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="auth" element={<Auth />} />
+                            {/* Public Routes */}
+                            <Route element={<MainLayout />}></Route>
 
-export default App
+                            {/* Protected Routes */}
+                            <Route element={<ProtectedLayout />}>
+                                <Route
+                                    path="dashboard"
+                                    element={<Dashboard />}
+                                />
+                                <Route path="pets" element={<Pets />} />
+                                <Route
+                                    path="pets/:id"
+                                    element={<PetDetail />}
+                                />
+                                <Route
+                                    path="pets/new-pet"
+                                    element={<CreatePet />}
+                                />
+                                <Route
+                                    path="pets/edit-pet/:id"
+                                    element={<UpdatePet />}
+                                />
+                                <Route
+                                    path="pets/sleeping"
+                                    element={<SleepPets />}
+                                />
+                                <Route
+                                    path="reminders"
+                                    element={<Reminders />}
+                                />
+                                <Route path="settings" element={<Settings />} />
+                            </Route>
+                        </Routes>
+                    </BrowserRouter>
+                </RemContextProvider>
+            </PetContextProvider>
+        </AuthContextProvider>
+    );
+};
+
+export default App;

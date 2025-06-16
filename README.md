@@ -1,12 +1,57 @@
-# React + Vite
+# FurRealEase 🐾
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Final Full Stack Project – Web Development Bootcamp**
 
-Currently, two official plugins are available:
+FurRealEase is a pet health manager app that allows users to track and organize important health data for their pets – including profiles, weight logs, vaccinations, medications, notes, vet visits and custom reminders.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+I built this project from scratch as a solo developer – frontend, backend, design, database, authentication and deployment.
 
-## Expanding the ESLint configuration
+➡️ [Go to Backend Repository](https://github.com/TheRealAniko/furrealease-backend)
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧑‍💻 Tech Stack
+
+-   **Frontend:** React, Tailwind CSS
+-   **Backend:** Node.js, Express, MongoDB
+-   **Auth:** JWT (JSON Web Tokens)
+-   **State Management:** React Context API
+-   **Deployment:** Render
+
+## ✅ Features
+
+-   Authentication & protected routes
+-   CRUD for pets, health data & reminders
+-   Calendar view for upcoming reminders
+-   Charts for visualizing weight progress
+-   Modal forms & clean UI structure
+
+## 🌐 Live Demo
+
+👉 [https://furrealease-frontend.onrender.com](https://furrealease-frontend.onrender.com)
+
+> ⚠️ Note: The app is not yet fully responsive. Some features may look best on desktop.
+
+## 🎨 Design & Planning
+
+Before building the app, I created a full layout, style guide and wireframes in Figma to plan structure, flow and consistency.
+
+📄 [View Wireframes & Style Guide (PDF)](./docs/FurRealEase_design.pdf)
+
+While not everything made it 1:1 into the final product, it helped me stay focused and intentional in my development process.
+
+## 🤍 What I'm proud of
+
+-   Built independently in 3 weeks during an intensive bootcamp
+-   Clean, consistent codebase across frontend & backend
+-   Strong focus on structure, usability and UX thinking
+-   Learned a lot about real-world full-stack development
+
+## 🛠️ Still in progress
+
+-   Mobile responsiveness
+-   UX polish & accessibility
+-   Profile settings
+
+---
+
+Thanks for checking it out! 😊  
+Feel free to reach out if you want to know more.

@@ -1,68 +1,83 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* @import \"tailwindcss/preflight\" */
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@layer components {
+    .nav-link {
+        @apply flex items-center gap-4 transition-colors duration-300 text-neutral100 border-l-4 border-l-neutral700 hover:text-primary hover:border-l-4 hover:border-l-primary;
+    }
+    .nav-link-active {
+        @apply text-primary border-l-4 border-l-primary;
+    }
+    .card-container {
+        @apply shadow-md p-4 rounded-xl bg-white border border-neutral200;
+    }
+    .input-wrapper {
+        @apply rounded-full border border-neutral700 bg-neutral100  p-4 focus-within:border-pinkNose focus-within:ring-2 focus-within:ring-pinkNose/50 transition;
+    }
+    .input-field {
+        @apply grow font-light text-base focus:outline-none;
+    }
+    .legend-overlay {
+        @apply absolute -top-3 left-6 bg-neutral100 px-4;
+    }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+    .input-small {
+        @apply rounded-lg border border-neutral400 bg-neutral100  p-2 focus-within:border-pinkNose focus-within:ring-2 focus-within:ring-pinkNose/50 transition;
+    }
+    .textarea {
+        @apply rounded-xl border border-neutral700 bg-neutral100 p-4;
+    }
+    .file-input {
+        @apply appearance-none rounded-full border border-neutral700 bg-neutral100;
+    }
+    .btn-primary {
+        @apply rounded-full font-medium py-2.5 px-8 text-base bg-primary hover:bg-darkPrimary text-neutral100;
+    }
+    .btn-primary-xs {
+        @apply px-6 py-1 text-sm rounded-full border bg-primary hover:bg-darkPrimary  text-neutral100;
+    }
+    .btn-outline {
+        @apply rounded-full font-medium py-2.5 px-8 text-base bg-neutral100 border border-primary  text-primary hover:bg-neutral200 hover:border-darkPrimary hover:text-darkPrimary;
+    }
+    .btn-outline-xs {
+        @apply px-6 py-1 text-sm rounded-full border border-primary text-primary hover:border-darkPrimary hover:text-darkPrimary;
+    }
+    .btn-outline-grey {
+        @apply rounded-full font-medium py-2.5 px-8 text-base bg-neutral100 border border-inactive  text-inactive hover:border-neutral700 hover:text-neutral700;
+    }
+    .btn-icon {
+        @apply flex items-center gap-2 font-light text-base text-greenEyes hover:text-darkGreenEyes;
+    }
+    .h2-section {
+        @apply text-2xl font-semibold  text-neutral900;
+    }
+    .h3-section {
+        @apply text-xl font-medium  text-neutral900;
+    }
+    .radio-btn {
+        @apply appearance-none w-5 h-5 rounded-full border border-neutral900 checked:ring-1 ring-orange-400 ring-offset-2 ring-offset-white checked:bg-primary checked:border-primary;
+    }
+    .table-head th {
+        @apply bg-neutral700 text-neutral100 font-normal text-base px-4 py-2 first:rounded-l-md last:rounded-r-md;
+    }
+    .table-body td {
+        @apply px-4 py-2 text-neutral900 font-light text-base;
+    }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+    .table-body tr {
+        @apply even:bg-neutral200;
+    }
+    .inner-head {
+        @apply bg-neutral700 text-neutral100 font-normal text-base px-4 py-2 rounded-md;
+    }
+    .inner-body {
+        @apply text-base p-4 font-light;
+    }
+    .modal-card {
+        @apply bg-neutral100 rounded-md border border-neutral400;
+    }
 }
