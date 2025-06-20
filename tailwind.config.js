@@ -3,6 +3,9 @@ export default {
     content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
     theme: {
         extend: {
+            screens: {
+                fit: "845px",
+            },
             fontFamily: {
                 sans: ["Rubik", "sans-serif"],
             },

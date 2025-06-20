@@ -20,45 +20,50 @@ const PetCard = ({
     const navigate = useNavigate();
 
     return (
-        <div className="card-container flex gap-8 text-neutral900">
-            <div className="">
+        <div className="card-container flex flex-row gap-6 p-4 bg-white rounded-xl shadow-md text-neutral900">
+            {/* Bild-Sektion */}
+            <div className="sm:basis-1/3 flex justify-center items-center">
                 <PetProfilImg
                     photoUrl={photoUrl}
                     species={species}
-                    size="w-52"
+                    className="w-full  min-w-[100px] max-w-[160px]"
                 />
             </div>
-            <div className="flex flex-col justify-between">
-                <h2 className="font-medium text-4xl">
+
+            {/* Info-Sektion */}
+            <div className="sm:basis-2/3 flex flex-col justify-between gap-4 mt-4 sm:mt-0">
+                <h2 className="font-medium text-2xl sm:text-4xl flex items-center gap-4">
                     {name}
-                    {sex === "male" ? (
-                        <Mars className="inline pl-4 w-10 text-inactive" />
-                    ) : sex === "female" ? (
-                        <Venus className="inline pl-4 w-10 text-inactive" />
-                    ) : null}
+                    {sex === "male" && (
+                        <Mars className="w-6 sm:w-8 text-inactive" />
+                    )}
+                    {sex === "female" && (
+                        <Venus className="w-6 sm:w-8 text-inactive" />
+                    )}
                 </h2>
-                <div className="space-y-2">
-                    <div className="flex items-center gap-4 font-light text-base">
-                        <Cake className="text-inactive w-6 " />
+
+                <div className="space-y-2 font-light text-base">
+                    <div className="flex items-center gap-4">
+                        <Cake className="text-inactive w-5 sm:w-6" />
                         <span>{formatAge(birthdate)}</span>
                     </div>
-                    <div className="flex items-center gap-4 font-light text-base">
-                        <Stethoscope className="text-inactive w-6 " />{" "}
-                        {lastVetVisit}
+                    <div className="flex items-center gap-4">
+                        <Stethoscope className="text-inactive w-5 sm:w-6" />
+                        <span>{lastVetVisit}</span>
                     </div>
                 </div>
-                <div className="flex justify-between gap-10 text-greenEyes">
+
+                <div className="flex flex-row justify-between gap-4 text-greenEyes">
                     <Link key={id} to={`/pets/${id}`}>
-                        <button className="btn-icon">
-                            <Eye className="w-10" />
+                        <button className="btn-icon flex items-center gap-2 w-auto">
+                            <Eye className="w-8" />
                             View
                         </button>
                     </Link>
-
                     <button
                         onClick={() => navigate(`/pets/edit-pet/${id}`)}
-                        className="btn-icon">
-                        <Pencil className="w-10 " />
+                        className="btn-icon flex items-center gap-2 w-auto">
+                        <Pencil className="w-8" />
                         Edit
                     </button>
                 </div>

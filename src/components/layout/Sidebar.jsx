@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/index.js";
 import { Link, NavLink } from "react-router";
 import {
@@ -25,7 +25,19 @@ const speciesIcons = {
 
 const Sidebar = () => {
     const { isAuthenticated, signOut } = useAuth();
-    const [isCollapsed, setIsCollapsed] = useState(false);
+
+    const [isCollapsed, setIsCollapsed] = useState(() => {
+        if (typeof window === "undefined") return true;
+        return window.matchMedia("(max-width: 1279px)").matches;
+    });
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 1279px)");
+        const handleResize = () => setIsCollapsed(mediaQuery.matches);
+        mediaQuery.addEventListener("change", handleResize);
+
+        return () => mediaQuery.removeEventListener("change", handleResize);
+    }, []);
+
     if (!isAuthenticated) return null;
     const { pets } = usePets();
     const { id } = useParams();
