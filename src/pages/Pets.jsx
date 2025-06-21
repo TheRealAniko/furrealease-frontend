@@ -27,7 +27,7 @@ const Pets = () => {
                 <h2 className="h2-section">Your Fur Friends</h2>
                 <AddPetBtn />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid gap-6 grid-cols-1 fit:grid-cols-2">
                 {pets.length === 0 ? <div>No pets</div> : <Petlist />}
             </div>
             {pets.some((pet) => pet.status === "sleeping") && (
