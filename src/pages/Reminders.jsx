@@ -110,12 +110,12 @@ const Reminders = () => {
                     }}
                     className="btn-icon">
                     <CirclePlus className="w-5 h-5" />
-                    Add Reminder
+                    <span className="hidden sm:inline">Add Reminder</span>
                 </button>
             </div>
 
             {/* Calendar & Upper Reminder Section */}
-            <div className="card-container flex gap-8 mb-10">
+            <div className="card-container flex-col sm:flex-row  flex gap-8 mb-10">
                 <RemCalendar />
                 <div className="relative w-full">
                     <RemList
