@@ -17,7 +17,7 @@ const LayoutShell = () => {
                     onClose={() => setIsSidebarOpen(false)} // ← Funktion zum Schließen
                 />
 
-                <main className="flex-1 px-8 pt-20 bg-neutral100">
+                <main className="flex-1 px-2 sm:px-8 pt-20 bg-neutral100">
                     <Outlet />
                 </main>
             </div>

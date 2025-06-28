@@ -79,50 +79,49 @@ const RemCalendar = () => {
 
     return (
         <div>
-            <div className="modal-card p-6">
+            <div className="sm:modal-card p-4 sm:p-6 max-w-md mx-auto">
                 {/* Navigation: Months */}
                 <div className="flex justify-between items-center mb-4">
-                    <button onClick={goToPrevMonth}>
+                    <button
+                        onClick={goToPrevMonth}
+                        className="p-2 hover:bg-gray-100 rounded">
                         <ChevronLeft />
                     </button>
-                    <h3 className="text-neutral900">
+                    <h3 className="text-neutral900 text-lg sm:text-xl">
                         {format(currentMonth, "MMMM yyyy")}
                     </h3>
-                    <button onClick={goToNextMonth}>
-                        {" "}
+                    <button
+                        onClick={goToNextMonth}
+                        className="p-2 hover:bg-gray-100 rounded">
                         <ChevronRight />
                     </button>
                 </div>
 
                 {/* Weekdays */}
-                <div className="grid grid-cols-7 text-center text-xs font-light pb-2 gap-4">
+                <div className="grid grid-cols-7 text-center text-xs font-light pb-2 gap-1 sm:gap-2">
                     {["M", "T", "W", "T", "F", "S", "S"].map((day, index) => (
-                        <div
-                            key={day + index}
-                            onClick={() => handleDayClick(day)}>
+                        <div key={day + index} className="py-2">
                             {day}
                         </div>
                     ))}
                 </div>
 
-                {/* Days*/}
-                <div className="grid grid-cols-7 text-center gap-4 w-96 ">
+                {/* Days */}
+                <div className="grid grid-cols-7 text-center gap-1 sm:gap-2">
                     {generateCalendarDays().map((day, index) => (
                         <div
                             key={index}
-                            className={`p-2 border rounded-full text-sm cursor-pointer ${
+                            className={`aspect-square flex items-center justify-center border rounded-full text-xs sm:text-sm cursor-pointer ${
                                 isSameMonth(day, currentMonth)
                                     ? ""
                                     : "text-gray-400 bg-neutral200"
                             } ${
                                 isSameDay(day, selectedDate)
-                                    ? "bg-darkPrimary rounded-full  text-neutral100"
+                                    ? "bg-darkPrimary text-neutral100"
                                     : ""
                             } ${getReminderClass(day)} ${
                                 isToday(day) ? "bg-primary text-neutral100" : ""
-                            }
-
-`}
+                            }`}
                             onClick={() =>
                                 isSameDay(selectedDate, day)
                                     ? setSelectedDate(null)
@@ -132,13 +131,14 @@ const RemCalendar = () => {
                         </div>
                     ))}
                 </div>
+
                 <button
                     onClick={() => {
                         setCurrentMonth(new Date());
-                        setSelectedDate(null); // reset → volle Monatsansicht
-                        setActiveReminder(null); // Details auch zurücksetzen
+                        setSelectedDate(null);
+                        setActiveReminder(null);
                     }}
-                    className="mt-4 px-6 py-1 text-sm rounded-full border border-primary text-primary hover:border-darkPrimary hover:text-darkPrimary block mx-auto">
+                    className="mt-4 px-4 sm:px-6 py-1 text-sm rounded-full border border-primary text-primary hover:border-darkPrimary hover:text-darkPrimary block mx-auto">
                     Today
                 </button>
             </div>
