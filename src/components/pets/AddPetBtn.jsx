@@ -8,7 +8,7 @@ const AddPetBtn = () => {
                 {" "}
                 <button className="btn-icon">
                     <CirclePlus className="w-5 h-5" />
-                    Add Fur Friend
+                    <span className="hidden sm:inline">Add Fur Friend</span>
                 </button>
             </NavLink>
         </>

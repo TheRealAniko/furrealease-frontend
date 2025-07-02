@@ -7,12 +7,12 @@ const speciesIcons = {
     other: <PawPrint className="w-2/3 h-2/3 stroke-neutral100 stroke-1" />,
 };
 
-const PetProfilImg = ({ photoUrl, species = "other", size = "w-80" }) => {
+const PetProfilImg = ({ photoUrl, species = "other", className = "" }) => {
     const fallback = speciesIcons[species.toLowerCase()] || speciesIcons.other;
 
     return (
         <div
-            className={`rounded-full aspect-square flex items-center justify-center bg-primary border border-neutral200 ${size}`}>
+            className={`rounded-full aspect-square flex items-center justify-center bg-primary border border-neutral200 ${className}`}>
             {photoUrl ? (
                 <img
                     src={photoUrl}
@@ -20,7 +20,9 @@ const PetProfilImg = ({ photoUrl, species = "other", size = "w-80" }) => {
                     className="rounded-full w-full h-full object-cover"
                 />
             ) : (
-                fallback
+                <div className="w-2/3 h-2/3 flex items-center justify-center">
+                    {fallback}
+                </div>
             )}
         </div>
     );

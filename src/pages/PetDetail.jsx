@@ -91,24 +91,18 @@ const PetDetail = () => {
                 <AddPetBtn />
             </div>
             {/* Pet info container */}
-            <div className="card-container flex gap-28 ">
-                <div className="">
+            <div className="card-container flex flex-col sm:flex-row gap-8 ">
+                <div className="sm:basis-1/3 flex justify-center items-start">
                     {/* Image left */}
                     <PetProfilImg
                         photoUrl={photoUrl}
                         species={species}
-                        size="w-80"
+                        className="w-full  min-w-[100px] max-w-[300px]"
                     />
                 </div>
                 {/* Infos right */}
-                <div className="flex flex-col justify-between w-full">
-                    <button
-                        onClick={() => navigate(`/pets/edit-pet/${id}`)}
-                        className="flex items-center gap-2 font-light text-base text-greenEyes justify-end">
-                        <Pencil className="w-5 h-5" />
-                        Edit Information
-                    </button>
-                    <h2 className="font-medium text-4xl">
+                <div className="flex flex-col justify-between w-full gap-8">
+                    <h2 className="font-medium text-4xl text-center sm:text-left">
                         {name}{" "}
                         {sex === "male" ? (
                             <Mars className="inline pl-4 w-10 text-inactive" />
@@ -116,7 +110,7 @@ const PetDetail = () => {
                             <Venus className="inline pl-4 w-10 text-inactive" />
                         ) : null}
                     </h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
                         <div className="flex items-center gap-4 font-light text-base">
                             <Cake className="text-inactive w-6 " />
                             <span>{formatAge(birthdate)}</span>
@@ -143,15 +137,23 @@ const PetDetail = () => {
                         </div>
                     </div>
 
-                    <div className="text-lg text-neutral700 pb-6">
+                    <div className="text-lg text-neutral700 text-center sm:text-left">
                         <span className=" pr-2">{name} is doing great! </span>
 
                         {!lastVetVisit && <span>Time for a check-up?</span>}
                     </div>
+                    <button
+                        onClick={() => navigate(`/pets/edit-pet/${id}`)}
+                        className="flex items-center gap-2 font-light text-base text-greenEyes justify-end">
+                        <Pencil className="w-5 h-5" />
+                        <span className="hidden sm:inline">
+                            Edit Information
+                        </span>
+                    </button>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 py-10">
+            <div className="grid grid-cols-1 fit:grid-cols-2 gap-6 py-10">
                 <PetRemSection pet={currPet} />
 
                 <VisitsSection

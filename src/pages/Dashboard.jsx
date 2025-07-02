@@ -17,10 +17,7 @@ const Dashboard = () => {
                 <h2 className="h2-section">Your Fur Friends</h2>
                 <AddPetBtn />
             </div>
-            <div
-                className={`grid grid-cols-1 gap-6 ${
-                    pets.length > 0 ? "sm:grid-cols-2" : ""
-                }`}>
+            <div className="grid gap-6 grid-cols-1 fit:grid-cols-2">
                 {pets.length === 0 ? (
                     <div className="card-container bg-neutral200 flex justify-between items-center">
                         No Fur Friends yet{" "}
@@ -52,7 +49,7 @@ const Dashboard = () => {
                     onClick={() => navigate("/reminders?addReminder=true")}
                     className="btn-icon">
                     <CirclePlus className="w-5 h-5" />
-                    Add Reminder
+                    <span className="hidden sm:inline">Add Reminder</span>
                 </button>
             </div>
             {rems.length === 0 ? (

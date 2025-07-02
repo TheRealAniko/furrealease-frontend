@@ -110,14 +110,16 @@ const Reminders = () => {
                     }}
                     className="btn-icon">
                     <CirclePlus className="w-5 h-5" />
-                    Add Reminder
+                    <span className="hidden sm:inline">Add Reminder</span>
                 </button>
             </div>
 
             {/* Calendar & Upper Reminder Section */}
-            <div className="card-container flex gap-8 mb-10">
-                <RemCalendar />
-                <div className="relative w-full">
+            <div className="card-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
+                <div className="md:col-span-1">
+                    <RemCalendar />
+                </div>
+                <div className="relative md:col-span-1 lg:col-span-2">
                     <RemList
                         activeReminder={activeReminderTop}
                         setActiveReminder={setActiveReminderTop}
@@ -138,8 +140,10 @@ const Reminders = () => {
 
             {/* All Reminders Section */}
             <div className="card-container flex flex-col gap-4 p-6">
-                <div className="flex flex-wrap items-center justify-between gap-4 mb-2">
-                    <div className="flex gap-2">
+                {/* Filter */}
+                <div className="flex lex-col sm:flex-row flex-wrap items-center justify-between gap-4 mb-2">
+                    <div className="flex gap-2 text-xs items-center">
+                        Show:
                         <button
                             onClick={() => setFilter("active")}
                             className={`${
@@ -194,6 +198,8 @@ const Reminders = () => {
                                 </option>
                             ))}
                         </select>
+                    </div>
+                    <div className="flex gap-2 text-xs items-center">
                         Sort:
                         <button
                             onClick={() =>

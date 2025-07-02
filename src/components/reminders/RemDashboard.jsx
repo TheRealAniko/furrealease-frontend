@@ -45,7 +45,7 @@ const RemDashboard = () => {
 
     return (
         <>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 fit:grid-cols-2 xl:grid-cols-3 gap-6">
                 {/* Todays Reminders */}
                 {todayRems.length > 0 && (
                     <div className="card-container text-neutral900">

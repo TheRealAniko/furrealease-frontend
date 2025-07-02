@@ -10,7 +10,7 @@ import AuthContextProvider from "./context/AuthContext";
 import PetContextProvider from "./context/PetContext";
 import RemContextProvider from "./context/RemContext";
 
-import MainLayout from "./layout/MainLayout";
+import LayoutShell from "./layout/LayoutShell";
 import ProtectedLayout from "./layout/ProtectedLayout";
 import CreatePet from "./pages/CreatePet";
 import UpdatePet from "./pages/UpdatePet";
@@ -26,7 +26,7 @@ const App = () => {
                             <Route path="/" element={<Home />} />
                             <Route path="auth" element={<Auth />} />
                             {/* Public Routes */}
-                            <Route element={<MainLayout />}></Route>
+                            <Route element={<LayoutShell />}></Route>
 
                             {/* Protected Routes */}
                             <Route element={<ProtectedLayout />}>

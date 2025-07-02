@@ -98,7 +98,7 @@ const RemCard = ({ rem, isActive, onClick }) => {
                         />
                         <div
                             onClick={onClick}
-                            className="flex justify-between items-center w-full">
+                            className="flex justify-between items-center w-full gap-2">
                             <div
                                 className={`${
                                     rem.status === "done"
