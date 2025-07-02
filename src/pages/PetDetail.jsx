@@ -10,6 +10,7 @@ import {
     Dna,
     Wrench,
     Microchip,
+    PawPrint,
 } from "lucide-react";
 import AddPetBtn from "../components/pets/AddPetBtn.jsx";
 import PetProfilImg from "../components/pets/PetProfileImg.jsx";
@@ -28,6 +29,7 @@ import VisitModal from "../components/health/visits/VisitModal.jsx";
 import { useRems } from "../context";
 import RemCard from "../components/reminders/RemCard.jsx";
 import PetRemSection from "../components/pets/PetRemSection.jsx";
+import ChatInput from "../components/aiChatEntry/ChatInput.jsx";
 
 const PetDetail = () => {
     const [currPet, setCurrPet] = useState({});
@@ -138,9 +140,19 @@ const PetDetail = () => {
                     </div>
 
                     <div className="text-lg text-neutral700 text-center sm:text-left">
-                        <span className=" pr-2">{name} is doing great! </span>
+                        <p className="mb-2 flex">
+                            <PawPrint />{" "}
+                            <span className="px-4">
+                                <strong>PawBot:</strong> Hi! Tell me what
+                                happened with {name} today and I'll help you
+                                record it.
+                            </span>
+                        </p>
 
-                        {!lastVetVisit && <span>Time for a check-up?</span>}
+                        {/* <span className=" pr-2">{name} is doing great! </span>
+
+                        {!lastVetVisit && <span>Time for a check-up?</span>} */}
+                        <ChatInput />
                     </div>
                     <button
                         onClick={() => navigate(`/pets/edit-pet/${id}`)}
