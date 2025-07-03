@@ -2,15 +2,29 @@ import { useState, useEffect } from "react";
 import { useSpeechToText } from "./hooks/useSpeechToText.js";
 import { MicButton } from "./MicButton";
 import { PawPrint } from "lucide-react";
+import { parseEntry } from "../../data/parseEntry.js";
 
 const ChatInput = () => {
     const [message, setMessage] = useState("");
+    const [aiResponse, setAiResponse] = useState(null);
 
     const { isListening, transcript, startListening, stopListening } =
         useSpeechToText();
 
-    const handleSend = () => {
+    const handleSend = async () => {
         console.log("User Message:", message);
+
+        try {
+            // AI Antwort generieren
+            const data = await parseEntry(message);
+            console.log("AI Response:", data);
+
+            setAiResponse(data);
+            setMessage(""); // Textfeld leeren nach dem Senden
+        } catch (error) {
+            console.error("Error generating AI response:", error);
+            setAiResponse(null);
+        }
     };
 
     // Wenn transcript sich ändert → ins Textfeld setzen
@@ -62,6 +76,13 @@ const ChatInput = () => {
                     </>
                 )} */}
             </div>
+
+            {/* AI Response Display */}
+            {aiResponse && (
+                <div className="mt-2 p-2 bg-white rounded shadow text-sm">
+                    <pre>{JSON.stringify(aiResponse, null, 2)}</pre>
+                </div>
+            )}
         </div>
     );
 };
