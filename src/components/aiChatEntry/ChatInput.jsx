@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSpeechToText } from "./hooks/useSpeechToText.js";
+import { MicButton } from "./MicButton";
+import { PawPrint } from "lucide-react";
 
 const ChatInput = () => {
     const [message, setMessage] = useState("");
@@ -20,7 +22,15 @@ const ChatInput = () => {
 
     return (
         <div className="flex flex-col gap-2 p-4 bg-neutral200 rounded-lg">
-            <div className="flex gap-4 items-center">
+            <p className="mb-2 flex text-left">
+                <PawPrint />{" "}
+                <span className="px-4 font-light">
+                    <strong>PawBot:</strong> Hi! Tell me what happened with{" "}
+                    {name} today and I'll help you record it.
+                </span>
+            </p>
+            {/* TOP ROW */}
+            <div className="flex items-center gap-3">
                 <input
                     type="text"
                     value={message}
@@ -28,30 +38,29 @@ const ChatInput = () => {
                     placeholder="Type your message..."
                     className="input-small grow focus:outline-none focus:ring-2 focus:ring-primary rounded-md"
                 />
+                <MicButton
+                    isListening={isListening}
+                    startListening={startListening}
+                    stopListening={stopListening}
+                />
 
                 <button onClick={handleSend} className="btn-primary">
                     Send
                 </button>
             </div>
 
-            <div className="flex gap-2 items-center">
-                {isListening ? (
-                    <button
-                        onClick={stopListening}
-                        className="px-3 py-1 bg-red-500 text-white rounded">
-                        Stop Listening
-                    </button>
-                ) : (
-                    <button
-                        onClick={startListening}
-                        className="px-3 py-1 bg-green-500 text-white rounded">
-                        Start Listening
-                    </button>
-                )}
-
-                <p className="text-sm text-neutral700">
-                    <strong>Transcript:</strong> {transcript}
-                </p>
+            {/* STATUS / TRANSCRIPT */}
+            <div className="text-sm text-neutral700 mt-1 font-light">
+                <strong>Status:</strong>{" "}
+                {isListening
+                    ? "Listening... Tap to stop."
+                    : "Tap the mic to speak."}
+                {/* {transcript && (
+                    <>
+                        <br />
+                        <strong>Transcript:</strong> {transcript}
+                    </>
+                )} */}
             </div>
         </div>
     );

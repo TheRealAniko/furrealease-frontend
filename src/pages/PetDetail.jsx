@@ -104,14 +104,26 @@ const PetDetail = () => {
                 </div>
                 {/* Infos right */}
                 <div className="flex flex-col justify-between w-full gap-8">
-                    <h2 className="font-medium text-4xl text-center sm:text-left">
-                        {name}{" "}
-                        {sex === "male" ? (
-                            <Mars className="inline pl-4 w-10 text-inactive" />
-                        ) : sex === "female" ? (
-                            <Venus className="inline pl-4 w-10 text-inactive" />
-                        ) : null}
-                    </h2>
+                    <div className="flex justify-between">
+                        <h2 className="font-medium text-4xl text-center sm:text-left">
+                            {name}{" "}
+                            {sex === "male" ? (
+                                <Mars className="inline pl-4 w-10 text-inactive" />
+                            ) : sex === "female" ? (
+                                <Venus className="inline pl-4 w-10 text-inactive" />
+                            ) : null}
+                        </h2>
+
+                        <button
+                            onClick={() => navigate(`/pets/edit-pet/${id}`)}
+                            className="flex items-center gap-2 font-light text-base text-greenEyes justify-end">
+                            <Pencil className="w-5 h-5" />
+                            <span className="hidden sm:inline">
+                                Edit Information
+                            </span>
+                        </button>
+                    </div>
+
                     <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
                         <div className="flex items-center gap-4 font-light text-base">
                             <Cake className="text-inactive w-6 " />
@@ -140,28 +152,11 @@ const PetDetail = () => {
                     </div>
 
                     <div className="text-lg text-neutral700 text-center sm:text-left">
-                        <p className="mb-2 flex">
-                            <PawPrint />{" "}
-                            <span className="px-4">
-                                <strong>PawBot:</strong> Hi! Tell me what
-                                happened with {name} today and I'll help you
-                                record it.
-                            </span>
-                        </p>
-
                         {/* <span className=" pr-2">{name} is doing great! </span>
 
                         {!lastVetVisit && <span>Time for a check-up?</span>} */}
                         <ChatInput />
                     </div>
-                    <button
-                        onClick={() => navigate(`/pets/edit-pet/${id}`)}
-                        className="flex items-center gap-2 font-light text-base text-greenEyes justify-end">
-                        <Pencil className="w-5 h-5" />
-                        <span className="hidden sm:inline">
-                            Edit Information
-                        </span>
-                    </button>
                 </div>
             </div>
 
