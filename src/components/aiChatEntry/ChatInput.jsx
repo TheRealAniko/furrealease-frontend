@@ -3,7 +3,7 @@ import { useSpeechToText } from "./hooks/useSpeechToText.js";
 import { MicButton } from "./MicButton";
 import { PawPrint } from "lucide-react";
 import { parseEntry } from "../../data/parseEntry.js";
-import { se } from "date-fns/locale";
+import { getPawBotText } from "../../utils/formatPawBotResponse.js";
 
 const ChatInput = () => {
     const [message, setMessage] = useState("");
@@ -98,6 +98,24 @@ const ChatInput = () => {
                 </div>
             )}
             {/* AI Response Display */}
+            {aiResponse?.data && (
+                <div className="mb-2 flex flex-col gap-4 bg-gray-50 border rounded-lg p-4">
+                    <div className="flex items-start gap-4">
+                        <PawPrint className="w-12" />
+                        <span className="font-light whitespace-pre-wrap">
+                            <strong>PawBot:</strong>{" "}
+                            {getPawBotText(aiResponse.data)}
+                        </span>
+                    </div>
+
+                    <button
+                        className="btn-primary self-end"
+                        onClick={() => handleConfirm(aiResponse.data)}>
+                        Confirm & Save
+                    </button>
+                </div>
+            )}
+
             {aiResponse && (
                 <div className="mt-2 p-2 bg-white rounded shadow text-sm">
                     <pre>{JSON.stringify(aiResponse, null, 2)}</pre>
