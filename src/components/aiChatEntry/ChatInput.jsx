@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useSpeechToText } from "./hooks/useSpeechToText.js";
+import { useAudioRecorder } from "./hooks/useAudioRecorder.js";
 import { MicButton } from "./MicButton";
 import { PawPrint } from "lucide-react";
 import { parseEntry } from "../../data/parseEntry.js";
+import { transcribeAudio } from "../../data/transcribeAudio.js";
 import { getPawBotText } from "../../utils/formatPawBotResponse.js";
 
 const ChatInput = () => {
@@ -13,6 +15,13 @@ const ChatInput = () => {
 
     const { isListening, transcript, startListening, stopListening } =
         useSpeechToText();
+
+    const { isRecording, startRecording, stopRecording } = useAudioRecorder();
+
+    const handleStopAndTranscribe = async () => {
+        const audioBlob = await stopRecording();
+        await handleServerTranscribe(audioBlob);
+    };
 
     const handleSend = async () => {
         console.log("User Message:", message);
@@ -31,6 +40,23 @@ const ChatInput = () => {
         } catch (error) {
             console.error("Error generating AI response:", error);
             setError(error.message || "Something went wrong!");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleServerTranscribe = async (audioBlob) => {
+        console.log("Transcribing audio...");
+        setLoading(true);
+        setError(null);
+
+        try {
+            const data = await transcribeAudio(audioBlob);
+            console.log("Whisper Transcription:", data.text);
+            setMessage(data.text); // Setze transkribierten Text ins Eingabefeld
+        } catch (error) {
+            console.error("Error transcribing audio:", error);
+            setError(error.message || "Failed to transcribe audio");
         } finally {
             setLoading(false);
         }
@@ -66,6 +92,16 @@ const ChatInput = () => {
                     startListening={startListening}
                     stopListening={stopListening}
                 />
+
+                <button
+                    onClick={
+                        isRecording ? handleStopAndTranscribe : startRecording
+                    }
+                    className={`btn-secondary ${
+                        isRecording ? "bg-red-500" : "bg-success"
+                    }`}>
+                    {isRecording ? "Stop Recording" : "Start Recording"}
+                </button>
 
                 <button onClick={handleSend} className="btn-primary">
                     Send
