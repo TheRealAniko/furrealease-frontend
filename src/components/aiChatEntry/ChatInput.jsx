@@ -3,16 +3,23 @@ import { useSpeechToText } from "./hooks/useSpeechToText.js";
 import { MicButton } from "./MicButton";
 import { PawPrint } from "lucide-react";
 import { parseEntry } from "../../data/parseEntry.js";
+import { se } from "date-fns/locale";
 
 const ChatInput = () => {
     const [message, setMessage] = useState("");
     const [aiResponse, setAiResponse] = useState(null);
+    const [Loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const { isListening, transcript, startListening, stopListening } =
         useSpeechToText();
 
     const handleSend = async () => {
         console.log("User Message:", message);
+
+        setLoading(true);
+        setError(null);
+        setAiResponse(null);
 
         try {
             // AI Antwort generieren
@@ -23,7 +30,9 @@ const ChatInput = () => {
             setMessage(""); // Textfeld leeren nach dem Senden
         } catch (error) {
             console.error("Error generating AI response:", error);
-            setAiResponse(null);
+            setError(error.message || "Something went wrong!");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -77,6 +86,17 @@ const ChatInput = () => {
                 )} */}
             </div>
 
+            {/* LOADING / ERROR */}
+            {Loading && (
+                <div className="text-sm text-neutral700 mt-2">
+                    <span className="animate-pulse">PawBot is thinking...</span>
+                </div>
+            )}
+            {error && (
+                <div className="text-sm text-red-500 mt-2">
+                    <strong>Error:</strong> {error}
+                </div>
+            )}
             {/* AI Response Display */}
             {aiResponse && (
                 <div className="mt-2 p-2 bg-white rounded shadow text-sm">
