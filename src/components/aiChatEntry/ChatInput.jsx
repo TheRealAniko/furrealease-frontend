@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSpeechToText } from "./hooks/useSpeechToText.js";
 import { useAudioRecorder } from "./hooks/useAudioRecorder.js";
-import { MicButton } from "./MicButton";
-import { PawPrint } from "lucide-react";
+import { PawPrint, Mic, MicOff } from "lucide-react";
 import { parseEntry } from "../../data/parseEntry.js";
 import { transcribeAudio } from "../../data/transcribeAudio.js";
 import { getPawBotText } from "../../utils/formatPawBotResponse.js";
@@ -12,9 +11,10 @@ const ChatInput = () => {
     const [aiResponse, setAiResponse] = useState(null);
     const [Loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const textareaRef = useRef(null);
 
-    const { isListening, transcript, startListening, stopListening } =
-        useSpeechToText();
+    // const { isListening, transcript, startListening, stopListening } =
+    //     useSpeechToText();
 
     const { isRecording, startRecording, stopRecording } = useAudioRecorder();
 
@@ -63,11 +63,25 @@ const ChatInput = () => {
     };
 
     // Wenn transcript sich ändert → ins Textfeld setzen
-    useEffect(() => {
-        if (transcript) {
-            setMessage(transcript);
+    // useEffect(() => {
+    //     if (transcript) {
+    //         setMessage(transcript);
+    //     }
+    // }, [transcript]);
+
+    const handleInput = () => {
+        const input = textarea.current;
+        if (textarea) {
+            textarea.style.height = "auto"; // Reset height
+            textarea.style.height = `${input.scrollHeight}px`; // Set to scrollHeight
+
+            if (textarea.scrollHeight > 96) {
+                textarea.style.overflowY = "scroll"; // Enable scroll if too tall
+            } else {
+                textarea.style.overflowY = "hidden"; // Hide scroll if not needed
+            }
         }
-    }, [transcript]);
+    };
 
     return (
         <div className="flex flex-col gap-2 p-4 bg-neutral200 rounded-lg">
@@ -78,48 +92,44 @@ const ChatInput = () => {
                     {name} today and I'll help you record it.
                 </span>
             </p>
-            {/* TOP ROW */}
-            <div className="flex items-center gap-3">
-                <input
-                    type="text"
+
+            {/* Inpur new */}
+            <div className="flex flex-col w-full input-small">
+                <textarea
+                    ref={textareaRef}
                     value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Type your message..."
-                    className="input-small grow focus:outline-none focus:ring-2 focus:ring-primary rounded-md"
-                />
-                <MicButton
-                    isListening={isListening}
-                    startListening={startListening}
-                    stopListening={stopListening}
-                />
-
-                <button
-                    onClick={
-                        isRecording ? handleStopAndTranscribe : startRecording
+                    onChange={(e) => {
+                        setMessage(e.target.value);
+                        handleInput();
+                    }}
+                    placeholder={
+                        isRecording
+                            ? "Recording…"
+                            : "Type your message or record…"
                     }
-                    className={`btn-secondary ${
-                        isRecording ? "bg-red-500" : "bg-success"
-                    }`}>
-                    {isRecording ? "Stop Recording" : "Start Recording"}
-                </button>
-
-                <button onClick={handleSend} className="btn-primary">
-                    Send
-                </button>
-            </div>
-
-            {/* STATUS / TRANSCRIPT */}
-            <div className="text-sm text-neutral700 mt-1 font-light">
-                <strong>Status:</strong>{" "}
-                {isListening
-                    ? "Listening... Tap to stop."
-                    : "Tap the mic to speak."}
-                {/* {transcript && (
-                    <>
-                        <br />
-                        <strong>Transcript:</strong> {transcript}
-                    </>
-                )} */}
+                    rows={1}
+                    className="grow w-full  p-2 focus:outline-none focus:ring-0"
+                />
+                <div className="flex justify-end gap-2">
+                    <button
+                        onClick={
+                            isRecording
+                                ? handleStopAndTranscribe
+                                : startRecording
+                        }
+                        className={`flex items-center gap-2 rounded-full transition-colors h-10 justify-center aspect-square ${
+                            isRecording ? "bg-error" : "bg-success"
+                        } hover:bg-opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary`}>
+                        {isRecording ? (
+                            <MicOff className="h-6 w-6 text-white" />
+                        ) : (
+                            <Mic className="h-6 w-6 text-white" />
+                        )}
+                    </button>
+                    <button onClick={handleSend} className="btn-primary-xs">
+                        Send
+                    </button>
+                </div>
             </div>
 
             {/* LOADING / ERROR */}
