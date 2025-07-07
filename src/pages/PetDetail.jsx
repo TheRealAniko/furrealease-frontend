@@ -43,6 +43,8 @@ const PetDetail = () => {
     const [openVaccModalWithAdd, setOpenVaccModalWithAdd] = useState(false);
     const [showVisitModal, setShowVisitModal] = useState(false);
     const [openVisitModalWithAdd, setOpenVisitModalWithAdd] = useState(false);
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
+
     const { rems } = useRems();
 
     const { id } = useParams();
@@ -84,6 +86,16 @@ const PetDetail = () => {
     const lastVetVisit = formatDate(lastVisit?.date);
 
     const petRems = rems.filter((r) => r.petId?.toString() === currPet._id);
+
+    const handleDataSaved = () => {
+        // Trigger refresh - alle Pet-Daten neu laden
+        setRefreshTrigger((prev) => prev + 1);
+    };
+
+    // useEffect um Daten zu laden wenn refreshTrigger sich ändert
+    useEffect(() => {
+        fetchPet();
+    }, [refreshTrigger]);
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
@@ -155,7 +167,7 @@ const PetDetail = () => {
                         {/* <span className=" pr-2">{name} is doing great! </span>
 
                         {!lastVetVisit && <span>Time for a check-up?</span>} */}
-                        <ChatInput />
+                        <ChatInput petId={id} onDataSaved={handleDataSaved} />
                     </div>
                 </div>
             </div>
