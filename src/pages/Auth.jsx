@@ -14,8 +14,6 @@ import { useAuth } from "../context/index.js";
 import Cat from "../assets/Cat.svg";
 import Dog from "../assets/Dog.svg";
 import Rabbit from "../assets/Rabbit.svg";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
 
 const Auth = () => {
     const [searchParams] = useSearchParams();
@@ -107,38 +105,17 @@ const Auth = () => {
     if (isAuthenticated) return <Navigate to="/dashboard" />;
 
     return (
-        <div className="min-h-screen flex flex-col justify-between  bg-neutral200 text-neutral900 relativ">
-            <Header />
-            {/* Illustrations */}
-            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-                <img
-                    src={Dog}
-                    className="hidden md:block absolute w-72 top-20 left-10 "
-                    alt="Dog Illustration"
-                />
-                <img
-                    src={Cat}
-                    className="hidden md:block absolute w-64 top-24 right-0"
-                    alt="Cat Illustration"
-                />
-                <img
-                    src={Rabbit}
-                    className="hidden sm:block absolute w-56 top-1/4 left-2/3"
-                    alt="Rabbit Illustration"
-                />
-            </div>
-            {/* Spacer*/}
-            <div className="flex-grow" />{" "}
-            <div className="relative z-10  items-center">
+        <>
+            <div className="flex flex-col justify-center text-center py-16 w-full mx-auto max-w-screen-xs">
                 {/* Auth Container */}
-                <div className="card-container mx-auto  max-w-screen-md ">
+                <div className="card-container">
                     <div>
                         <h2 className="h2-section">
                             {isSignUp ? "Create your account" : "Sign In"}
                         </h2>
                     </div>
                     <form
-                        className="my-5 px-20 mx-auto flex flex-col gap-3"
+                        className="my-5 mx-auto flex flex-col gap-3"
                         onSubmit={handleSubmit}>
                         {isSignUp && (
                             <>
@@ -232,12 +209,7 @@ const Auth = () => {
                     </form>
                 </div>
             </div>
-            {/* Spacer*/}
-            <div className="flex-grow" /> {/* Feature Section */}
-            <div className="relative z-10">
-                <Footer />
-            </div>
-        </div>
+        </>
     );
 };
 
