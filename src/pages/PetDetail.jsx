@@ -162,7 +162,7 @@ const PetDetail = () => {
                             {chipNumber || "No chipnumer"}
                         </div>
                     </div>
-
+                    {/* PawBot */}
                     <div className="text-lg text-neutral700 text-center sm:text-left">
                         {/* <span className=" pr-2">{name} is doing great! </span>
 
