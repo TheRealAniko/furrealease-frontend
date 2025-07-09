@@ -12,7 +12,7 @@ const PetProfilImg = ({ photoUrl, species = "other", className = "" }) => {
 
     return (
         <div
-            className={`rounded-full aspect-square flex items-center justify-center bg-primary border border-neutral200 ${className}`}>
+            className={`rounded-full aspect-square flex items-center justify-center bg-primary border border-neutral200 ${className} w-full `}>
             {photoUrl ? (
                 <img
                     src={photoUrl}
@@ -20,7 +20,7 @@ const PetProfilImg = ({ photoUrl, species = "other", className = "" }) => {
                     className="rounded-full w-full h-full object-cover"
                 />
             ) : (
-                <div className="w-2/3 h-2/3 flex items-center justify-center">
+                <div className="w-full h-full flex items-center justify-center">
                     {fallback}
                 </div>
             )}

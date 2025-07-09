@@ -142,35 +142,36 @@ const UpdatePet = () => {
                 <h2 className="h2-section">Edit Profile of {name}</h2>
                 <GoBackBtn />
             </div>
+
             {/* Pet info container */}
-            <div className="card-container flex gap-28 ">
+            <div className="card-container">
                 {/* Start form | später ein form für add und edit! */}
-                <div className="w-full flex gap-10 items-start-full">
-                    {photoPreview ? (
-                        <div className="mt-4">
-                            <img
-                                src={photoPreview}
-                                alt="New preview"
-                                className="rounded-full w-80 aspect-square object-cover border border-neutral400"
-                            />
-                        </div>
-                    ) : photoUrl ? (
-                        <div className="mt-4">
-                            <img
-                                src={photoUrl}
-                                alt="Saved profile"
-                                className="rounded-full w-80 aspect-square object-cover border border-neutral400"
-                            />
-                        </div>
-                    ) : (
-                        <div className="">
+                <div className="w-full items-start-full  flex flex-col lg:flex-row gap-6 ">
+                    <div className="w-1/2 flex self-center lg:self-start ">
+                        {photoPreview ? (
+                            <div className="mt-4">
+                                <img
+                                    src={photoPreview}
+                                    alt="Preview"
+                                    className="rounded-full aspect-square object-cover border border-neutral400"
+                                />
+                            </div>
+                        ) : photoUrl ? (
+                            <div className="mt-4">
+                                <img
+                                    src={photoUrl}
+                                    alt="Saved profile"
+                                    className="rounded-full aspect-square object-cover border border-neutral400"
+                                />
+                            </div>
+                        ) : (
                             <PetProfilImg species={species} />
-                        </div>
-                    )}
+                        )}
+                    </div>
 
                     <form
                         onSubmit={handleSubmit}
-                        className="my-5 md:w-1/2 mx-auto flex flex-col gap-3">
+                        className="my-5  w-full mx-auto flex flex-col gap-3">
                         <div className="flex overflow-hidden rounded-full border border-neutral700 w-full text-base">
                             <label
                                 htmlFor="photo"
@@ -284,23 +285,23 @@ const UpdatePet = () => {
                                 <input
                                     type="radio"
                                     name="intact"
-                                    value="intact"
-                                    checked={intact === "intact"}
-                                    onChange={handleChange}
-                                    className="radio-btn"
-                                />
-                                Intact
-                            </label>
-                            <label className="flex items-center gap-4">
-                                <input
-                                    type="radio"
-                                    name="intact"
                                     value="neutered"
                                     checked={intact === "neutered"}
                                     onChange={handleChange}
                                     className="radio-btn"
                                 />
-                                Sprayed / Neutered
+                                Yes
+                            </label>
+                            <label className="flex items-center gap-4">
+                                <input
+                                    type="radio"
+                                    name="intact"
+                                    value="intact"
+                                    checked={intact === "intact"}
+                                    onChange={handleChange}
+                                    className="radio-btn"
+                                />
+                                No
                             </label>
                             <label className="flex items-center gap-4">
                                 <input
@@ -368,7 +369,7 @@ const UpdatePet = () => {
                         )}
                         <div className="flex gap-8 justify-center mt-6">
                             <button type="submit" className="btn btn-primary">
-                                Save Changes
+                                Update
                             </button>
 
                             <button
