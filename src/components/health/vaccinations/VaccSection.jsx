@@ -11,6 +11,12 @@ const VaccSection = ({ pet, onOpenModal, onOpenAddModal }) => {
         overdue: "text-error fill-error",
     };
 
+    const vaccinationsSorted = [...(pet?.vaccinations || [])].sort((a, b) => {
+        const dateA = a.date ? new Date(a.date) : new Date(0); // ganz alt
+        const dateB = b.date ? new Date(b.date) : new Date(0);
+        return dateB - dateA;
+    });
+
     return (
         <div className="card-container flex flex-col h-full">
             <div className="flex justify-between items-center mb-4 ">
@@ -29,7 +35,7 @@ const VaccSection = ({ pet, onOpenModal, onOpenAddModal }) => {
                                 </tr>
                             </thead>
                             <tbody className="table-body">
-                                {vaccinations.slice(0, 2).map((vacc) => (
+                                {vaccinationsSorted.slice(0, 2).map((vacc) => (
                                     <tr
                                         key={vacc._id}
                                         className="bg-neutral100 rounded-md border border-neutral400 overflow-hidden">
