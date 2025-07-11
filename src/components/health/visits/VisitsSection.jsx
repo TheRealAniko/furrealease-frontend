@@ -32,7 +32,6 @@ const VisitsSection = ({ pet, onOpenModal, onOpenAddModal }) => {
                                             key={visit._id}
                                             className="bg-neutral100 rounded-md border border-neutral400 overflow-hidden">
                                             <td className="flex gap-4">
-                                                <Hospital className="text-inactive w-6 " />
                                                 {visit.reason}
                                             </td>
                                             <td>{formatDate(visit.date)}</td>

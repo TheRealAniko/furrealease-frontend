@@ -61,7 +61,7 @@ const RemForm = ({
             <form>
                 <div className="p-4 text-base font-light space-y-4">
                     {/* title & pet */}
-                    <div className="flex flex-col md:flex-row md:gap-4">
+                    <div className="flex flex-col md:flex-row md:gap-4 space-y-4">
                         <label className="flex input-small w-full">
                             {/* {isEdit && (
                                 <span className="text-neutral400 pr-4">
@@ -94,7 +94,7 @@ const RemForm = ({
                     </div>
 
                     {/* Due Date & recurring */}
-                    <div className="flex flex-col md:flex-row md:gap-4">
+                    <div className="flex flex-col md:flex-row md:gap-4 space-y-4">
                         <label className="flex input-small w-full">
                             {/* {isEdit && (
                                 <span className="text-neutral400 pr-4">
@@ -127,7 +127,7 @@ const RemForm = ({
                     </div>
 
                     {/* Category & note */}
-                    <div className="flex flex-col md:flex-row md:gap-4">
+                    <div className="flex flex-col md:flex-row md:gap-4 space-y-4">
                         <label className="flex input-small w-full">
                             <select
                                 name="category"

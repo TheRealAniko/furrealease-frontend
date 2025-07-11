@@ -88,7 +88,7 @@ const VaccModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 px-4">
             <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-screen-lg max-h-[90vh] overflow-y-auto">
                 <div className="flex justify-between items-center mb-4">
                     <h3 className="h3-section">Vaccination: {pet.name}</h3>
@@ -120,7 +120,7 @@ const VaccModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
                 )}
 
                 {/* Existing Vaccination */}
-                <div className="grid gap-6 grid-cols-2 mt-4">
+                <div className="grid gap-6 grid-cols-1 md:grid-cols-2 mt-4">
                     {vaccinations.map((vacc) =>
                         editRowId === vacc._id ? (
                             <VaccForm

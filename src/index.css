@@ -65,7 +65,7 @@
         @apply bg-neutral700 text-neutral100 font-normal text-base px-4 py-2 first:rounded-l-md last:rounded-r-md;
     }
     .table-body td {
-        @apply px-4 py-2 text-neutral900 font-light text-base;
+        @apply px-2 py-2 text-neutral900 font-light text-sm md:text-base;
     }
 
     .table-body tr {

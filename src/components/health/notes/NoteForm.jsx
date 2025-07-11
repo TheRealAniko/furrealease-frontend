@@ -39,7 +39,7 @@ const NoteForm = ({
                         />
                     </div>
                     {/* Category & Date */}
-                    <div className="flex flex-col md:flex-row md:gap-4">
+                    <div className="flex flex-col md:flex-row md:gap-4 space-y-4">
                         <label className="flex input-small w-full">
                             {isEdit && (
                                 <span className="text-neutral400 pr-4">

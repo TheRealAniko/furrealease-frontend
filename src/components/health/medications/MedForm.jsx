@@ -24,9 +24,9 @@ const MedForm = ({
                 <div className="p-4 text-base font-light space-y-4">
                     {/* Name + Reason */}
                     <div
-                        className={`flex flex-col ${
-                            isEdit ? "space-y-4" : "md:flex-row md:gap-4"
-                        }`}>
+                        className={
+                            "flex flex-col space-y-4 md:flex-row md:gap-4"
+                        }>
                         <label className="flex input-small w-full">
                             {isEdit && (
                                 <span className="text-neutral400 pr-4">
@@ -59,9 +59,9 @@ const MedForm = ({
 
                     {/* Dosage + Route */}
                     <div
-                        className={`flex flex-col ${
-                            isEdit ? "space-y-4" : "md:flex-row md:gap-4"
-                        }`}>
+                        className={
+                            "flex flex-col space-y-4 md:flex-row md:gap-4"
+                        }>
                         <label className="flex input-small w-full">
                             {isEdit && (
                                 <span className="text-neutral400 pr-4">
@@ -99,9 +99,9 @@ const MedForm = ({
 
                     {/* StartDate + EndDate + Ongoing Toggle */}
                     <div
-                        className={`flex flex-col ${
-                            isEdit ? "space-y-4" : "md:flex-row md:gap-4"
-                        }`}>
+                        className={
+                            "flex flex-col space-y-4 md:flex-row md:gap-4"
+                        }>
                         {/* Start Date */}
                         <label className="input-small w-full flex">
                             <span className="text-neutral400 pr-4">Start:</span>

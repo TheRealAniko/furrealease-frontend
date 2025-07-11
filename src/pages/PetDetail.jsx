@@ -10,7 +10,6 @@ import {
     Dna,
     Wrench,
     Microchip,
-    PawPrint,
 } from "lucide-react";
 import AddPetBtn from "../components/pets/AddPetBtn.jsx";
 import PetProfilImg from "../components/pets/PetProfileImg.jsx";
@@ -29,7 +28,6 @@ import VisitModal from "../components/health/visits/VisitModal.jsx";
 import { useRems } from "../context";
 import RemCard from "../components/reminders/RemCard.jsx";
 import PetRemSection from "../components/pets/PetRemSection.jsx";
-import ChatInput from "../components/aiChatEntry/ChatInput.jsx";
 
 const PetDetail = () => {
     const [currPet, setCurrPet] = useState({});
@@ -43,8 +41,6 @@ const PetDetail = () => {
     const [openVaccModalWithAdd, setOpenVaccModalWithAdd] = useState(false);
     const [showVisitModal, setShowVisitModal] = useState(false);
     const [openVisitModalWithAdd, setOpenVisitModalWithAdd] = useState(false);
-    const [refreshTrigger, setRefreshTrigger] = useState(0);
-
     const { rems } = useRems();
 
     const { id } = useParams();
@@ -87,16 +83,6 @@ const PetDetail = () => {
 
     const petRems = rems.filter((r) => r.petId?.toString() === currPet._id);
 
-    const handleDataSaved = () => {
-        // Trigger refresh - alle Pet-Daten neu laden
-        setRefreshTrigger((prev) => prev + 1);
-    };
-
-    // useEffect um Daten zu laden wenn refreshTrigger sich ändert
-    useEffect(() => {
-        fetchPet();
-    }, [refreshTrigger]);
-
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
             {/* Headline and Button */}
@@ -116,26 +102,14 @@ const PetDetail = () => {
                 </div>
                 {/* Infos right */}
                 <div className="flex flex-col justify-between w-full gap-8">
-                    <div className="flex justify-between">
-                        <h2 className="font-medium text-4xl text-center sm:text-left">
-                            {name}{" "}
-                            {sex === "male" ? (
-                                <Mars className="inline pl-4 w-10 text-inactive" />
-                            ) : sex === "female" ? (
-                                <Venus className="inline pl-4 w-10 text-inactive" />
-                            ) : null}
-                        </h2>
-
-                        <button
-                            onClick={() => navigate(`/pets/edit-pet/${id}`)}
-                            className="flex items-center gap-2 font-light text-base text-greenEyes justify-end">
-                            <Pencil className="w-5 h-5" />
-                            <span className="hidden sm:inline">
-                                Edit Information
-                            </span>
-                        </button>
-                    </div>
-
+                    <h2 className="font-medium text-4xl text-center sm:text-left">
+                        {name}{" "}
+                        {sex === "male" ? (
+                            <Mars className="inline pl-4 w-10 text-inactive" />
+                        ) : sex === "female" ? (
+                            <Venus className="inline pl-4 w-10 text-inactive" />
+                        ) : null}
+                    </h2>
                     <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
                         <div className="flex items-center gap-4 font-light text-base">
                             <Cake className="text-inactive w-6 " />
@@ -162,17 +136,24 @@ const PetDetail = () => {
                             {chipNumber || "No chipnumer"}
                         </div>
                     </div>
-                    {/* PawBot */}
-                    <div className="text-lg text-neutral700 text-center sm:text-left">
-                        {/* <span className=" pr-2">{name} is doing great! </span>
 
-                        {!lastVetVisit && <span>Time for a check-up?</span>} */}
-                        <ChatInput petId={id} onDataSaved={handleDataSaved} />
+                    <div className="text-lg text-neutral700 text-center sm:text-left">
+                        <span className=" pr-2">{name} is doing great! </span>
+
+                        {!lastVetVisit && <span>Time for a check-up?</span>}
                     </div>
+                    <button
+                        onClick={() => navigate(`/pets/edit-pet/${id}`)}
+                        className="flex items-center gap-2 font-light text-base text-greenEyes justify-end">
+                        <Pencil className="w-5 h-5" />
+                        <span className="hidden sm:inline">
+                            Edit Information
+                        </span>
+                    </button>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 fit:grid-cols-2 gap-6 py-10">
+            <div className="grid grid-cols-1 fit:grid-cols-2 gap-6">
                 <PetRemSection pet={currPet} />
 
                 <VisitsSection

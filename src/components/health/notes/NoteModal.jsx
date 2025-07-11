@@ -84,12 +84,10 @@ const NoteModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
     });
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 px-4">
             <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-screen-lg">
                 <div className="flex justify-between items-center mb-4">
-                    <h3 className="h3-section">
-                        Notes & Observations: {pet.name}
-                    </h3>
+                    <h3 className="h3-section">Observations: {pet.name}</h3>
                     <button
                         onClick={onClose}
                         className="text-greenEyes hover:text-darkGreenEyes text-lg">
@@ -108,7 +106,7 @@ const NoteModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
                 <table className="w-full mt-2 text-left border-separate border-spacing-y-2">
                     <thead className="table-head">
                         <tr className="overflow-hidden">
-                            <th>Notes & Observations</th>
+                            <th>Observations</th>
                             <th>Category</th>
                             <th>Date</th>
                             <th></th>
@@ -116,7 +114,7 @@ const NoteModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
                         </tr>
                     </thead>
 
-                    <tbody className="table-body">
+                    <tbody className="table-body ">
                         {showAddRow && (
                             <tr>
                                 <td colSpan={5}>
