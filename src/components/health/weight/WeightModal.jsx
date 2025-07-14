@@ -82,7 +82,7 @@ const WeightModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
     );
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 px-4">
             <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-screen-lg">
                 <div className="flex justify-between items-center mb-4">
                     <h3 className="h3-section">Weight History: {pet.name}</h3>
@@ -181,7 +181,9 @@ const WeightModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
                                             }}
                                             className="btn-icon">
                                             <Pencil className="w-5 h-5" />
-                                            Edit
+                                            <span className="hidden md:flex">
+                                                Edit
+                                            </span>
                                         </button>
                                     </td>
                                     <td>
@@ -191,7 +193,9 @@ const WeightModal = ({ pet, onClose, onUpdatePet, openWithAdd = false }) => {
                                             }
                                             className="btn-icon text-error hover:text-[#A24140]">
                                             <Trash2 className="w-5 h-5" />
-                                            Delete
+                                            <span className="hidden md:flex">
+                                                Delete
+                                            </span>
                                         </button>
                                     </td>
                                 </tr>

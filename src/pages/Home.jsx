@@ -1,108 +1,78 @@
 import { useNavigate } from "react-router";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
 import { Hospital, Syringe, AlarmClock } from "lucide-react";
-import Cat from "../assets/Cat.svg";
-import Dog from "../assets/Dog.svg";
-import Rabbit from "../assets/Rabbit.svg";
 
 const Home = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen flex flex-col justify-between  bg-neutral200 text-neutral900 relativ">
-            <Header />
-            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-                <img
-                    src={Dog}
-                    className="hidden md:block absolute w-72 top-20 left-10 "
-                    alt="Dog Illustration"
-                />
-                <img
-                    src={Cat}
-                    className="hidden md:block absolute w-64 top-24 right-0"
-                    alt="Cat Illustration"
-                />
-                <img
-                    src={Rabbit}
-                    className="hidden sm:block absolute w-56 top-1/4 left-2/3"
-                    alt="Rabbit Illustration"
-                />
-            </div>
+        <>
             {/* Hero Section */}
-            {/* Spacer*/}
-            <div className="flex-grow" />{" "}
-            <section className="relative z-10 text-center  px-6">
-                <h1 className="text-5xl md:text-8xl font-bold mb-6 text-primary">
+            <section className="flex-1 flex flex-col justify-center text-center py-16">
+                <h1 className="text-5xl md:text-6xl lg:text-8xl font-bold text-primary mb-4">
                     FurRealEase
                 </h1>
-                <p className="text-lg md:text-xl max-w-xl mx-auto text-neutral700">
+                <p className="text-base sm:text-lg md:text-xl max-w-sm sm:max-w-md md:max-w-xl mx-auto text-neutral700 leading-relaxed">
                     The smarter way to care for your pets – keep track of vet
                     visits, meds, weight & more. All in one place.
                 </p>
-                <div className="mt-10 flex justify-center gap-4">
+                <div className="mt-8 md:mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 max-w-md mx-auto">
                     <button
-                        className="btn btn-primary"
+                        className="btn btn-primary w-full sm:w-auto px-8 py-3"
                         onClick={() => navigate("/auth?signup=false")}>
                         Log In
                     </button>
                     <button
-                        className="btn btn-outline"
+                        className="btn btn-outline w-full sm:w-auto px-8 py-3"
                         onClick={() => navigate("/auth?signup=true")}>
                         Create Account
                     </button>
                 </div>
             </section>
-            {/* Spacer*/}
-            <div className="flex-grow" /> {/* Feature Section */}
-            <div className="container mx-auto relative z-10 ">
-                <section className="grid grid-cols-1 md:grid-cols-3 gap-6 ">
-                    <Feature
-                        icon={
-                            <Syringe
-                                strokeWidth={1.25}
-                                className="text-primary w-20 h-20"
-                            />
-                        }
-                        title="Vaccinations & Medications"
-                        text="Track treatments with automated reminders."
-                    />
-                    <Feature
-                        icon={
-                            <Hospital
-                                strokeWidth={1.25}
-                                className="text-primary w-20 h-20"
-                            />
-                        }
-                        title="Weight & Vet Visits"
-                        text="Log vet visits and monitor weight history easily."
-                    />
-                    <Feature
-                        icon={
-                            <AlarmClock
-                                strokeWidth={1.25}
-                                className="text-primary w-20 h-20"
-                            />
-                        }
-                        title="Smart Reminders"
-                        text="Stay ahead with categorized, pet-specific reminders."
-                    />
-                </section>
-            </div>
-            {/* Spacer*/}
-            <div className="flex-grow" />{" "}
-            <div className="relative z-10">
-                <Footer />
-            </div>
-        </div>
+
+            {/* Feature Section */}
+            <section className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 py-14">
+                <Feature
+                    icon={
+                        <Syringe
+                            strokeWidth={1.25}
+                            className="text-primary w-16 h-16 md:w-20 md:h-20"
+                        />
+                    }
+                    title="Vaccinations & Medications"
+                    text="Track treatments with automated reminders."
+                />
+                <Feature
+                    icon={
+                        <Hospital
+                            strokeWidth={1.25}
+                            className="text-primary w-16 h-16 md:w-20 md:h-20"
+                        />
+                    }
+                    title="Weight & Vet Visits"
+                    text="Log vet visits and monitor weight history easily."
+                />
+                <Feature
+                    icon={
+                        <AlarmClock
+                            strokeWidth={1.25}
+                            className="text-primary w-16 h-16 md:w-20 md:h-20"
+                        />
+                    }
+                    title="Smart Reminders"
+                    text="Stay ahead with categorized, pet-specific reminders."
+                />
+            </section>
+        </>
     );
 };
 
 const Feature = ({ icon, title, text }) => (
-    <div className="card-container flex flex-col items-center py-8">
-        <div className="text-4xl mb-6">{icon}</div>
-        <h3 className="h2-section mb-4">{title}</h3>
-        <p className="text-base text-neutral600">{text}</p>
+    <div className="card-container flex flex-col items-center py-6 md:py-8 px-4 text-center">
+        <div className="mb-4 md:mb-6">{icon}</div>
+        <h3 className="h2-section mb-3 md:mb-4 text-lg md:text-xl">{title}</h3>
+        <p className="text-sm md:text-base text-neutral600 max-w-xs leading-relaxed">
+            {text}
+        </p>
     </div>
 );
 

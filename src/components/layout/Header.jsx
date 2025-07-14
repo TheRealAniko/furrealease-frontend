@@ -7,11 +7,13 @@ const Header = ({ onBurgerClick }) => {
     return (
         <header className="fixed top-0 z-50 bg-neutral900 text-neutral100 w-full h-12 sm:h-16 border-b border-b-neutral100 flex">
             <div className="w-full px-4 flex justify-between items-center">
-                <button
-                    onClick={onBurgerClick}
-                    className=" sm:hidden  bg-neutral800 text-white rounded-full p-2">
-                    <Menu className="w-6 h-6" />
-                </button>
+                {isAuthenticated && (
+                    <button
+                        onClick={onBurgerClick}
+                        className=" sm:hidden  bg-neutral800 text-white rounded-full p-2">
+                        <Menu className="w-6 h-6" />
+                    </button>
+                )}
 
                 <div className="self-center ">
                     <NavLink to="/">

@@ -40,7 +40,6 @@ const VaccSection = ({ pet, onOpenModal, onOpenAddModal }) => {
                                         key={vacc._id}
                                         className="bg-neutral100 rounded-md border border-neutral400 overflow-hidden">
                                         <td className="flex gap-4">
-                                            <Syringe className="text-inactive w-6 " />
                                             {vacc.name}
                                         </td>
                                         <td>{formatDate(vacc.date)}</td>

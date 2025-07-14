@@ -10,7 +10,6 @@ import {
     Dna,
     Wrench,
     Microchip,
-    PawPrint,
 } from "lucide-react";
 import AddPetBtn from "../components/pets/AddPetBtn.jsx";
 import PetProfilImg from "../components/pets/PetProfileImg.jsx";
@@ -98,9 +97,9 @@ const PetDetail = () => {
     }, [refreshTrigger]);
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="max-w-7xl mx-auto px-4 py-8 flex flex-col gap-8">
             {/* Headline and Button */}
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center">
                 <h2 className="h2-section">Your Fur Friend {name}</h2>
                 <AddPetBtn />
             </div>
@@ -125,7 +124,6 @@ const PetDetail = () => {
                                 <Venus className="inline pl-4 w-10 text-inactive" />
                             ) : null}
                         </h2>
-
                         <button
                             onClick={() => navigate(`/pets/edit-pet/${id}`)}
                             className="flex items-center gap-2 font-light text-base text-greenEyes justify-end">
@@ -135,7 +133,6 @@ const PetDetail = () => {
                             </span>
                         </button>
                     </div>
-
                     <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
                         <div className="flex items-center gap-4 font-light text-base">
                             <Cake className="text-inactive w-6 " />
@@ -172,7 +169,7 @@ const PetDetail = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 fit:grid-cols-2 gap-6 py-10">
+            <div className="grid grid-cols-1 fit:grid-cols-2 gap-6">
                 <PetRemSection pet={currPet} />
 
                 <VisitsSection

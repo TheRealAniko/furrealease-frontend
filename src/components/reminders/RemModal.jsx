@@ -34,39 +34,41 @@ const RemModal = ({ onClose, selectedDate, openWithAdd = false }) => {
 
     return (
         <div>
-            <div className="absolute top-0 left-0 w-full h-full bg-white shadow-lg z-50 p-6 rounded-md overflow-y-auto max-h-[600px]">
-                <div className="flex justify-between items-center mb-4">
-                    <h3 className="h3-section">
-                        Add Reminder for{" "}
-                        {selectedDate
-                            ? format(selectedDate, "dd MMMM yyyy")
-                            : "today"}
-                    </h3>
-                    <button
-                        onClick={onClose}
-                        className="text-greenEyes hover:text-darkGreenEyes text-lg">
-                        ✕ close
-                    </button>
-                </div>
-                {openWithAdd && (
-                    <RemForm
-                        onSave={async (formData) => {
-                            try {
-                                await createRem(formData); // Reminder speichern
-                                await refreshRems(); // Liste aktualisieren
-                                onClose(); // Modal schließen
-                            } catch (err) {
-                                console.error(
-                                    "❌ Fehler beim Speichern:",
-                                    err.message
-                                );
-                            }
-                        }}
-                        onCancel={onClose}
-                        selectedDate={selectedDate}
-                        isEdit={false}
-                    />
-                )}
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 px-4">
+                <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-screen-lg">
+                    <div className="flex justify-between items-center mb-4">
+                        <h3 className="h3-section">
+                            Add Reminder for{" "}
+                            {selectedDate
+                                ? format(selectedDate, "dd MMMM yyyy")
+                                : "today"}
+                        </h3>
+                        <button
+                            onClick={onClose}
+                            className="text-greenEyes hover:text-darkGreenEyes text-lg">
+                            ✕ close
+                        </button>
+                    </div>
+                    {openWithAdd && (
+                        <RemForm
+                            onSave={async (formData) => {
+                                try {
+                                    await createRem(formData); // Reminder speichern
+                                    await refreshRems(); // Liste aktualisieren
+                                    onClose(); // Modal schließen
+                                } catch (err) {
+                                    console.error(
+                                        "❌ Fehler beim Speichern:",
+                                        err.message
+                                    );
+                                }
+                            }}
+                            onCancel={onClose}
+                            selectedDate={selectedDate}
+                            isEdit={false}
+                        />
+                    )}
+                </div>{" "}
             </div>
         </div>
     );

@@ -10,7 +10,7 @@ const CreatePet = () => {
                 <GoBackBtn />
             </div>
             {/* Pet info container */}
-            <div className="card-container flex gap-28 ">
+            <div className="card-container">
                 <PetForm />
             </div>
         </div>

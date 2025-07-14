@@ -37,9 +37,9 @@ const VisitForm = ({
                 <div className="p-4 text-base font-light space-y-4">
                     {/* Reason + Date */}
                     <div
-                        className={`flex flex-col ${
-                            isEdit ? "space-y-4" : "md:flex-row md:gap-4"
-                        }`}>
+                        className={
+                            "flex flex-col space-y-4 md:flex-row md:gap-4 "
+                        }>
                         <label className="flex input-small w-full">
                             {isEdit && (
                                 <span className="text-neutral400 pr-4">
@@ -73,9 +73,9 @@ const VisitForm = ({
 
                     {/* Vet + Notes */}
                     <div
-                        className={`flex flex-col ${
-                            isEdit ? "space-y-4" : "md:flex-row md:gap-4"
-                        }`}>
+                        className={
+                            "flex flex-col space-y-4 md:flex-row md:gap-4 "
+                        }>
                         <label className="flex input-small w-full">
                             {isEdit && (
                                 <span className="text-neutral400 pr-4">
@@ -116,7 +116,7 @@ const VisitForm = ({
                                     checked={addWeight}
                                     onChange={() => setAddWeight(!addWeight)}
                                 />
-                                Add Weight
+                                Weight
                             </label>
                             <label className="flex gap-2 items-center">
                                 <input
@@ -124,7 +124,7 @@ const VisitForm = ({
                                     checked={addMed}
                                     onChange={() => setAddMed(!addMed)}
                                 />
-                                Add Medication
+                                Medication
                             </label>
                             <label className="flex gap-2 items-center">
                                 <input
@@ -132,7 +132,7 @@ const VisitForm = ({
                                     checked={addVacc}
                                     onChange={() => setAddVacc(!addVacc)}
                                 />
-                                Add Vaccination
+                                Vaccination
                             </label>
                         </div>
                     )}

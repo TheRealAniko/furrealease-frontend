@@ -42,9 +42,9 @@ const VaccForm = ({
 
                     {/* Vaccine + Date */}
                     <div
-                        className={`flex flex-col ${
-                            isEdit ? "space-y-4" : "md:flex-row md:gap-4"
-                        }`}>
+                        className={
+                            "flex flex-col space-y-4 md:flex-row md:gap-4 "
+                        }>
                         <label className="flex input-small w-full">
                             {isEdit && (
                                 <span className="text-neutral400 pr-4">
@@ -93,9 +93,9 @@ const VaccForm = ({
 
                     {/* Vet */}
                     <div
-                        className={`flex flex-col ${
-                            isEdit ? "space-y-4" : "md:flex-row md:gap-4"
-                        }`}>
+                        className={
+                            "flex flex-col space-y-4 md:flex-row md:gap-4 "
+                        }>
                         <label className="flex input-small w-full">
                             {isEdit && (
                                 <span className="text-neutral400 pr-4">

@@ -4,6 +4,7 @@ import Sidebar from "../components/layout/Sidebar";
 import { Outlet } from "react-router";
 import { ToastContainer } from "react-toastify";
 import Footer from "../components/layout/Footer";
+import Breadcrumbs from "../components/layout/Breadcrumbs";
 
 const LayoutShell = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -18,6 +19,7 @@ const LayoutShell = () => {
                 />
 
                 <main className="flex-1 px-2 sm:px-8 pt-20 bg-neutral100">
+                    <Breadcrumbs className="" />
                     <Outlet />
                 </main>
             </div>

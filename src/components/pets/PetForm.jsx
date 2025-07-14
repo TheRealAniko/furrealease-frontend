@@ -78,25 +78,24 @@ const PetForm = () => {
     };
 
     return (
-        <div className="w-full flex gap-10 items-start-full">
-            {photoPreview ? (
-                <div className="mt-4">
-                    <img
-                        src={photoPreview}
-                        alt="Preview"
-                        className="rounded-full w-80 aspect-square object-cover border border-neutral400"
-                    />
-                </div>
-            ) : (
-                <div className="">
+        <div className="w-full items-start-full  flex flex-col lg:flex-row gap-6 ">
+            <div className="w-1/2 flex self-center lg:self-start">
+                {photoPreview ? (
+                    <div className="mt-4">
+                        <img
+                            src={photoPreview}
+                            alt="Preview"
+                            className="rounded-full aspect-square object-cover border border-neutral400"
+                        />
+                    </div>
+                ) : (
                     <PetProfilImg species={species} />
-                </div>
-            )}
+                )}
+            </div>
 
-            <div className=""></div>
             <form
                 onSubmit={handleSubmit}
-                className="my-5 md:w-1/2 mx-auto flex flex-col gap-3">
+                className="my-5  w-full mx-auto flex flex-col gap-3">
                 <div className="flex overflow-hidden rounded-full border border-neutral700 w-full text-base">
                     <label
                         htmlFor="photo"
@@ -203,6 +202,17 @@ const PetForm = () => {
                     </legend>
 
                     <label className="flex items-center gap-4">
+                        <label className="flex items-center gap-4">
+                            <input
+                                type="radio"
+                                name="intact"
+                                value="neutered"
+                                checked={intact === "neutered"}
+                                onChange={handleChange}
+                                className="radio-btn"
+                            />
+                            Yes
+                        </label>
                         <input
                             type="radio"
                             name="intact"
@@ -211,18 +221,7 @@ const PetForm = () => {
                             onChange={handleChange}
                             className="radio-btn"
                         />
-                        Intact
-                    </label>
-                    <label className="flex items-center gap-4">
-                        <input
-                            type="radio"
-                            name="intact"
-                            value="neutered"
-                            checked={intact === "neutered"}
-                            onChange={handleChange}
-                            className="radio-btn"
-                        />
-                        Sprayed / Neutered
+                        No
                     </label>
                     <label className="flex items-center gap-4">
                         <input

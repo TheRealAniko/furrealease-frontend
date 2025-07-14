@@ -3,7 +3,7 @@ import { Heart } from "lucide-react";
 const Footer = () => {
     return (
         <footer className="bg-neutral900 text-neutral100 text-xs px-6 py-4 border-t border-t-neutral100 ">
-            <div className="container mx-auto flex justify-between">
+            <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
                 <div className="flex items-center space-x-3">
                     &copy; {new Date().getFullYear()} FurRealEase. All rights
                     reserved.

@@ -33,7 +33,6 @@ const MedSection = ({ pet, onOpenModal, onOpenAddModal }) => {
                                         key={med._id}
                                         className="bg-neutral100 rounded-md border border-neutral400">
                                         <td className="flex gap-4">
-                                            <BriefcaseMedical className="text-inactive w-6 " />{" "}
                                             {med.name}
                                         </td>
                                         <td>{med.dosage}</td>
