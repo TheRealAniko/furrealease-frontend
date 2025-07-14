@@ -181,7 +181,6 @@ const ChatInput = ({ petId, onDataSaved }) => {
     return (
         <div className="flex flex-col gap-2 p-4 bg-neutral200 rounded-lg">
             <p className="mb-2 flex text-left">
-                <PawPrint />{" "}
                 <span className="px-4 font-light">
                     <strong>PawBot:</strong> Hi! Tell me what happened with your
                     pet today and I'll help you record it.
@@ -252,7 +251,7 @@ const ChatInput = ({ petId, onDataSaved }) => {
             {aiResponse?.raw?.data && (
                 <div className="mb-2 flex flex-col gap-4 bg-gray-50 border rounded-lg p-4">
                     <div className="flex items-start gap-4">
-                        <span className="font-light whitespace-pre-wrap">
+                        <span className="font-light whitespace-pre-wrap text-left">
                             <strong>PawBot:</strong>{" "}
                             {getPawBotText(aiResponse.raw.data)}
                         </span>
