@@ -1,16 +1,45 @@
 import { Pencil, AtSign, PawPrint, X, User } from "lucide-react";
 import { useState } from "react";
+import { updateProfile } from "../../data/user";
+import { toast } from "react-toastify";
+import { useAuth } from "../../context/index.js";
 
-const ProfileInfo = ({ user, pets }) => {
+const ProfileInfo = ({ pets, user, onUpdateUser }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const { setCheckSession } = useAuth();
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             setSelectedFile(file);
             setPreviewUrl(URL.createObjectURL(file)); // Sofort-Vorschau
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            // FormData erzeugen
+            const formData = new FormData();
+            formData.append("firstName", e.target.firstName.value);
+            formData.append("lastName", e.target.lastName.value);
+            formData.append("email", e.target.email.value);
+            // Falls ein neues Bild ausgewählt wurde, dieses hinzufügen
+            if (selectedFile) formData.append("photo", selectedFile);
+
+            // PATCH Anfrage an den Server senden
+            const updatedUser = await updateProfile(formData);
+            if (onUpdateUser) onUpdateUser(updatedUser);
+            setCheckSession(true);
+            setIsEditing(false);
+            setPreviewUrl(null); // Vorschau zurücksetzen
+            toast.success("Profile updated successfully!");
+        } catch (error) {
+            console.error("Error updating profile:", error);
+            toast.error("Failed to update profile. Please try again.");
         }
     };
 
@@ -58,7 +87,9 @@ const ProfileInfo = ({ user, pets }) => {
                                     )}
                                 </button>
                             </div>
-                            <form className="p-4 text-base font-light space-y-4">
+                            <form
+                                className="p-4 text-base font-light space-y-4"
+                                onSubmit={handleSubmit}>
                                 <div>
                                     <label className="text-neutral600 text-sm">
                                         Profile Picture:

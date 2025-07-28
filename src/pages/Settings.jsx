@@ -3,10 +3,11 @@ import ProfileInfo from "../components/settings/ProfileInfo.jsx";
 
 const Settings = () => {
     const { pets } = usePets();
-    const { user } = useAuth();
+    const { user, setUser } = useAuth();
+
     return (
         <>
-            <ProfileInfo user={user} pets={pets} />
+            <ProfileInfo user={user} pets={pets} onUpdateUser={setUser} />
         </>
     );
 };
