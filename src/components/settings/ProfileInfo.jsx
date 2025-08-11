@@ -3,11 +3,16 @@ import { useState } from "react";
 import { updateProfile } from "../../data/user";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/index.js";
+import ConfirmModal from "./ConfirmModal.jsx";
+import { se } from "date-fns/locale";
 
 const ProfileInfo = ({ pets, user, onUpdateUser }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [pendingDelete, setPendingDelete] = useState(false);
+
     const { setCheckSession } = useAuth();
 
     const handleFileChange = (e) => {
@@ -43,6 +48,31 @@ const ProfileInfo = ({ pets, user, onUpdateUser }) => {
         }
     };
 
+    const handleDeletePhoto = async () => {
+        try {
+            setPendingDelete(true);
+
+            const fd = new FormData();
+            fd.append("photoAction", "delete");
+
+            const updatedUser = await updateProfile(fd);
+
+            setSelectedFile(null);
+            setPreviewUrl(null);
+
+            if (onUpdateUser) onUpdateUser(updatedUser);
+            setCheckSession(true);
+
+            toast.success("Profile photo deleted successfully!");
+        } catch (error) {
+            console.error("Error deleting profile photo:", error);
+            toast.error("Failed to delete profil photo. Please try again.");
+        } finally {
+            setPendingDelete(false);
+            setShowConfirm(false);
+        }
+    };
+
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
             {/* Headline and Button */}
@@ -53,7 +83,7 @@ const ProfileInfo = ({ pets, user, onUpdateUser }) => {
             {/* Profile info container */}
             <div className="card-container flex flex-col sm:flex-row gap-8 items-center sm:items-start">
                 {/* Image left */}
-                <div className="w-80 h-80 rounded-full overflow-hidden flex items-center justify-center bg-primary shrink-0">
+                <div className="w-60 h-60 rounded-full overflow-hidden flex items-center justify-center bg-primary shrink-0">
                     {previewUrl || user?.photoUrl ? (
                         <img
                             src={previewUrl || user?.photoUrl}
@@ -64,6 +94,15 @@ const ProfileInfo = ({ pets, user, onUpdateUser }) => {
                         <User className="w-32 h-32 text-white" />
                     )}
                 </div>
+                {/* Test btn */}
+                <button
+                    type="button"
+                    className="btn btn-outline text-red-600"
+                    onClick={handleDeletePhoto}
+                    disabled={pendingDelete}>
+                    {pendingDelete ? "Removing..." : "Test: Remove photo"}
+                </button>
+
                 {/* Infos right */}
                 <div className="flex flex-col gap-2 w-full">
                     {isEditing ? (
