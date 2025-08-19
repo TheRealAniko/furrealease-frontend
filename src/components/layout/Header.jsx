@@ -1,9 +1,12 @@
 import { useAuth } from "../../context/index.js";
 import { Link, NavLink } from "react-router";
-import { Menu } from "lucide-react";
+import { Menu, User } from "lucide-react";
+import { updateProfile } from "../../data/user.js";
 
-const Header = ({ onBurgerClick }) => {
+const Header = ({ onBurgerClick, user }) => {
     const { isAuthenticated } = useAuth();
+    const avatarUrl = user?.photoUrl || null;
+
     return (
         <header className="fixed top-0 z-50 bg-neutral900 text-neutral100 w-full h-12 sm:h-16 border-b border-b-neutral100 flex">
             <div className="w-full px-4 flex justify-between items-center">
@@ -24,17 +27,26 @@ const Header = ({ onBurgerClick }) => {
                 </div>
                 {isAuthenticated && (
                     <>
-                        {/* <div className="flex self-center">
-                            Hi, {user?.firstName}
-                        </div> */}
                         <div className="flex items-end h-12 sm:h-16 relative">
                             <div className="translate-y-1/3">
-                                <div className="w-10 sm:w-16 rounded-full ring ring-primary ring-offset-1 sm:ring-offset-2 ring-offset-base-100">
-                                    <img
-                                        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                        className="rounded-full"
-                                        alt="User Avatar"
-                                    />
+                                <div className="w-10 sm:w-16 aspect-square rounded-full ring ring-primary ring-offset-1 sm:ring-offset-2 ring-offset-base-100">
+                                    {avatarUrl ? (
+                                        <img
+                                            src={avatarUrl}
+                                            alt="Profile"
+                                            className="w-full h-full object-cover rounded-full"
+                                            onError={(e) => {
+                                                console.error(
+                                                    "Image load error:",
+                                                    e.target.src
+                                                );
+                                                e.target.onerror = null;
+                                                e.target.src = ""; // vermeide Endlos-Loop
+                                            }}
+                                        />
+                                    ) : (
+                                        <User className="w-full h-full text-white p-2 bg-primary rounded-full" />
+                                    )}
                                 </div>
                             </div>
                         </div>

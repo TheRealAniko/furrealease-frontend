@@ -5,12 +5,14 @@ import { Outlet } from "react-router";
 import { ToastContainer } from "react-toastify";
 import Footer from "../components/layout/Footer";
 import Breadcrumbs from "../components/layout/Breadcrumbs";
+import { useAuth } from "../context/index.js";
 
 const LayoutShell = () => {
+    const { user } = useAuth();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     return (
         <div className="flex flex-col min-h-screen">
-            <Header onBurgerClick={() => setIsSidebarOpen(true)} />
+            <Header user={user} onBurgerClick={() => setIsSidebarOpen(true)} />
 
             <div className="flex flex-1">
                 <Sidebar

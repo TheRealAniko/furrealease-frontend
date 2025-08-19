@@ -1,25 +1,37 @@
-import { Pencil, AtSign, PawPrint, X, User } from "lucide-react";
-import { useState } from "react";
+import { Pencil, AtSign, PawPrint, X, User, Trash2 } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 import { updateProfile } from "../../data/user";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/index.js";
-import ConfirmModal from "./ConfirmModal.jsx";
-import { se } from "date-fns/locale";
 
 const ProfileInfo = ({ pets, user, onUpdateUser }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
-    const [showConfirm, setShowConfirm] = useState(false);
     const [pendingDelete, setPendingDelete] = useState(false);
+    const fileInputRef = useRef(null);
 
     const { setCheckSession } = useAuth();
+
+    // Initialisiere isEditingRef mit false
+    const isEditingRef = useRef(false);
+
+    // Aktualisiere isEditingRef wenn sich isEditing ändert
+    useEffect(() => {
+        isEditingRef.current = isEditing;
+    }, [isEditing]);
+
+    // Synchronisiere isEditing mit isEditingRef
+    const setEditingState = (state) => {
+        setIsEditing(state);
+        isEditingRef.current = state;
+    };
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             setSelectedFile(file);
-            setPreviewUrl(URL.createObjectURL(file)); // Sofort-Vorschau
+            setPreviewUrl(URL.createObjectURL(file));
         }
     };
 
@@ -27,20 +39,17 @@ const ProfileInfo = ({ pets, user, onUpdateUser }) => {
         e.preventDefault();
 
         try {
-            // FormData erzeugen
             const formData = new FormData();
             formData.append("firstName", e.target.firstName.value);
             formData.append("lastName", e.target.lastName.value);
             formData.append("email", e.target.email.value);
-            // Falls ein neues Bild ausgewählt wurde, dieses hinzufügen
             if (selectedFile) formData.append("photo", selectedFile);
 
-            // PATCH Anfrage an den Server senden
             const updatedUser = await updateProfile(formData);
             if (onUpdateUser) onUpdateUser(updatedUser);
             setCheckSession(true);
-            setIsEditing(false);
-            setPreviewUrl(null); // Vorschau zurücksetzen
+            setEditingState(false); // Bearbeitungsmodus beenden
+            setPreviewUrl(null);
             toast.success("Profile updated successfully!");
         } catch (error) {
             console.error("Error updating profile:", error);
@@ -57,19 +66,25 @@ const ProfileInfo = ({ pets, user, onUpdateUser }) => {
 
             const updatedUser = await updateProfile(fd);
 
+            // Reset all image related states
             setSelectedFile(null);
             setPreviewUrl(null);
+            URL.revokeObjectURL(previewUrl); // Clean up any existing preview URL
 
+            // Reset file input
+            if (fileInputRef.current) {
+                fileInputRef.current.value = "";
+            }
+
+            // Update parent component
             if (onUpdateUser) onUpdateUser(updatedUser);
-            setCheckSession(true);
 
             toast.success("Profile photo deleted successfully!");
         } catch (error) {
             console.error("Error deleting profile photo:", error);
-            toast.error("Failed to delete profil photo. Please try again.");
+            toast.error("Failed to delete profile photo. Please try again.");
         } finally {
             setPendingDelete(false);
-            setShowConfirm(false);
         }
     };
 
@@ -81,27 +96,34 @@ const ProfileInfo = ({ pets, user, onUpdateUser }) => {
             </div>
 
             {/* Profile info container */}
+
             <div className="card-container flex flex-col sm:flex-row gap-8 items-center sm:items-start">
                 {/* Image left */}
-                <div className="w-60 h-60 rounded-full overflow-hidden flex items-center justify-center bg-primary shrink-0">
+                <div className="relative w-60 h-60 rounded-full flex items-center justify-center bg-primary shrink-0">
                     {previewUrl || user?.photoUrl ? (
                         <img
                             src={previewUrl || user?.photoUrl}
                             alt="Profile"
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover rounded-full"
                         />
                     ) : (
                         <User className="w-32 h-32 text-white" />
                     )}
+                    {/* Delete Button → nur wenn isEditing + Bild */}
+                    {isEditingRef.current && (previewUrl || user?.photoUrl) && (
+                        <button
+                            type="button"
+                            onClick={handleDeletePhoto}
+                            disabled={pendingDelete}
+                            className="absolute bottom-2 right-2 p-2 rounded-full bg-white shadow-md hover:bg-red-100 transition">
+                            {pendingDelete ? (
+                                <span className="text-sm text-gray-500">…</span>
+                            ) : (
+                                <Trash2 className="w-6 h-6 text-red-600" />
+                            )}
+                        </button>
+                    )}
                 </div>
-                {/* Test btn */}
-                <button
-                    type="button"
-                    className="btn btn-outline text-red-600"
-                    onClick={handleDeletePhoto}
-                    disabled={pendingDelete}>
-                    {pendingDelete ? "Removing..." : "Test: Remove photo"}
-                </button>
 
                 {/* Infos right */}
                 <div className="flex flex-col gap-2 w-full">
@@ -113,17 +135,8 @@ const ProfileInfo = ({ pets, user, onUpdateUser }) => {
                                 </h2>
                                 <button
                                     className="flex gap-2 font-light text-base text-greenEyes self-end w-fit"
-                                    onClick={() => setIsEditing(!isEditing)}>
-                                    {isEditing ? (
-                                        <>
-                                            <X className="w-5 h-5" /> Cancel
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Pencil className="w-5 h-5" /> Edit
-                                            Information
-                                        </>
-                                    )}
+                                    onClick={() => setEditingState(false)}>
+                                    <X className="w-5 h-5" /> Cancel
                                 </button>
                             </div>
                             <form
@@ -137,6 +150,7 @@ const ProfileInfo = ({ pets, user, onUpdateUser }) => {
                                         type="file"
                                         accept="image/*"
                                         onChange={handleFileChange}
+                                        ref={fileInputRef}
                                         className="input input-bordered w-full"
                                     />
                                 </div>
@@ -199,17 +213,9 @@ const ProfileInfo = ({ pets, user, onUpdateUser }) => {
                                 </h2>
                                 <button
                                     className="flex gap-2 font-light text-base text-greenEyes w-fit"
-                                    onClick={() => setIsEditing(!isEditing)}>
-                                    {isEditing ? (
-                                        <>
-                                            <X className="w-5 h-5" /> Cancel
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Pencil className="w-5 h-5" /> Edit
-                                            Information
-                                        </>
-                                    )}
+                                    onClick={() => setEditingState(true)}>
+                                    <Pencil className="w-5 h-5" /> Edit
+                                    Information
                                 </button>
                             </div>
 
