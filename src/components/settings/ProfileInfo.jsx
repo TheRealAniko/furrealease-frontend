@@ -9,6 +9,15 @@ const ProfileInfo = ({ pets, user, onUpdateUser }) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
     const [pendingDelete, setPendingDelete] = useState(false);
+    const [isEmailOpen, setIsEmailOpen] = useState(true); // Abschnitt sichtbar?
+    const [newEmail, setNewEmail] = useState("");
+    const [currentPassword, setCurrentPassword] = useState("");
+
+    // einfache Validation-States
+    const [emailTouched, setEmailTouched] = useState(false);
+    const [emailError, setEmailError] = useState("");
+    const [pendingEmailStart, setPendingEmailStart] = useState(false); // loading state nur für diesen Button
+
     const fileInputRef = useRef(null);
 
     const { setCheckSession } = useAuth();
@@ -86,6 +95,35 @@ const ProfileInfo = ({ pets, user, onUpdateUser }) => {
         } finally {
             setPendingDelete(false);
         }
+    };
+
+    // Stub: Start email change process
+    const handleStartEmailChange = async () => {
+        try {
+            setPendingEmailStart(true);
+            // Hier später: fetch(POST /auth/email-change/start) mit Token
+            // Heute nur UI-Demo:
+            const v = normalizeEmail(newEmail);
+            toast.info(`Verification link will be sent to: ${v}`);
+            // Optional: UI-Feedback, z.B. Felder leeren
+            // setCurrentPassword("");
+        } catch (err) {
+            toast.error("Could not start email change.");
+        } finally {
+            setPendingEmailStart(false);
+        }
+    };
+
+    const normalizeEmail = (s) => s.trim().toLowerCase();
+    const isValidEmail = (s) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
+
+    const validateNewEmail = (value) => {
+        const v = normalizeEmail(value);
+        if (!v) return "Email is required.";
+        if (!isValidEmail(v)) return "Please enter a valid email address.";
+        if (user?.email && normalizeEmail(user.email) === v)
+            return "New email must be different from current email.";
+        return "";
     };
 
     return (
@@ -183,20 +221,132 @@ const ProfileInfo = ({ pets, user, onUpdateUser }) => {
                                         className="flex items-center input-small w-full gap-4"
                                     />
                                 </div>
-                                <div>
-                                    <label
-                                        htmlFor="email"
-                                        className="text-neutral600 text-sm">
-                                        Email:
-                                    </label>
-                                    <input
-                                        id="email"
-                                        type="email"
-                                        placeholder="Email"
-                                        defaultValue={user?.email}
-                                        className="flex items-center input-small w-full gap-4"
-                                    />
+
+                                {/* Change Email Section */}
+                                <div className="mt-6 border border-neutral400 rounded-xl p-4 space-y-3">
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="text-lg font-medium">
+                                            Change email
+                                        </h3>
+                                        <button
+                                            type="button"
+                                            className="text-sm text-greenEyes"
+                                            onClick={() =>
+                                                setIsEmailOpen((s) => !s)
+                                            }
+                                            aria-expanded={isEmailOpen}
+                                            aria-controls="change-email-panel">
+                                            {isEmailOpen ? "Hide" : "Show"}
+                                        </button>
+                                    </div>
+
+                                    {isEmailOpen && (
+                                        <div
+                                            id="change-email-panel"
+                                            className="grid gap-3 sm:grid-cols-2">
+                                            <div className="sm:col-span-2">
+                                                <label className="text-neutral600 text-sm">
+                                                    Current email
+                                                </label>
+                                                <div className="flex items-center input-small w-full gap-4 bg-neutral200 rounded px-3 py-2">
+                                                    <span className="text-neutral800">
+                                                        {user?.email}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div className="sm:col-span-2">
+                                                <label
+                                                    htmlFor="newEmail"
+                                                    className="text-neutral600 text-sm">
+                                                    New email
+                                                </label>
+                                                <input
+                                                    id="newEmail"
+                                                    type="email"
+                                                    placeholder="your.name@example.com"
+                                                    value={newEmail}
+                                                    onChange={(e) => {
+                                                        setNewEmail(
+                                                            e.target.value
+                                                        );
+                                                        if (emailTouched)
+                                                            setEmailError(
+                                                                validateNewEmail(
+                                                                    e.target
+                                                                        .value
+                                                                )
+                                                            );
+                                                    }}
+                                                    onBlur={() => {
+                                                        setEmailTouched(true);
+                                                        setEmailError(
+                                                            validateNewEmail(
+                                                                newEmail
+                                                            )
+                                                        );
+                                                    }}
+                                                    className="flex items-center input-small w-full gap-4"
+                                                    autoComplete="email"
+                                                />
+                                                {emailTouched && emailError && (
+                                                    <p className="text-xs text-red-600 mt-1">
+                                                        {emailError}
+                                                    </p>
+                                                )}
+                                            </div>
+
+                                            <div className="sm:col-span-2">
+                                                <label
+                                                    htmlFor="currentPassword"
+                                                    className="text-neutral600 text-sm">
+                                                    Current password
+                                                </label>
+                                                <input
+                                                    id="currentPassword"
+                                                    type="password"
+                                                    placeholder="••••••••"
+                                                    value={currentPassword}
+                                                    onChange={(e) =>
+                                                        setCurrentPassword(
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    className="flex items-center input-small w-full gap-4"
+                                                    autoComplete="current-password"
+                                                />
+                                            </div>
+
+                                            <div className="sm:col-span-2 flex justify-end">
+                                                <button
+                                                    type="button" // <-- kein Form-Submit
+                                                    className="btn btn-primary"
+                                                    onClick={() => {
+                                                        // nur UI-Phase: wir „simulieren“ späteren Start
+                                                        const err =
+                                                            validateNewEmail(
+                                                                newEmail
+                                                            );
+                                                        setEmailTouched(true);
+                                                        setEmailError(err);
+                                                        if (err) return;
+                                                        handleStartEmailChange(); // Stub – nächster Schritt
+                                                    }}
+                                                    disabled={
+                                                        pendingEmailStart ||
+                                                        !!validateNewEmail(
+                                                            newEmail
+                                                        ) ||
+                                                        !currentPassword
+                                                    }>
+                                                    {pendingEmailStart
+                                                        ? "Sending..."
+                                                        : "Send verification link"}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
+
                                 <button
                                     type="submit"
                                     className="btn btn-primary">
